@@ -243,6 +243,11 @@
       flex-direction: column;
       gap: 14px;
       position: relative;
+      left: 0;
+    }
+    /* shift the whole body a bit left on wide screens; stories widget stays right */
+    @media (min-width: 1000px) {
+      .page { left: -80px; }
     }
 
     /* ===== ASCII WAVE — cursor-reactive, characters bloom under pointer ===== */
@@ -259,8 +264,7 @@
       mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
       -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
       margin: 0 0 6px;
-      align-self: flex-start;
-      width: min(62%, 440px);
+      align-self: stretch;
       transition: opacity 0.35s ease;
     }
     .ascii-wave:hover { opacity: 1; }
@@ -326,7 +330,6 @@
     .st-cover:hover .st-scrollmark i { background: var(--dim); }
     .st-cover:hover .st-scrollmark i:first-child { background: var(--fg); }
     @media (max-width: 700px) {
-      .ascii-wave { width: min(70%, 360px); }
       .st-cover { right: 10px; gap: 9px; }
       .st-cover img { width: 60px; height: 60px; }
       .st-cv span { font-size: 8px; }
