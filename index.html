@@ -1,0 +1,963 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Husan Mavlonov</title>
+  <meta name="description" content="Husan Mavlonov — builder. defex, BuildCored. Tashkent → Istanbul → Shanghai." />
+  <meta name="theme-color" content="#16181c" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="author" content="Husan Mavlonov" />
+  <meta property="og:title" content="Husan Mavlonov" />
+  <meta property="og:description" content="I love building. Mostly hardware. Sometimes it ships." />
+  <meta property="og:type" content="profile" />
+  <meta property="og:url" content="https://husanmavlonov.com/" />
+  <meta property="profile:first_name" content="Husan" />
+  <meta property="profile:last_name" content="Mavlonov" />
+  <meta property="og:image" content="https://husanmavlonov.com/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Husan Mavlonov · I love building." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Husan Mavlonov" />
+  <meta name="twitter:description" content="I love building." />
+  <meta name="twitter:image" content="https://husanmavlonov.com/og.png" />
+  <meta name="twitter:image:alt" content="Husan Mavlonov · I love building." />
+  <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Husan Mavlonov",
+    "url": "https://husanmavlonov.com/",
+    "email": "husan@buildcored.com",
+    "jobTitle": "Builder",
+    "description": "Builder. defex, BuildCored. Tashkent → Istanbul → Shanghai.",
+    "alumniOf": [
+      "University of Michigan – Shanghai Jiao Tong Joint Institute",
+      "Fudan University"
+    ],
+    "knowsLanguage": ["ru", "uz", "en", "tr", "zh"],
+    "knowsAbout": ["Edge AI", "Hardware engineering", "Battery manufacturing", "Community building"],
+    "founder": [
+      { "@type": "Organization", "name": "BuildCored", "url": "https://buildcored.com/" },
+      { "@type": "Organization", "name": "defex", "url": "https://defex.app/" }
+    ]
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ===== THEMES — dark (default) + light ===== */
+    :root {
+      --bg: #16181c;
+      --fg: #e8e6df;
+      --dim: #7c7873;
+      --dimmer: #3a3835;
+      --line: #26282d;
+      --line-strong: #2e3035;
+      --accent: #a8aeb4;                 /* neutral cool gray */
+      --accent-rgb: 168, 174, 180;
+      --claude: #cc7757;
+      --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --serif: 'Instrument Serif', Georgia, serif;
+    }
+    body.light {
+      --bg: #a8aeb4;                     /* neutral gray — was the dark theme's accent, now the main */
+      --fg: #16181c;                     /* dark slate — was the dark theme's bg */
+      --dim: #383a3e;                    /* dark neutral gray for AA on light gray */
+      --dimmer: #6a6c70;
+      --line: #94989c;
+      --line-strong: #828589;
+      --accent: #e8e6df;                 /* cream — was the dark theme's fg, now the highlight */
+      --accent-rgb: 232, 230, 223;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--sans);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    ::selection { background: var(--accent); color: var(--bg); }
+
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible, button:focus-visible {
+      outline: 1px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px; top: 8px;
+      background: var(--accent); color: var(--bg);
+      padding: 10px 14px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      z-index: 100;
+      border-radius: 2px;
+    }
+    .skip-link:focus { left: 16px; outline: none; }
+
+    /* ===== HEADER — Hermes-style cell grid ===== */
+    .site-header {
+      display: grid;
+      grid-template-columns: 84px 0.9fr 0.9fr 1.5fr 1fr;
+      border-bottom: 1px solid var(--line);
+      transition: border-color 0.4s ease;
+    }
+    .site-header > * {
+      display: flex;
+      align-items: center;
+      padding: 16px 24px;
+      border-left: 1px solid var(--line);
+      transition: border-color 0.4s ease, color 0.3s ease, background 0.3s ease;
+    }
+    .site-header > *:first-child { border-left: 0; }
+
+    .hdr-brand {
+      justify-content: center;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hdr-brand:hover { transform: scale(1.06); }
+    .h-mark {
+      --h-size: 28px;
+      --h-border: 2.5px;
+      width: var(--h-size);
+      height: var(--h-size);
+      background: var(--accent);
+      border: var(--h-border) solid var(--fg);
+      box-sizing: content-box;
+      display: block;
+      color: var(--bg);          /* glyph color via currentColor — adapts on theme */
+      transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+    }
+    .h-mark svg { display: block; width: 100%; height: 100%; }
+    @media (max-width: 540px) {
+      .h-mark { --h-size: 24px; --h-border: 2px; }
+    }
+
+    .hdr-link {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dim);
+      transition: color 0.2s ease;
+    }
+    .hdr-link:hover { color: var(--fg); }
+    .hdr-link[aria-current="page"] { color: var(--fg); }
+
+    .hdr-socials {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .hdr-socials .label { color: var(--dim); margin-right: auto; }
+    .hdr-socials a {
+      color: var(--dim);
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s ease;
+    }
+    .hdr-socials a:hover { color: var(--accent); }
+    .hdr-socials svg { display: block; }
+
+    .hdr-theme {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font: inherit;
+      width: 100%;
+      padding: 16px 24px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dim);
+      border-left: 1px solid var(--line);
+      transition: color 0.2s ease, border-color 0.4s ease;
+    }
+    .hdr-theme:hover { color: var(--fg); }
+    .theme-switch {
+      width: 38px; height: 20px;
+      border-radius: 999px;
+      background: var(--line-strong);
+      position: relative;
+      flex-shrink: 0;
+      transition: background 0.3s ease;
+    }
+    .theme-switch::before {
+      content: "";
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    body.light .theme-switch::before { transform: translateX(18px); }
+
+    @media (max-width: 860px) {
+      .site-header {
+        grid-template-columns: 1fr auto auto auto;
+      }
+      .hdr-link[data-page="building"] { display: none; }
+      .hdr-socials .label { display: none; }
+      .hdr-socials { gap: 14px; padding-left: 14px; padding-right: 14px; }
+      .hdr-theme { padding: 16px 14px; }
+      .hdr-theme .theme-label { display: none; }
+      .hdr-brand .b1, .hdr-brand .b2 { font-size: 22px; }
+    }
+    @media (max-width: 540px) {
+      .site-header > * { padding-left: 14px; padding-right: 14px; }
+      .hdr-link { font-size: 10px; letter-spacing: 0.12em; }
+    }
+
+    /* ===== PAGE LAYOUT ===== */
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 36px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* ===== ASCII WAVE — cursor-reactive, characters bloom under pointer ===== */
+    .ascii-wave {
+      font-family: var(--mono);
+      font-size: clamp(9px, 1.05vw, 11px);
+      line-height: 1.05;
+      color: var(--dim);
+      white-space: pre;
+      user-select: none;
+      letter-spacing: 0;
+      cursor: crosshair;
+      opacity: 0.78;
+      mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+      margin: 0 0 6px;
+      align-self: stretch;
+      transition: opacity 0.35s ease;
+    }
+    .ascii-wave:hover { opacity: 1; }
+    .ascii-wave .hot { color: var(--accent); }
+
+    /* ===== NAME ===== */
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(52px, 8.5vw, 88px);
+      font-weight: 400;
+      letter-spacing: -0.025em;
+      line-height: 0.96;
+      color: var(--fg);
+      transition: color 0.4s ease;
+    }
+    h1 em { font-style: italic; color: var(--accent); font-weight: 400; }
+
+    .lead {
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: clamp(22px, 2.8vw, 30px);
+      line-height: 1.25;
+      letter-spacing: -0.022em;
+      color: var(--fg);
+    }
+    .lead b { color: var(--accent); font-weight: 400; }
+
+    .meta-line {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      letter-spacing: 0;
+      color: var(--dim);
+      line-height: 1.6;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 4px 8px;
+      margin-top: -4px;
+    }
+    .meta-line > span { white-space: nowrap; }
+    .meta-line .sep { color: var(--dimmer); }
+
+    /* ===== CLAUDE CTA — pill text only; walker animates ABOVE the box ===== */
+    .claude-wrap {
+      position: relative;
+      width: max-content;
+      max-width: 100%;
+      margin-top: 38px;       /* room for the walker above */
+      padding-top: 4px;
+    }
+    .claude-cta {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 14px;
+      background: rgba(204, 119, 87, 0.10);
+      border: 1px solid rgba(204, 119, 87, 0.45);
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--claude);
+      cursor: pointer;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+    }
+    .claude-cta:hover {
+      background: rgba(204, 119, 87, 0.20);
+      border-color: var(--claude);
+      transform: translateY(-1px);
+    }
+    /* Light theme override — pill goes solid for high contrast on steel-blue bg */
+    body.light .claude-cta {
+      background: var(--claude);
+      border-color: var(--claude);
+      color: #fff;
+    }
+    body.light .claude-cta:hover {
+      background: #b85f3f;
+      border-color: #b85f3f;
+    }
+    .claude-walker {
+      position: absolute;
+      bottom: calc(100% - 10px);   /* sits on the top edge of the pill */
+      left: 14px;
+      width: 30px;
+      height: 30px;
+      display: block;
+      pointer-events: none;
+      animation: walkerStroll 9s ease-in-out infinite;
+    }
+    @keyframes walkerStroll {
+      0%, 100% { left: 14px; transform: scaleX(1); }
+      45%      { left: calc(100% - 44px); transform: scaleX(1); }
+      50%      { left: calc(100% - 44px); transform: scaleX(-1); }
+      95%      { left: 14px; transform: scaleX(-1); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .claude-walker { animation: none; }
+    }
+
+    /* ===== CLAUDE CHOOSER MODAL ===== */
+    .cc-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(8, 9, 11, 0.74);
+      -webkit-backdrop-filter: blur(3px);
+      backdrop-filter: blur(3px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+    }
+    .cc-backdrop.open { opacity: 1; pointer-events: auto; }
+    .cc-modal {
+      position: relative;
+      width: min(560px, 92vw);
+      height: 400px;
+      background: var(--bg);
+      border: 1px solid var(--line-strong);
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 0 46px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 26px;
+      transform: translateY(14px) scale(0.97);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .cc-backdrop.open .cc-modal { transform: translateY(0) scale(1); }
+
+    .cc-close {
+      position: absolute;
+      top: 14px; right: 16px;
+      width: 24px; height: 24px;
+      background: none; border: none;
+      padding: 0;
+      cursor: pointer;
+      z-index: 6;
+      opacity: 0.65;
+      transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    }
+    .cc-close:hover { opacity: 1; transform: rotate(90deg) scale(1.1); }
+    .cc-close video { width: 100%; height: 100%; display: block; pointer-events: none; }
+
+    .cc-head { z-index: 2; }
+    .cc-eyebrow {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--claude);
+      margin-bottom: 10px;
+    }
+    .cc-me {
+      display: inline-block;
+      width: 1.7em;            /* ≈ matches the eyebrow text height */
+      height: 1.7em;
+      object-fit: cover;
+      border-radius: 50%;
+      vertical-align: middle;
+      margin-left: 9px;
+      position: relative;
+      top: -1px;
+      border: 1px solid var(--line);
+    }
+    .cc-title {
+      font-family: var(--serif);
+      font-size: 40px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      line-height: 1;
+    }
+    .cc-title em { font-style: italic; color: var(--accent); font-weight: 400; }
+
+    .cc-choices {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      z-index: 2;
+    }
+    .cc-choice {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      padding: 20px 18px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.02);
+      text-decoration: none;
+      transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    }
+    .cc-choice:hover {
+      border-color: var(--claude);
+      background: rgba(204, 119, 87, 0.09);
+      transform: translateY(-2px);
+    }
+    .cc-choice-name {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 23px;
+      color: var(--fg);
+      letter-spacing: -0.01em;
+    }
+    .cc-choice-desc {
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: var(--dim);
+    }
+
+    /* ---- the three Claude sprites ---- */
+    .cc-sprite {
+      position: absolute;
+      width: 26px; height: 26px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .cc-sprite video { width: 100%; height: 100%; display: block; }
+
+    /* sporty jumper — child of the backdrop (no transform); JS places it in screen coords */
+    .cc-jumper {
+      left: 0; top: 0;
+      z-index: 20;
+      will-change: transform;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .cc-jumper.live { opacity: 1; }
+
+    @media (max-width: 560px) {
+      .cc-modal { height: auto; padding: 60px 28px 40px; gap: 22px; }
+      .cc-choices { grid-template-columns: 1fr; }
+      .cc-jumper { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cc-jumper { animation: none; }
+    }
+
+    /* ===== I BUILT ===== */
+    .built { margin-top: 16px; }
+    .built-head {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      color: var(--dim);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .built ul { list-style: none; }
+    .built li {
+      border-top: 1px dashed var(--line);
+    }
+    .built li:last-child { border-bottom: 1px dashed var(--line); }
+    .built .proj-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 22px;
+      padding: 13px 0;
+      align-items: baseline;
+      color: inherit;
+      text-decoration: none;
+      transition: padding-left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .built .proj-row:hover { padding-left: 8px; }
+    .built .name {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 22px;
+      color: var(--fg);
+      letter-spacing: -0.01em;
+      transition: color 0.2s ease;
+    }
+    .built .proj-row:hover .name { color: var(--accent); }
+    .built .name .defex-dot { color: #FF5B16; }
+    .built .desc {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--dim);
+      transition: color 0.2s ease;
+    }
+    .built .desc b { color: var(--fg); font-weight: 400; transition: color 0.2s ease; }
+    .built .proj-row:hover .desc,
+    .built .proj-row:hover .desc b { color: var(--fg); }
+    @media (max-width: 540px) {
+      .built .proj-row { grid-template-columns: 1fr; gap: 4px; padding: 12px 0; }
+      .built .proj-row:hover { padding-left: 4px; }
+    }
+
+    .why-line {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(17px, 1.9vw, 21px);
+      line-height: 1.35;
+      letter-spacing: -0.005em;
+      color: var(--fg);
+      opacity: 0.78;
+      max-width: 620px;
+      margin-top: 18px;
+    }
+
+    .links {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .links a {
+      color: var(--dim);
+      transition: color 0.2s ease;
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+    }
+    .links a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    @media (max-width: 540px) {
+      .page { padding: 40px 22px 64px; gap: 18px; }
+      .built li { grid-template-columns: 1fr; gap: 4px; padding: 12px 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .claude-walker { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <!--
+    Hi. If you're reading the source, you're the kind of person I want to build with.
+    → husan@buildcored.com
+  -->
+  <a href="#top" class="skip-link">Skip to content</a>
+
+  <header class="site-header" aria-label="primary">
+    <a href="index.html" class="hdr-brand" aria-label="Husan Mavlonov · Home">
+      <span class="h-mark">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <g fill="currentColor">
+            <!-- left pillar: stem + slab serifs -->
+            <rect x="23" y="22" width="14" height="56"/>
+            <rect x="18" y="22" width="24" height="7"/>
+            <rect x="18" y="71" width="24" height="7"/>
+            <!-- right pillar -->
+            <rect x="63" y="22" width="14" height="56"/>
+            <rect x="58" y="22" width="24" height="7"/>
+            <rect x="58" y="71" width="24" height="7"/>
+            <!-- crossbar -->
+            <rect x="37" y="46" width="26" height="8"/>
+          </g>
+        </svg>
+      </span>
+    </a>
+    <a href="index.html" class="hdr-link" aria-current="page" data-page="home">Home</a>
+    <a href="building.html" class="hdr-link" data-page="building">Building</a>
+    <div class="hdr-socials">
+      <span class="label">Socials</span>
+      <a href="mailto:husan@buildcored.com" title="Email" aria-label="Email">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      </a>
+      <a href="https://t.me/mavlonov_husan" target="_blank" rel="noopener" title="Telegram" aria-label="Telegram">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg>
+      </a>
+      <a href="https://github.com/PeterVanPercson" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.3-3.2-.1-.4-.6-1.6.1-3.3 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.6 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.3.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.7-5.5 6 .5.4.9 1.1.9 2.3v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/husan-mavlonov" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 .02 5 2.5 2.5 0 0 1-.02-5zM2.5 9.5h5v12h-5v-12zM9.5 9.5h4.8v1.7h.07c.67-1.26 2.3-2.6 4.74-2.6 5.07 0 6 3.3 6 7.6V21.5h-5v-6.8c0-1.62-.04-3.7-2.25-3.7-2.25 0-2.6 1.76-2.6 3.58v6.92h-5v-12z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/mavhusan/" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.7" fill="currentColor" stroke="none"/></svg>
+      </a>
+    </div>
+    <button class="hdr-theme" id="themeToggle" aria-label="Toggle light or dark theme">
+      <span class="theme-label">Theme</span>
+      <span class="theme-switch" aria-hidden="true"></span>
+    </button>
+  </header>
+
+  <main class="page" id="top">
+
+    <pre class="ascii-wave" id="asciiWave" aria-hidden="true"></pre>
+
+    <h1>Husan Mavlonov<em>.</em></h1>
+    <p class="lead">I love building.</p>
+
+    <p class="meta-line">
+      <span>Tashkent → Istanbul → Shanghai</span>
+      <span class="sep">·</span>
+      <span>Z Fellow</span>
+      <span class="sep">·</span>
+      <span>Lumiere Scholar</span>
+      <span class="sep">/</span>
+      <span>University of Michigan and Shanghai Jiao Tong</span>
+    </p>
+
+    <div class="claude-wrap">
+      <video class="claude-walker" autoplay loop muted playsinline preload="auto" aria-hidden="true" tabindex="-1">
+        <source src="claude.webm" type="video/webm">
+      </video>
+      <button class="claude-cta" type="button" id="claudeCtaBtn" aria-haspopup="dialog">
+        Free Claude
+      </button>
+    </div>
+
+    <div class="built">
+      <p class="built-head">I built.</p>
+      <ul>
+        <li>
+          <a class="proj-row" href="https://defex.app" target="_blank" rel="noopener">
+            <span class="name">defex<span class="defex-dot">.</span></span>
+            <span class="desc"><b>Replace QC inspectors with AI vision.</b> Sub-$2K to deploy. Built for the 90% of factories Cognex &amp; Keyence skip.</span>
+          </a>
+        </li>
+        <li>
+          <a class="proj-row" href="https://mindform-ai.com" target="_blank" rel="noopener">
+            <span class="name">mindform.</span>
+            <span class="desc"><b>The personality layer for AI.</b> Memory, tone, and character that persists across sessions.</span>
+          </a>
+        </li>
+        <li>
+          <a class="proj-row" href="https://buildcored.com" target="_blank" rel="noopener">
+            <span class="name">BuildCored.</span>
+            <span class="desc"><b>1,000+ builders.</b> Home of <b>Orcas</b>. A 30-day build challenge. Miss a day, you're out.</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </main>
+
+  <!-- ===== CLAUDE CHOOSER MODAL ===== -->
+  <div class="cc-backdrop" id="ccBackdrop" aria-hidden="true">
+    <div class="cc-modal" role="dialog" aria-modal="true" aria-label="Pick Claude Code or Claude Cowork">
+
+      <button class="cc-close" id="ccClose" type="button" aria-label="Close">
+        <video src="claude-logo.webm" autoplay loop muted playsinline preload="auto" tabindex="-1"></video>
+      </button>
+
+      <div class="cc-head">
+        <p class="cc-eyebrow">Free for a week · on me<img class="cc-me" src="me.png" alt="" onerror="this.remove()"></p>
+        <h2 class="cc-title">Pick your Claude<em>.</em></h2>
+      </div>
+
+      <div class="cc-choices">
+        <a class="cc-choice" href="mailto:husan@buildcored.com?subject=Free%20Claude%20Code%20for%20a%20week&body=Hey%2C%20Husan%21%0A%0AI%27d%20love%20a%20free%20week%20of%20Claude%20Code.%20I%27m%20building%20">
+          <span class="cc-choice-name">Claude Code</span>
+          <span class="cc-choice-desc">Terminal-native. Agents that ship.</span>
+        </a>
+        <a class="cc-choice" href="mailto:husan@buildcored.com?subject=Free%20Claude%20Cowork%20for%20a%20week&body=Hey%2C%20Husan%21%0A%0AI%27d%20love%20a%20free%20week%20of%20Claude%20Cowork.%20I%27m%20building%20">
+          <span class="cc-choice-name">Claude Cowork</span>
+          <span class="cc-choice-desc">An agent that works alongside you.</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- jumper lives on the backdrop (no transform) so screen-coord math is exact -->
+    <span class="cc-sprite cc-jumper" aria-hidden="true">
+      <video src="claude-sporty.webm" autoplay loop muted playsinline preload="auto" tabindex="-1"></video>
+    </span>
+  </div>
+
+  <script>
+    // ============================================
+    // THEME TOGGLE — persists to localStorage, respects system pref on first visit
+    // ============================================
+    (function () {
+      const btn = document.getElementById('themeToggle');
+      if (!btn) return;
+      const STORAGE = 'hm-theme';
+      function apply(theme) {
+        if (theme === 'light') document.body.classList.add('light');
+        else document.body.classList.remove('light');
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', theme === 'light' ? '#a8aeb4' : '#16181c');
+      }
+      const saved = localStorage.getItem(STORAGE);
+      if (saved) apply(saved);
+      else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) apply('light');
+      btn.addEventListener('click', () => {
+        const isLight = document.body.classList.toggle('light');
+        const theme = isLight ? 'light' : 'dark';
+        localStorage.setItem(STORAGE, theme);
+        apply(theme);
+      });
+    })();
+
+    // ============================================
+    // CLAUDE CHOOSER MODAL — open/close
+    // ============================================
+    (function () {
+      const trigger  = document.getElementById('claudeCtaBtn');
+      const backdrop = document.getElementById('ccBackdrop');
+      const closeBtn = document.getElementById('ccClose');
+      const modal    = backdrop ? backdrop.querySelector('.cc-modal') : null;
+      const jumper   = backdrop ? backdrop.querySelector('.cc-jumper') : null;
+      if (!trigger || !backdrop) return;
+      let lastFocus = null;
+
+      // ---------- the jumper: real physics onto real text boxes ----------
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const SPRITE = 26;
+      const AIR    = 1;    // hair of space between the sprite's feet and the cap line
+      let raf = 0, pts = [], idx = 0, mode = 'rest', phaseT = 0, landY = 1;
+
+      function measure() {
+        if (!modal || !jumper) return [];
+        // Screen-space rects. Jumper is a child of the backdrop (no transform),
+        // so backdrop-relative screen coords place the sprite exactly on the text.
+        const bd = backdrop.getBoundingClientRect();
+        // Target the actual word-level elements, not the full-width blocks
+        const els = [
+          modal.querySelector('.cc-eyebrow'),
+          modal.querySelector('.cc-title'),
+          modal.querySelectorAll('.cc-choice-name')[0],
+          modal.querySelectorAll('.cc-choice-name')[1]
+        ].filter(Boolean);
+        return els.map(el => {
+          const r  = el.getBoundingClientRect();
+          const cs = getComputedStyle(el);
+          const fs = parseFloat(cs.fontSize);
+          const lh = cs.lineHeight === 'normal' ? fs * 1.2 : parseFloat(cs.lineHeight);
+          // real cap-top of THIS element's glyphs: half-leading + the font's
+          // ascender gap above caps (~0.18em). self-corrects per font size.
+          const capTop = r.top + (lh - fs) / 2 + fs * 0.18;
+          return {
+            x: (r.left  - bd.left) + 4,             // LEFT start of the text
+            y: (capTop - bd.top) - SPRITE - AIR     // feet rest right on the cap line
+          };
+        });
+      }
+      function put(x, y, sx, sy) {
+        jumper.style.transform =
+          'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) scale(' + sx + ',' + sy + ')';
+      }
+      const REST = 2400;   // ms sitting on each text
+      const HOP  = 560;    // ms of one jump
+      const ARC  = 38;     // px apex height — ~60% of the old hop, low & real (was 64)
+
+      function step(now) {
+        if (!backdrop.classList.contains('open') || pts.length < 2) { raf = 0; return; }
+        if (!phaseT) phaseT = now;
+        const t = now - phaseT;
+        const a = pts[idx];
+        const b = pts[(idx + 1) % pts.length];
+
+        if (mode === 'rest') {
+          // gentle landing recovery in the first 180ms, then hold still
+          let sy = 1, sx = 1;
+          if (t < 180) { const k = t / 180; sy = 0.9 + 0.1 * k; sx = 1.08 - 0.08 * k; }
+          put(a.x, a.y, sx, sy);
+          if (t >= REST) { mode = 'hop'; phaseT = now; }
+        } else {
+          let p = Math.min(1, t / HOP);
+          const x = a.x + (b.x - a.x) * p;
+          const baseY = a.y + (b.y - a.y) * p;
+          const y = baseY - ARC * Math.sin(Math.PI * p);   // true parabolic hop
+          // minimal squash: tiny crouch at takeoff, neutral in air
+          let sx = 1, sy = 1;
+          if (p < 0.10) { sy = 0.94; sx = 1.05; }
+          put(x, y, sx, sy);
+          if (p >= 1) { idx = (idx + 1) % pts.length; mode = 'rest'; phaseT = now; }
+        }
+        raf = requestAnimationFrame(step);
+      }
+      function startJumper() {
+        if (reduce || !jumper) return;
+        pts = measure();
+        if (pts.length < 2) return;
+        idx = 0; mode = 'rest'; phaseT = 0;
+        put(pts[0].x, pts[0].y, 1, 1);
+        jumper.classList.add('live');
+        if (!raf) raf = requestAnimationFrame(step);
+      }
+      function stopJumper() {
+        if (raf) cancelAnimationFrame(raf);
+        raf = 0;
+        if (jumper) jumper.classList.remove('live');
+      }
+
+      // ---------- open / close ----------
+      function open() {
+        lastFocus = document.activeElement;
+        backdrop.classList.add('open');
+        backdrop.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        if (closeBtn) closeBtn.focus();
+        // measure AFTER the open transition settles (modal scale back to 1)
+        setTimeout(startJumper, 380);
+      }
+      function close() {
+        backdrop.classList.remove('open');
+        backdrop.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        stopJumper();
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+
+      trigger.addEventListener('click', open);
+      if (closeBtn) closeBtn.addEventListener('click', close);
+      backdrop.addEventListener('click', (e) => { if (e.target === backdrop) close(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && backdrop.classList.contains('open')) close();
+      });
+      backdrop.querySelectorAll('.cc-choice').forEach((c) => {
+        c.addEventListener('click', () => setTimeout(close, 200));
+      });
+      window.addEventListener('resize', () => {
+        if (backdrop.classList.contains('open')) { pts = measure(); }
+      });
+    })();
+
+    // ============================================
+    // ASCII WAVE — cursor-reactive (v1's ripple), at ~70% of v1's size
+    // ============================================
+    (function () {
+      const el = document.getElementById('asciiWave');
+      if (!el) return;
+      // Figlet-fragment palette — letters + punctuation that read as bits of typography
+      // (mimics Soft / Slant figlet flavor: M, W, b, p, q, Y, 7 carry the heavy weight)
+      const PALETTE = ' .`,\':";~-+oxmqpbdMWY';
+      let COLS = 70, ROWS = 14;
+      const FRAME_MS = 1000 / 24;
+      let last = 0;
+      const t0 = performance.now();
+      let charBoxW = 6, charBoxH = 12;
+      let pointerX = -9999, pointerY = -9999;
+
+      function fit() {
+        const wrap = el.parentElement;
+        const w = wrap.getBoundingClientRect().width;
+        const fs = parseFloat(getComputedStyle(el).fontSize) || 10;
+        charBoxW = fs * 0.60;
+        charBoxH = fs * 1.05;
+        COLS = Math.max(40, Math.min(82, Math.floor((w * 0.75) / charBoxW)));
+        ROWS = Math.max(10, Math.min(16, Math.floor(COLS * 0.20)));
+      }
+      fit();
+      new ResizeObserver(fit).observe(el.parentElement);
+
+      window.addEventListener('mousemove', (e) => {
+        pointerX = e.clientX; pointerY = e.clientY;
+      });
+      window.addEventListener('touchmove', (e) => {
+        if (e.touches[0]) { pointerX = e.touches[0].clientX; pointerY = e.touches[0].clientY; }
+      }, { passive: true });
+
+      function render(now) {
+        requestAnimationFrame(render);
+        if (now - last < FRAME_MS) return;
+        last = now;
+        const t = (now - t0) / 1000;
+        const rect = el.getBoundingClientRect();
+        const cx = (pointerX - rect.left) / charBoxW;
+        const cy = (pointerY - rect.top) / charBoxH;
+        const hover = pointerX > rect.left && pointerX < rect.right
+                   && pointerY > rect.top && pointerY < rect.bottom;
+        const HOT_THRESHOLD = 0.18;
+
+        let html = '';
+        let inHot = false;
+        for (let y = 0; y < ROWS; y++) {
+          for (let x = 0; x < COLS; x++) {
+            const wave =
+                Math.sin(x * 0.16 + t * 1.05) * 0.45
+              + Math.cos(y * 0.30 - t * 0.75) * 0.30
+              + Math.sin((x + y) * 0.07 + t * 0.50) * 0.22;
+            let influence = 0;
+            if (hover) {
+              const dx = x - cx;
+              const dy = (y - cy) * 1.7;
+              const d2 = dx * dx + dy * dy;
+              influence = Math.exp(-d2 / 55);
+            }
+            const v = ((wave + 1) / 2) * 0.50 + influence * 0.95;
+            const idx = Math.max(0, Math.min(PALETTE.length - 1, Math.floor(v * (PALETTE.length - 1))));
+            const ch = PALETTE[idx];
+            // open/close <span class="hot"> on threshold crossings — recolor cells near pointer
+            const isHot = hover && influence > HOT_THRESHOLD;
+            if (isHot && !inHot) { html += '<span class="hot">'; inHot = true; }
+            else if (!isHot && inHot) { html += '</span>'; inHot = false; }
+            html += ch;
+          }
+          if (inHot) { html += '</span>'; inHot = false; }
+          if (y < ROWS - 1) html += '\n';
+        }
+        el.innerHTML = html;
+      }
+      requestAnimationFrame(render);
+    })();
+  </script>
+</body>
+</html>
