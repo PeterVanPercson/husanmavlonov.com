@@ -23,7 +23,7 @@
   <meta name="twitter:description" content="I love building." />
   <meta name="twitter:image" content="https://husanmavlonov.com/og.png" />
   <meta name="twitter:image:alt" content="Husan Mavlonov · I love building." />
-  <link rel="icon" href="data:," />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20rx='14'%20fill='%23d97757'/%3E%3Cg%20fill='%23ebe6db'%3E%3Crect%20x='26'%20y='24'%20width='15'%20height='52'/%3E%3Crect%20x='21'%20y='24'%20width='25'%20height='8'/%3E%3Crect%20x='21'%20y='68'%20width='25'%20height='8'/%3E%3Crect%20x='59'%20y='24'%20width='15'%20height='52'/%3E%3Crect%20x='54'%20y='24'%20width='25'%20height='8'/%3E%3Crect%20x='54'%20y='68'%20width='25'%20height='8'/%3E%3Crect%20x='40'%20y='46'%20width='20'%20height='8'/%3E%3C/g%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -300,6 +300,7 @@
     }
     .meta-line > span { white-space: nowrap; }
     .meta-line .sep { color: var(--dimmer); }
+    .umich-m { height: 0.9em; width: auto; vertical-align: -0.1em; margin-right: 5px; }
 
     /* ===== CLAUDE CTA — pill text only; walker animates ABOVE the box ===== */
     .claude-wrap {
@@ -660,7 +661,7 @@
       <span class="sep">·</span>
       <span>Lumiere Scholar</span>
       <span class="sep">/</span>
-      <span>University of Michigan and Shanghai Jiao Tong</span>
+      <span><svg class="umich-m" viewBox="0 0 100 80" aria-hidden="true"><polygon fill="#FFCB05" points="0,0 28,0 50,42 72,0 100,0 100,80 78,80 78,33 60,66 40,66 22,33 22,80 0,80"/></svg>University of Michigan and Shanghai Jiao Tong</span>
     </p>
 
     <div class="claude-wrap">
@@ -873,7 +874,23 @@
         if (e.key === 'Escape' && backdrop.classList.contains('open')) close();
       });
       backdrop.querySelectorAll('.cc-choice').forEach((c) => {
-        c.addEventListener('click', () => setTimeout(close, 200));
+        c.addEventListener('click', (e) => {
+          const m = c.getAttribute('href') || '';
+          if (m.slice(0, 7) === 'mailto:') {
+            const to = m.slice(7).split('?')[0];
+            const q  = m.indexOf('?') > -1 ? m.slice(m.indexOf('?') + 1) : '';
+            const p  = new URLSearchParams(q);
+            const g  = 'https://mail.google.com/mail/?view=cm&fs=1'
+                     + '&to='   + encodeURIComponent(to)
+                     + '&su='   + encodeURIComponent(p.get('subject') || '')
+                     + '&body=' + encodeURIComponent(p.get('body') || '');
+            // Gmail web compose covers the no-desktop-client case;
+            // the mailto href stays as the fallback if the popup is blocked.
+            const w = window.open(g, '_blank', 'noopener');
+            if (w) e.preventDefault();
+          }
+          setTimeout(close, 250);
+        });
       });
       window.addEventListener('resize', () => {
         if (backdrop.classList.contains('open')) { pts = measure(); }
