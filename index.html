@@ -538,6 +538,25 @@
     }
     .built .proj-row:hover .name { color: var(--accent); }
     .built .name .defex-dot { color: #FF5B16; }
+    .built .zf {
+      display: block;
+      margin-top: 7px;
+      font-family: var(--mono);
+      font-style: normal;
+      font-size: 9.5px;
+      letter-spacing: 0.04em;
+      color: var(--dim);
+      white-space: nowrap;
+    }
+    .built .zf i {
+      font-style: normal;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6EA8FF, #2F6BE5);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .built .zf b { color: var(--fg); font-weight: 600; }
     .built .desc {
       font-size: 14px;
       line-height: 1.55;
@@ -685,7 +704,7 @@
         </li>
         <li>
           <a class="proj-row" href="https://defex.app" target="_blank" rel="noopener">
-            <span class="name">defex<span class="defex-dot">.</span></span>
+            <span class="name">defex<span class="defex-dot">.</span><span class="zf">Backed by <i>Z</i>&nbsp;<b>Fellows</b></span></span>
             <span class="desc"><b>Replace QC inspectors with AI vision.</b> Sub-$2K to deploy. Built for the 90% of factories Cognex &amp; Keyence skip.</span>
           </a>
         </li>
