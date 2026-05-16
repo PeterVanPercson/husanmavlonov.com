@@ -401,6 +401,25 @@
         apply(theme);
       });
     })();
+
+    // mailto -> Gmail web compose (covers the no-desktop-mail-client case);
+    // the mailto href stays as the fallback if the popup is blocked.
+    (function () {
+      document.querySelectorAll('a[href^="mailto:"]').forEach((a) => {
+        a.addEventListener('click', (e) => {
+          const m = a.getAttribute('href') || '';
+          const to = m.slice(7).split('?')[0];
+          const q  = m.indexOf('?') > -1 ? m.slice(m.indexOf('?') + 1) : '';
+          const p  = new URLSearchParams(q);
+          const g  = 'https://mail.google.com/mail/?view=cm&fs=1'
+                   + '&to='   + encodeURIComponent(to)
+                   + '&su='   + encodeURIComponent(p.get('subject') || '')
+                   + '&body=' + encodeURIComponent(p.get('body') || '');
+          const w = window.open(g, '_blank', 'noopener');
+          if (w) e.preventDefault();
+        });
+      });
+    })();
   </script>
 </body>
 </html>
