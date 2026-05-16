@@ -568,7 +568,14 @@
       line-height: 1.5;
       color: var(--dim);
     }
-    .built .az i { font-style: normal; font-weight: 700; color: #B31B1B; }
+    .built .az-logo {
+      height: 13px;
+      width: auto;
+      vertical-align: -2px;
+      margin: 0 1px;
+      opacity: 0.9;
+    }
+    body.light .built .az-logo { filter: invert(1); opacity: 0.62; }
     .built .az .by { display: block; color: var(--fg); opacity: 0.72; }
     .built .desc {
       font-size: 14px;
@@ -723,7 +730,7 @@
         </li>
         <li>
           <a class="proj-row" href="https://mindform-ai.com" target="_blank" rel="noopener">
-            <span class="name">mindform.<span class="az">Endorsed for ar<i>X</i>iv<span class="by">Nuo Chen · NUS</span></span></span>
+            <span class="name">mindform.<span class="az">Endorsed for <img class="az-logo" src="arxiv.svg" alt="arXiv"><span class="by">Nuo Chen · NUS</span></span></span>
             <span class="desc"><b>The personality layer for AI.</b> Memory, tone, and character that persists across sessions.</span>
           </a>
         </li>
