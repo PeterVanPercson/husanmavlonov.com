@@ -690,12 +690,9 @@
     /* ===== PRIVATE STORIES ===== */
     .st-backdrop {
       position: fixed; inset: 0;
-      background:
-        linear-gradient(rgba(8, 7, 6, 0.72), rgba(8, 7, 6, 0.72)),
-        url("stories/paper.jpg") center / cover no-repeat;
+      background: var(--bg);
       z-index: 1000;
       opacity: 0; visibility: hidden;
-      overflow: hidden;
       transition: opacity 0.35s ease, visibility 0.35s ease;
     }
     .st-backdrop.open { opacity: 1; visibility: visible; }
@@ -741,10 +738,8 @@
       font-family: var(--serif);
       font-size: 19px;
       line-height: 1.45;
-      color: #cabb9f;                        /* faded aged ink, same font */
+      color: var(--fg);
       text-align: center;
-      text-shadow: 0 0 1.1px rgba(28, 18, 8, 0.55);
-      opacity: 0.94;
     }
     .st-cap .meta {
       display: block;
