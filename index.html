@@ -405,7 +405,7 @@
       transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1);
     }
     .cc-close:hover { opacity: 1; transform: rotate(90deg) scale(1.1); }
-    .cc-close video { width: 100%; height: 100%; display: block; pointer-events: none; }
+    .cc-close img { width: 100%; height: 100%; display: block; pointer-events: none; }
 
     .cc-head { z-index: 2; }
     .cc-eyebrow {
@@ -480,7 +480,7 @@
       pointer-events: none;
       z-index: 1;
     }
-    .cc-sprite video { width: 100%; height: 100%; display: block; }
+    .cc-sprite img { width: 100%; height: 100%; display: block; }
 
     /* sporty jumper — child of the backdrop (no transform); JS places it in screen coords */
     .cc-jumper {
@@ -698,9 +698,7 @@
     </p>
 
     <div class="claude-wrap">
-      <video class="claude-walker" autoplay loop muted playsinline preload="auto" aria-hidden="true" tabindex="-1">
-        <source src="claude.webm" type="video/webm">
-      </video>
+      <img class="claude-walker" src="claude.png" alt="" aria-hidden="true">
       <button class="claude-cta" type="button" id="claudeCtaBtn" aria-haspopup="dialog">
         Free Claude
       </button>
@@ -737,7 +735,7 @@
     <div class="cc-modal" role="dialog" aria-modal="true" aria-label="Pick Claude Code or Claude Cowork">
 
       <button class="cc-close" id="ccClose" type="button" aria-label="Close">
-        <video src="claude-logo.webm" autoplay loop muted playsinline preload="auto" tabindex="-1"></video>
+        <img src="claude-logo.png" alt="" aria-hidden="true">
       </button>
 
       <div class="cc-head">
@@ -760,7 +758,7 @@
 
     <!-- jumper lives on the backdrop (no transform) so screen-coord math is exact -->
     <span class="cc-sprite cc-jumper" aria-hidden="true">
-      <video src="claude-sporty.webm" autoplay loop muted playsinline preload="auto" tabindex="-1"></video>
+      <img src="claude-sporty.png" alt="" aria-hidden="true">
     </span>
   </div>
 
