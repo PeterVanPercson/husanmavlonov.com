@@ -263,6 +263,7 @@
     }
     .ascii-wave:hover { opacity: 1; }
     .ascii-wave .hot { color: var(--accent); }
+    .ascii-wave .glow { color: var(--fg); text-shadow: 0 0 6px var(--accent); }
 
     /* ===== NAME ===== */
     h1 {
@@ -962,10 +963,11 @@
         const cy = (pointerY - rect.top) / charBoxH;
         const hover = pointerX > rect.left && pointerX < rect.right
                    && pointerY > rect.top && pointerY < rect.bottom;
-        const HOT_THRESHOLD = 0.18;
+        const HOT_THRESHOLD = 0.16;   // accent ring
+        const CORE_THRESHOLD = 0.52;  // bright "decoding" core
 
         let html = '';
-        let inHot = false;
+        let cur = '';                 // '', 'hot', 'glow'
         for (let y = 0; y < ROWS; y++) {
           for (let x = 0; x < COLS; x++) {
             const wave =
@@ -977,18 +979,29 @@
               const dx = x - cx;
               const dy = (y - cy) * 1.7;
               const d2 = dx * dx + dy * dy;
-              influence = Math.exp(-d2 / 55);
+              influence = Math.exp(-d2 / 60);
             }
             const v = ((wave + 1) / 2) * 0.50 + influence * 0.95;
             const idx = Math.max(0, Math.min(PALETTE.length - 1, Math.floor(v * (PALETTE.length - 1))));
-            const ch = PALETTE[idx];
-            // open/close <span class="hot"> on threshold crossings — recolor cells near pointer
-            const isHot = hover && influence > HOT_THRESHOLD;
-            if (isHot && !inHot) { html += '<span class="hot">'; inHot = true; }
-            else if (!isHot && inHot) { html += '</span>'; inHot = false; }
+            let ch = PALETTE[idx];
+            let cls = '';
+            if (hover) {
+              if (influence > CORE_THRESHOLD) {
+                cls = 'glow';
+                // decrypt shimmer: cells at the core flicker through the palette
+                ch = PALETTE[(Math.random() * PALETTE.length) | 0];
+              } else if (influence > HOT_THRESHOLD) {
+                cls = 'hot';
+              }
+            }
+            if (cls !== cur) {
+              if (cur) html += '</span>';
+              if (cls) html += '<span class="' + cls + '">';
+              cur = cls;
+            }
             html += ch;
           }
-          if (inHot) { html += '</span>'; inHot = false; }
+          if (cur) { html += '</span>'; cur = ''; }
           if (y < ROWS - 1) html += '\n';
         }
         el.innerHTML = html;
