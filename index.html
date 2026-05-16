@@ -616,6 +616,111 @@
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
       .claude-walker { animation: none; }
     }
+
+    /* ===== PRIVATE STORIES ===== */
+    .st-backdrop {
+      position: fixed; inset: 0;
+      background: var(--bg);
+      z-index: 1000;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+    .st-backdrop.open { opacity: 1; visibility: visible; }
+
+    .st-scroll {
+      height: 100%;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+    }
+    .st-scroll::-webkit-scrollbar { display: none; }
+
+    .st-slide {
+      min-height: 100vh;
+      scroll-snap-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      padding: 80px 28px;
+      box-sizing: border-box;
+    }
+    .st-photo {
+      width: min(440px, 82vw);
+      max-height: 62vh;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--line-strong);
+      display: block;
+      background: var(--line);
+    }
+    .st-photo.ph {
+      aspect-ratio: 4 / 5;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--dim);
+      border-style: dashed;
+    }
+    .st-cap {
+      width: min(440px, 82vw);
+      font-family: var(--serif);
+      font-size: 19px;
+      line-height: 1.45;
+      color: var(--fg);
+      text-align: center;
+    }
+    .st-cap .meta {
+      display: block;
+      margin-top: 9px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .st-nav {
+      position: fixed;
+      right: 22px; top: 50%;
+      transform: translateY(-50%);
+      display: flex; flex-direction: column;
+      gap: 9px;
+      z-index: 1002;
+    }
+    .st-tick {
+      width: 16px; height: 2px;
+      padding: 0; border: none;
+      background: var(--dimmer);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: width 0.25s ease, background 0.25s ease;
+    }
+    .st-tick:hover { background: var(--dim); }
+    .st-tick.active { width: 26px; background: var(--fg); }
+
+    .st-close {
+      position: fixed;
+      top: 20px; right: 20px;
+      width: 30px; height: 30px;
+      background: none; border: none;
+      color: var(--dim);
+      cursor: pointer; z-index: 1002;
+      transition: color 0.2s ease, transform 0.3s ease;
+    }
+    .st-close:hover { color: var(--fg); transform: rotate(90deg); }
+    .st-eyebrow {
+      position: fixed;
+      top: 22px; left: 24px;
+      font-family: var(--mono); font-size: 10px;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--dim); z-index: 1002;
+    }
+    @media (max-width: 560px) {
+      .st-nav { right: 12px; }
+      .st-cap, .st-photo { width: 88vw; }
+    }
   </style>
 </head>
 <body>
@@ -646,6 +751,7 @@
     </a>
     <a href="index.html" class="hdr-link" aria-current="page" data-page="home">Home</a>
     <a href="building.html" class="hdr-link" data-page="building">Building</a>
+    <a href="#stories" class="hdr-link" id="storiesLink" data-page="stories">Stories</a>
     <div class="hdr-socials">
       <span class="label">Socials</span>
       <a href="mailto:husan@buildcored.com" title="Email" aria-label="Email">
@@ -750,6 +856,37 @@
     <span class="cc-sprite cc-jumper" aria-hidden="true">
       <img src="claude-sporty.png" alt="" aria-hidden="true">
     </span>
+  </div>
+
+  <!-- ===== PRIVATE STORIES =====
+       To add a story: copy a .st-slide block, point <img> at stories/your-photo,
+       write the caption, and add one <button class="st-tick"> to .st-nav. -->
+  <div class="st-backdrop" id="stBackdrop" aria-hidden="true">
+    <span class="st-eyebrow">Private Stories</span>
+    <button class="st-close" id="stClose" type="button" aria-label="Close stories">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+
+    <div class="st-scroll" id="stScroll">
+      <section class="st-slide">
+        <img class="st-photo" src="stories/1.png" alt="" loading="lazy">
+        <p class="st-cap">The face I make when the deploy finally works.<span class="meta">Family · 2026</span></p>
+      </section>
+      <section class="st-slide">
+        <div class="st-photo ph">Add photo → stories/2</div>
+        <p class="st-cap">Your next story goes here.<span class="meta">Caption</span></p>
+      </section>
+      <section class="st-slide">
+        <div class="st-photo ph">Add photo → stories/3</div>
+        <p class="st-cap">And another one.<span class="meta">Caption</span></p>
+      </section>
+    </div>
+
+    <div class="st-nav" id="stNav" role="tablist" aria-label="Stories">
+      <button class="st-tick active" type="button" aria-label="Story 1"></button>
+      <button class="st-tick" type="button" aria-label="Story 2"></button>
+      <button class="st-tick" type="button" aria-label="Story 3"></button>
+    </div>
   </div>
 
   <script>
@@ -1007,6 +1144,56 @@
         el.innerHTML = html;
       }
       requestAnimationFrame(render);
+    })();
+
+    // ============================================
+    // PRIVATE STORIES — scroll-snap viewer + tick nav
+    // ============================================
+    (function () {
+      const link    = document.getElementById('storiesLink');
+      const backdrop= document.getElementById('stBackdrop');
+      const scroll  = document.getElementById('stScroll');
+      const closeB  = document.getElementById('stClose');
+      if (!link || !backdrop || !scroll) return;
+      const slides  = Array.from(scroll.querySelectorAll('.st-slide'));
+      const ticks   = Array.from(document.querySelectorAll('#stNav .st-tick'));
+      let lastFocus = null;
+
+      function setActive(i) {
+        ticks.forEach((t, n) => t.classList.toggle('active', n === i));
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(slides.indexOf(e.target));
+        });
+      }, { root: scroll, threshold: 0.6 });
+      slides.forEach((s) => io.observe(s));
+
+      ticks.forEach((t, i) => t.addEventListener('click', () => {
+        slides[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }));
+
+      function open(e) {
+        if (e) e.preventDefault();
+        lastFocus = document.activeElement;
+        backdrop.classList.add('open');
+        backdrop.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        scroll.scrollTop = 0;
+        setActive(0);
+        if (closeB) closeB.focus();
+      }
+      function close() {
+        backdrop.classList.remove('open');
+        backdrop.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+      link.addEventListener('click', open);
+      if (closeB) closeB.addEventListener('click', close);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && backdrop.classList.contains('open')) close();
+      });
     })();
   </script>
 </body>
