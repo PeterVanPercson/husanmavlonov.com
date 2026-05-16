@@ -242,6 +242,7 @@
       display: flex;
       flex-direction: column;
       gap: 14px;
+      position: relative;
     }
 
     /* ===== ASCII WAVE — cursor-reactive, characters bloom under pointer ===== */
@@ -258,12 +259,54 @@
       mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
       -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
       margin: 0 0 6px;
-      align-self: stretch;
+      align-self: flex-start;
+      width: min(62%, 440px);
       transition: opacity 0.35s ease;
     }
     .ascii-wave:hover { opacity: 1; }
     .ascii-wave .hot { color: var(--accent); }
     .ascii-wave .glow { color: var(--fg); text-shadow: 0 0 6px var(--accent); }
+
+    /* on-page teaser that opens the stories overlay */
+    .st-cover {
+      position: absolute;
+      right: 0;
+      top: 96px;
+      width: 116px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      z-index: 3;
+    }
+    .st-cover img {
+      width: 116px;
+      height: 116px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--line-strong);
+      display: block;
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), border-color 0.25s ease;
+    }
+    .st-cover span {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: lowercase;
+      color: var(--dim);
+      transition: color 0.25s ease;
+    }
+    .st-cover:hover img { transform: translateY(-3px) scale(1.03); border-color: var(--claude); }
+    .st-cover:hover span { color: var(--fg); }
+    @media (max-width: 700px) {
+      .ascii-wave { width: min(70%, 360px); }
+      .st-cover { width: 84px; top: 70px; }
+      .st-cover img { width: 84px; height: 84px; }
+    }
 
     /* ===== NAME ===== */
     h1 {
@@ -751,7 +794,6 @@
     </a>
     <a href="index.html" class="hdr-link" aria-current="page" data-page="home">Home</a>
     <a href="building.html" class="hdr-link" data-page="building">Building</a>
-    <a href="#stories" class="hdr-link" id="storiesLink" data-page="stories">Stories</a>
     <div class="hdr-socials">
       <span class="label">Socials</span>
       <a href="mailto:husan@buildcored.com" title="Email" aria-label="Email">
@@ -779,6 +821,11 @@
   <main class="page" id="top">
 
     <pre class="ascii-wave" id="asciiWave" aria-hidden="true"></pre>
+
+    <button class="st-cover" id="storiesCover" type="button" aria-haspopup="dialog" aria-label="Open private stories">
+      <img src="stories/1.png" alt="" loading="lazy">
+      <span>some private stories</span>
+    </button>
 
     <h1>Husan Mavlonov<em>.</em></h1>
     <p class="lead">I love building.</p>
@@ -869,8 +916,8 @@
 
     <div class="st-scroll" id="stScroll">
       <section class="st-slide">
-        <img class="st-photo" src="stories/1.png" alt="" loading="lazy">
-        <p class="st-cap">The face I make when the deploy finally works.<span class="meta">Family · 2026</span></p>
+        <div class="st-photo ph">Add photo → stories/1</div>
+        <p class="st-cap">Your first story goes here.<span class="meta">Caption</span></p>
       </section>
       <section class="st-slide">
         <div class="st-photo ph">Add photo → stories/2</div>
@@ -1150,7 +1197,7 @@
     // PRIVATE STORIES — scroll-snap viewer + tick nav
     // ============================================
     (function () {
-      const link    = document.getElementById('storiesLink');
+      const link    = document.getElementById('storiesCover');
       const backdrop= document.getElementById('stBackdrop');
       const scroll  = document.getElementById('stScroll');
       const closeB  = document.getElementById('stClose');
