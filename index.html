@@ -690,12 +690,35 @@
     /* ===== PRIVATE STORIES ===== */
     .st-backdrop {
       position: fixed; inset: 0;
-      background: var(--bg);
+      background:
+        radial-gradient(ellipse 125% 95% at 50% 42%,
+          #241e18 0%, #191410 46%, #100c0a 76%, #070605 100%);
       z-index: 1000;
       opacity: 0; visibility: hidden;
+      overflow: hidden;
       transition: opacity 0.35s ease, visibility 0.35s ease;
     }
     .st-backdrop.open { opacity: 1; visibility: visible; }
+    /* dust / film grain over everything — like watching old photos through an old lens */
+    .st-backdrop::after {
+      content: "";
+      position: absolute; inset: -40%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 165px 165px;
+      opacity: 0.08;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+      z-index: 1001;
+      animation: stGrain 0.55s steps(2) infinite;
+    }
+    @keyframes stGrain {
+      0%   { transform: translate(0, 0); }
+      50%  { transform: translate(-13px, 9px); }
+      100% { transform: translate(7px, -11px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .st-backdrop::after { animation: none; }
+    }
 
     .st-scroll {
       height: 100%;
