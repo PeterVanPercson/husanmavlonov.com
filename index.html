@@ -699,6 +699,17 @@
       transition: opacity 0.35s ease, visibility 0.35s ease;
     }
     .st-backdrop.open { opacity: 1; visibility: visible; }
+    /* faint emulsion cracks — aged-photo surface */
+    .st-backdrop::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cg fill='none' stroke='%23d8cdb8' stroke-width='0.7' opacity='0.9'%3E%3Cpath d='M90 40 L150 210 L120 360 L205 520 L170 700 L240 880'/%3E%3Cpath d='M520 30 L560 180 L495 300 L585 470 L540 660 L620 850'/%3E%3Cpath d='M150 230 L70 320 M205 520 L300 560 M560 180 L470 250 M585 470 L680 520'/%3E%3Cpath d='M800 60 L760 240 L840 420 L780 640'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 760px 760px;
+      opacity: 0.05;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      z-index: 1001;
+    }
     /* dust / film grain over everything — like watching old photos through an old lens */
     .st-backdrop::after {
       content: "";
@@ -761,8 +772,10 @@
       font-family: var(--serif);
       font-size: 19px;
       line-height: 1.45;
-      color: var(--fg);
+      color: #cabb9f;                        /* faded aged ink, same font */
       text-align: center;
+      text-shadow: 0 0 1.1px rgba(28, 18, 8, 0.55);
+      opacity: 0.94;
     }
     .st-cap .meta {
       display: block;
@@ -975,7 +988,7 @@
       </section>
       <section class="st-slide">
         <img class="st-photo" src="stories/s2.jpg" alt="" loading="lazy">
-        <p class="st-cap">Made my Dad cry for the first time, cuz I'm the Asian Champion now ;) I don't have so many pics, but I still remember how I bragged to my dad that I greeted Mr. President of Uzbekistan (because my dad would make our family listen to his speech every new year).</p>
+        <p class="st-cap">Made my Dad cry for the first time, cuz I'm the Asian Champion now ;) I don't have so many pics, but I still remember how I bragged to my dad that I greeted President (because my dad would make our family listen to his speech every new year).</p>
       </section>
       <section class="st-slide">
         <div class="st-photo ph">Add photo → stories/3</div>
