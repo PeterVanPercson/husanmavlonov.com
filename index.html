@@ -699,6 +699,7 @@
     .st-slide {
       min-height: 100vh;
       scroll-snap-align: center;
+      scroll-snap-stop: always;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -957,7 +958,7 @@
       </section>
       <section class="st-slide">
         <img class="st-photo" src="stories/s2.jpg" alt="" loading="lazy">
-        <p class="st-cap">Made my Dad cry for the first time, cuz I'm the Asian Champion now ;) I don't have so many pics, but I still remember how I bragged to my dad that I greeted President (because my dad would make our family listen to his speech every new year).</p>
+        <p class="st-cap">Made my Dad cry for the first time, cuz I'm the Asian Champion now ;) I don't have so many pics, but I still remember how I bragged that I greeted the President (because he would make our family listen to his speech every new year).</p>
       </section>
       <section class="st-slide">
         <img class="st-photo" src="stories/s3.jpg" alt="" loading="lazy">
@@ -1291,7 +1292,7 @@
         document.body.style.overflow = 'hidden';
         scroll.scrollTop = 0;
         setActive(0);
-        if (audio) { try { audio.currentTime = 0; audio.play().catch(() => {}); } catch (_) {} }
+        if (audio) { try { audio.volume = 0.65; audio.currentTime = 0; audio.play().catch(() => {}); } catch (_) {} }
         if (closeB) closeB.focus();
       }
       function close() {
