@@ -716,6 +716,19 @@
       display: block;
       background: var(--line);
     }
+    .st-pair {
+      display: flex;
+      gap: 12px;
+      width: min(560px, 88vw);
+      height: 54vh;
+    }
+    .st-pair .st-photo {
+      flex: 1 1 0;
+      width: auto;
+      min-width: 0;
+      height: 100%;
+      max-height: none;
+    }
     .st-photo.ph {
       aspect-ratio: 4 / 5;
       display: flex; align-items: center; justify-content: center;
@@ -957,7 +970,10 @@
         <p class="st-cap">15, big shift again. I moved out of my parents' to Tashkent and decided to open a retail business with my twin(4 hrs of sleep/day was a blessing for us now). tho my Dad had a couple of hotels and factories, I learned that life should always start with "I did", and the earlier the better. [and I was not close with my dad].</p>
       </section>
       <section class="st-slide">
-        <img class="st-photo" src="stories/s6.jpg" alt="" loading="lazy">
+        <div class="st-pair">
+          <img class="st-photo" src="stories/s6.jpg" alt="" loading="lazy">
+          <img class="st-photo" src="stories/s6b.jpg" alt="" loading="lazy">
+        </div>
         <p class="st-cap">my brother was born [on the same day as my dad's birthday]. I love him the most, and most of his childhood, it was us playing together (sometimes it stole my 5 hours per day, just to play) I understood then how childcare is mentally exhausting.</p>
       </section>
     </div>
