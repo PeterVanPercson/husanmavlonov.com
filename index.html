@@ -718,16 +718,18 @@
     }
     .st-pair {
       display: flex;
-      gap: 12px;
-      width: min(560px, 88vw);
-      height: 54vh;
+      gap: 14px;
+      align-items: center;
+      justify-content: center;
+      max-width: 92vw;
     }
     .st-pair .st-photo {
-      flex: 1 1 0;
+      flex: 0 1 auto;
       width: auto;
-      min-width: 0;
-      height: 100%;
-      max-height: none;
+      height: auto;
+      max-width: 44vw;
+      max-height: 64vh;
+      object-fit: contain;
     }
     .st-photo.ph {
       aspect-ratio: 4 / 5;
