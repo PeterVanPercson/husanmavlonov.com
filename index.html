@@ -271,68 +271,58 @@
     .ascii-wave .hot { color: var(--accent); }
     .ascii-wave .glow { color: var(--fg); text-shadow: 0 0 6px var(--accent); }
 
-    /* on-page teaser — fixed middle-right, sits left of a small tick scroller */
+    /* on-page teaser — fixed middle-right: a small photo stack you flip through */
     .st-cover {
       position: fixed;
-      right: 16px;
+      right: 20px;
       top: 50%;
       transform: translateY(-50%);
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       background: none;
       border: none;
       padding: 0;
       cursor: pointer;
       z-index: 40;
     }
-    .st-cv {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 7px;
-    }
-    .st-cover img {
-      width: 92px;
-      height: 92px;
-      object-fit: cover;
+    .st-stack { position: relative; width: 96px; height: 96px; }
+    .st-stack i, .st-stack img {
+      position: absolute; inset: 0;
+      width: 96px; height: 96px;
       border-radius: 8px;
+      box-sizing: border-box;
       border: 1px solid var(--line-strong);
-      display: block;
-      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), border-color 0.25s ease;
     }
-    .st-cv span {
+    .st-stack i {
+      background: var(--line);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .st-stack i:nth-child(1) { transform: rotate(-6deg) translate(-3px, 2px); z-index: 1; }
+    .st-stack i:nth-child(2) { transform: rotate(4deg) translate(3px, -1px); z-index: 2; }
+    .st-stack img {
+      object-fit: cover;
+      z-index: 3;
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.25s ease;
+    }
+    .st-label {
       font-family: var(--mono);
-      font-size: 9.5px;
-      letter-spacing: 0.14em;
-      text-transform: lowercase;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
       color: var(--dim);
       transition: color 0.25s ease;
       white-space: nowrap;
     }
-    .st-scrollmark {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      pointer-events: none;
-    }
-    .st-scrollmark i {
-      width: 12px; height: 2px;
-      background: var(--dimmer);
-      border-radius: 2px;
-      display: block;
-      transition: width 0.25s ease, background 0.25s ease;
-    }
-    .st-scrollmark i:first-child { width: 20px; background: var(--fg); }
-    .st-cover:hover img { transform: translateY(-3px) scale(1.03); border-color: var(--claude); }
-    .st-cover:hover .st-cv span { color: var(--fg); }
-    .st-cover:hover .st-scrollmark i { background: var(--dim); }
-    .st-cover:hover .st-scrollmark i:first-child { background: var(--fg); }
+    .st-cover:hover .st-stack i:nth-child(1) { transform: rotate(-12deg) translate(-10px, 5px); }
+    .st-cover:hover .st-stack i:nth-child(2) { transform: rotate(9deg) translate(10px, -3px); }
+    .st-cover:hover .st-stack img { transform: translateY(-3px) scale(1.03); border-color: var(--claude); }
+    .st-cover:hover .st-label { color: var(--fg); }
     @media (max-width: 700px) {
-      .st-cover { right: 10px; gap: 9px; }
-      .st-cover img { width: 60px; height: 60px; }
-      .st-cv span { font-size: 8px; }
+      .st-cover { right: 12px; gap: 9px; }
+      .st-stack, .st-stack i, .st-stack img { width: 66px; height: 66px; }
+      .st-label { font-size: 8px; letter-spacing: 0.16em; }
     }
 
     /* ===== NAME ===== */
@@ -849,12 +839,12 @@
 
     <pre class="ascii-wave" id="asciiWave" aria-hidden="true"></pre>
 
-    <button class="st-cover" id="storiesCover" type="button" aria-haspopup="dialog" aria-label="Open private stories">
-      <span class="st-cv">
+    <button class="st-cover" id="storiesCover" type="button" aria-haspopup="dialog" aria-label="Open: little about me">
+      <span class="st-stack" aria-hidden="true">
+        <i></i><i></i>
         <img src="stories/1.png" alt="" loading="lazy">
-        <span>some private stories</span>
       </span>
-      <span class="st-scrollmark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span class="st-label">little about me</span>
     </button>
 
     <h1>Husan Mavlonov<em>.</em></h1>
