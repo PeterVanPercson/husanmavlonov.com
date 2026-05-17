@@ -250,26 +250,6 @@
       .page { left: -80px; }
     }
 
-    /* ===== ASCII WAVE — cursor-reactive, characters bloom under pointer ===== */
-    .ascii-wave {
-      font-family: var(--mono);
-      font-size: clamp(9px, 1.05vw, 11px);
-      line-height: 1.05;
-      color: var(--dim);
-      white-space: pre;
-      user-select: none;
-      letter-spacing: 0;
-      cursor: crosshair;
-      opacity: 0.78;
-      mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
-      margin: 0 0 6px;
-      align-self: stretch;
-      transition: opacity 0.35s ease;
-    }
-    .ascii-wave:hover { opacity: 1; }
-    .ascii-wave .hot { color: var(--accent); }
-    .ascii-wave .glow { color: var(--fg); text-shadow: 0 0 6px var(--accent); }
 
     /* on-page teaser — fixed middle-right: a small photo stack you flip through */
     .st-cover {
@@ -853,8 +833,6 @@
 
   <main class="page" id="top">
 
-    <pre class="ascii-wave" id="asciiWave" aria-hidden="true"></pre>
-
     <button class="st-cover" id="storiesCover" type="button" aria-haspopup="dialog" aria-label="Open: more about me">
       <span class="st-label">&gt;&gt;more about me</span>
     </button>
@@ -980,7 +958,7 @@
           <img class="st-photo" src="stories/s7a.jpg" alt="" loading="lazy">
           <img class="st-photo" src="stories/s7b.jpg" alt="" loading="lazy">
         </div>
-        <p class="st-cap">big shift!! we bought a house (tho with a mortgage) with my twin!! We're treating it as a basement for clothes and a place to live for workers (we became a family) I started feeling more right confident in my choices, [but also learned that it's not what I loved doing, and sacrificing my studies for that was not worth it]</p>
+        <p class="st-cap">big shift. we bought a house (tho with a mortgage) with my twin. We're treating it as a basement for clothes and a place to live for workers (we became a family) I started feeling more right confident in my choices, [but also learned that it's not what I loved doing, and sacrificing my studies for that was not worth it]</p>
       </section>
       <section class="st-slide">
         <img class="st-photo" src="stories/s8.jpg" alt="" loading="lazy">
@@ -1164,97 +1142,6 @@
       window.addEventListener('resize', () => {
         if (backdrop.classList.contains('open')) { pts = measure(); }
       });
-    })();
-
-    // ============================================
-    // ASCII WAVE — cursor-reactive (v1's ripple), at ~70% of v1's size
-    // ============================================
-    (function () {
-      const el = document.getElementById('asciiWave');
-      if (!el) return;
-      // Figlet-fragment palette — letters + punctuation that read as bits of typography
-      // (mimics Soft / Slant figlet flavor: M, W, b, p, q, Y, 7 carry the heavy weight)
-      const PALETTE = ' .`,\':";~-+oxmqpbdMWY';
-      let COLS = 70, ROWS = 14;
-      const FRAME_MS = 1000 / 24;
-      let last = 0;
-      const t0 = performance.now();
-      let charBoxW = 6, charBoxH = 12;
-      let pointerX = -9999, pointerY = -9999;
-
-      function fit() {
-        const wrap = el.parentElement;
-        const w = wrap.getBoundingClientRect().width;
-        const fs = parseFloat(getComputedStyle(el).fontSize) || 10;
-        charBoxW = fs * 0.60;
-        charBoxH = fs * 1.05;
-        COLS = Math.max(40, Math.min(82, Math.floor((w * 0.75) / charBoxW)));
-        ROWS = Math.max(10, Math.min(16, Math.floor(COLS * 0.20)));
-      }
-      fit();
-      new ResizeObserver(fit).observe(el.parentElement);
-
-      window.addEventListener('mousemove', (e) => {
-        pointerX = e.clientX; pointerY = e.clientY;
-      });
-      window.addEventListener('touchmove', (e) => {
-        if (e.touches[0]) { pointerX = e.touches[0].clientX; pointerY = e.touches[0].clientY; }
-      }, { passive: true });
-
-      function render(now) {
-        requestAnimationFrame(render);
-        if (now - last < FRAME_MS) return;
-        last = now;
-        const t = (now - t0) / 1000;
-        const rect = el.getBoundingClientRect();
-        const cx = (pointerX - rect.left) / charBoxW;
-        const cy = (pointerY - rect.top) / charBoxH;
-        const hover = pointerX > rect.left && pointerX < rect.right
-                   && pointerY > rect.top && pointerY < rect.bottom;
-        const HOT_THRESHOLD = 0.16;   // accent ring
-        const CORE_THRESHOLD = 0.52;  // bright "decoding" core
-
-        let html = '';
-        let cur = '';                 // '', 'hot', 'glow'
-        for (let y = 0; y < ROWS; y++) {
-          for (let x = 0; x < COLS; x++) {
-            const wave =
-                Math.sin(x * 0.16 + t * 1.05) * 0.45
-              + Math.cos(y * 0.30 - t * 0.75) * 0.30
-              + Math.sin((x + y) * 0.07 + t * 0.50) * 0.22;
-            let influence = 0;
-            if (hover) {
-              const dx = x - cx;
-              const dy = (y - cy) * 1.7;
-              const d2 = dx * dx + dy * dy;
-              influence = Math.exp(-d2 / 60);
-            }
-            const v = ((wave + 1) / 2) * 0.50 + influence * 0.95;
-            const idx = Math.max(0, Math.min(PALETTE.length - 1, Math.floor(v * (PALETTE.length - 1))));
-            let ch = PALETTE[idx];
-            let cls = '';
-            if (hover) {
-              if (influence > CORE_THRESHOLD) {
-                cls = 'glow';
-                // decrypt shimmer: cells at the core flicker through the palette
-                ch = PALETTE[(Math.random() * PALETTE.length) | 0];
-              } else if (influence > HOT_THRESHOLD) {
-                cls = 'hot';
-              }
-            }
-            if (cls !== cur) {
-              if (cur) html += '</span>';
-              if (cls) html += '<span class="' + cls + '">';
-              cur = cls;
-            }
-            html += ch;
-          }
-          if (cur) { html += '</span>'; cur = ''; }
-          if (y < ROWS - 1) html += '\n';
-        }
-        el.innerHTML = html;
-      }
-      requestAnimationFrame(render);
     })();
 
     // ============================================
