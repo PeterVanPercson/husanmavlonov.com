@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Husan Mavlonov</title>
   <meta name="description" content="Husan Mavlonov — builder. defex, BuildCored. Tashkent → Istanbul → Shanghai." />
   <meta name="theme-color" content="#16181c" />
@@ -82,6 +82,7 @@
       color: var(--fg);
       font-family: var(--sans);
       min-height: 100vh;
+      min-height: 100dvh;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
       transition: background 0.4s ease, color 0.4s ease;
@@ -404,6 +405,8 @@
     /* ===== CLAUDE CHOOSER MODAL ===== */
     .cc-backdrop {
       position: fixed; inset: 0;
+      height: 100vh;
+      height: 100dvh;
       background: rgba(8, 9, 11, 0.74);
       -webkit-backdrop-filter: blur(3px);
       backdrop-filter: blur(3px);
@@ -660,7 +663,10 @@
 
     /* ===== PRIVATE STORIES ===== */
     .st-backdrop {
-      position: fixed; inset: 0;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 100vh;
+      height: 100dvh;
       background: var(--bg);
       z-index: 1000;
       opacity: 0; visibility: hidden;
@@ -669,8 +675,10 @@
     .st-backdrop.open { opacity: 1; visibility: visible; }
 
     .st-scroll {
-      height: 100%;
+      height: 100vh;
+      height: 100dvh;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
       scrollbar-width: none;
@@ -679,6 +687,7 @@
 
     .st-slide {
       min-height: 100vh;
+      min-height: 100svh;
       scroll-snap-align: center;
       scroll-snap-stop: always;
       display: flex;
@@ -847,7 +856,7 @@
 
     .st-nav {
       position: fixed;
-      right: 22px; top: 50%;
+      right: calc(22px + env(safe-area-inset-right)); top: 50%;
       transform: translateY(-50%);
       display: flex; flex-direction: column;
       gap: 9px;
@@ -880,7 +889,8 @@
 
     .st-close {
       position: fixed;
-      top: 20px; right: 20px;
+      top: calc(20px + env(safe-area-inset-top));
+      right: calc(20px + env(safe-area-inset-right));
       width: 30px; height: 30px;
       background: none; border: none;
       color: var(--dim);
@@ -890,7 +900,8 @@
     .st-close:hover { color: var(--fg); transform: rotate(90deg); }
     .st-count {
       position: fixed;
-      right: 20px; bottom: 22px;
+      right: calc(20px + env(safe-area-inset-right));
+      bottom: calc(22px + env(safe-area-inset-bottom));
       font-family: var(--mono);
       font-size: 10px;
       letter-spacing: 0.16em;
@@ -900,14 +911,16 @@
     }
     .st-eyebrow {
       position: fixed;
-      top: 22px; left: 24px;
+      top: calc(22px + env(safe-area-inset-top));
+      left: calc(24px + env(safe-area-inset-left));
       font-family: var(--mono); font-size: 10px;
       letter-spacing: 0.22em; text-transform: uppercase;
       color: var(--dim); z-index: 1002;
     }
     .st-player {
       position: fixed;
-      top: 19px; right: 62px;
+      top: calc(19px + env(safe-area-inset-top));
+      right: calc(62px + env(safe-area-inset-right));
       display: flex; align-items: center; gap: 9px;
       background: none; border: none; padding: 4px 0;
       cursor: pointer; z-index: 1002;
@@ -937,9 +950,9 @@
       transform: scaleY(0.3);
     }
     @media (max-width: 560px) {
-      .st-nav { right: 12px; }
+      .st-nav { right: calc(12px + env(safe-area-inset-right)); }
       .st-cap, .st-photo { width: 88vw; }
-      .st-player { right: 56px; }
+      .st-player { right: calc(56px + env(safe-area-inset-right)); }
       .st-player .st-track { display: none; }
     }
   </style>
@@ -1407,7 +1420,10 @@
       function setActive(i) {
         current = i;
         ticks.forEach((t, n) => t.classList.toggle('active', n === i));
-        if (countEl) countEl.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+        if (countEl) {
+          countEl.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+          countEl.style.visibility = (i === slides.length - 1) ? 'hidden' : 'visible';
+        }
         if (dateEl && ticks[i]) {
           dateEl.textContent = ticks[i].dataset.date || '';
           dateEl.style.top = (ticks[i].offsetTop + ticks[i].offsetHeight / 2) + 'px';
