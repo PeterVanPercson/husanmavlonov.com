@@ -775,14 +775,13 @@
     }
     .st-end {
       width: min(440px, 82vw);
-      margin-top: 42px;
-      font-family: var(--mono);
-      font-size: 11px;
-      line-height: 1.7;
-      letter-spacing: 0.18em;
+      margin-top: 46px;
+      font-family: var(--serif);
+      font-size: 18px;
+      line-height: 1.55;
+      letter-spacing: 0.01em;
       color: var(--dim);
       text-align: center;
-      text-transform: lowercase;
     }
 
     .st-nav {
@@ -803,6 +802,20 @@
     }
     .st-tick:hover { background: var(--dim); }
     .st-tick.active { width: 26px; background: var(--fg); }
+    .st-date {
+      position: absolute;
+      right: calc(100% + 14px);
+      transform: translateY(-50%);
+      white-space: nowrap;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--dim);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease, top 0.28s cubic-bezier(0.16,1,0.3,1);
+    }
+    .st-backdrop.open .st-date { opacity: 1; }
 
     .st-close {
       position: fixed;
@@ -1014,7 +1027,7 @@
       <source src="stories/sleeping.opus" type="audio/ogg; codecs=opus">
       <source src="stories/sleeping.mp3" type="audio/mpeg">
     </audio>
-    <span class="st-eyebrow">memories [photo alert]</span>
+    <span class="st-eyebrow">memories</span>
     <button class="st-player" id="stPlayer" type="button" aria-label="Toggle background music">
       <span class="st-eq" aria-hidden="true"><i></i><i></i><i></i></span>
       <span class="st-track">Sleeping <span class="st-by">&mdash; Gigi Perez</span></span>
@@ -1108,27 +1121,28 @@
       <section class="st-slide">
         <img class="st-photo" src="stories/s16.jpg" alt="" loading="lazy">
         <p class="st-cap">yayyy, signed my first customer at defex.app and got into Z fellows. BuildCored is now collaborating with NazarX Uzbekistan (and being funded by the Youth Affairs Agency). It's also my first time getting rejected by a girl [she called the police] [the same girl who confessed first, and kissed me at 1 am under the birch tree]</p>
-        <p class="st-end">we're present now, come again sometime ;)</p>
+        <p class="st-end">we're present now, come again sometime :)</p>
       </section>
     </div>
 
     <div class="st-nav" id="stNav" role="tablist" aria-label="Stories">
-      <button class="st-tick active" type="button" aria-label="Story 1"></button>
-      <button class="st-tick" type="button" aria-label="Story 2"></button>
-      <button class="st-tick" type="button" aria-label="Story 3"></button>
-      <button class="st-tick" type="button" aria-label="Story 4"></button>
-      <button class="st-tick" type="button" aria-label="Story 5"></button>
-      <button class="st-tick" type="button" aria-label="Story 6"></button>
-      <button class="st-tick" type="button" aria-label="Story 7"></button>
-      <button class="st-tick" type="button" aria-label="Story 8"></button>
-      <button class="st-tick" type="button" aria-label="Story 9"></button>
-      <button class="st-tick" type="button" aria-label="Story 10"></button>
-      <button class="st-tick" type="button" aria-label="Story 11"></button>
-      <button class="st-tick" type="button" aria-label="Story 12"></button>
-      <button class="st-tick" type="button" aria-label="Story 13"></button>
-      <button class="st-tick" type="button" aria-label="Story 14"></button>
-      <button class="st-tick" type="button" aria-label="Story 15"></button>
-      <button class="st-tick" type="button" aria-label="Story 16"></button>
+      <span class="st-date" id="stDate" aria-hidden="true"></span>
+      <button class="st-tick active" type="button" data-date="June 14, 2008" aria-label="Story 1 — June 14, 2008"></button>
+      <button class="st-tick" type="button" data-date="March 23, 2019" aria-label="Story 2 — March 23, 2019"></button>
+      <button class="st-tick" type="button" data-date="May 25, 2021" aria-label="Story 3 — May 25, 2021"></button>
+      <button class="st-tick" type="button" data-date="July 23, 2021" aria-label="Story 4 — July 23, 2021"></button>
+      <button class="st-tick" type="button" data-date="September 28, 2021" aria-label="Story 5 — September 28, 2021"></button>
+      <button class="st-tick" type="button" data-date="Summer, 2022" aria-label="Story 6 — Summer, 2022"></button>
+      <button class="st-tick" type="button" data-date="Winter, 2022" aria-label="Story 7 — Winter, 2022"></button>
+      <button class="st-tick" type="button" data-date="April 1, 2023" aria-label="Story 8 — April 1, 2023"></button>
+      <button class="st-tick" type="button" data-date="May 10, 2023" aria-label="Story 9 — May 10, 2023"></button>
+      <button class="st-tick" type="button" data-date="August 19, 2024" aria-label="Story 10 — August 19, 2024"></button>
+      <button class="st-tick" type="button" data-date="Turkiye, 2024" aria-label="Story 11 — Turkiye, 2024"></button>
+      <button class="st-tick" type="button" data-date="May 12, 2025" aria-label="Story 12 — May 12, 2025"></button>
+      <button class="st-tick" type="button" data-date="Summer 2025" aria-label="Story 13 — Summer 2025"></button>
+      <button class="st-tick" type="button" data-date="fall 2025" aria-label="Story 14 — fall 2025"></button>
+      <button class="st-tick" type="button" data-date="Shanghai, 2025" aria-label="Story 15 — Shanghai, 2025"></button>
+      <button class="st-tick" type="button" data-date="Shanghai, 2026" aria-label="Story 16 — Shanghai, 2026"></button>
     </div>
     <span class="st-count" id="stCount" aria-hidden="true">01 / 16</span>
   </div>
@@ -1321,6 +1335,7 @@
       }
       const slides  = Array.from(scroll.querySelectorAll('.st-slide'));
       const ticks   = Array.from(document.querySelectorAll('#stNav .st-tick'));
+      const dateEl  = document.getElementById('stDate');
       let lastFocus = null;
 
       let current = 0;
@@ -1328,6 +1343,10 @@
         current = i;
         ticks.forEach((t, n) => t.classList.toggle('active', n === i));
         if (countEl) countEl.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+        if (dateEl && ticks[i]) {
+          dateEl.textContent = ticks[i].dataset.date || '';
+          dateEl.style.top = (ticks[i].offsetTop + ticks[i].offsetHeight / 2) + 'px';
+        }
       }
       function goTo(i) {
         i = Math.max(0, Math.min(slides.length - 1, i));
