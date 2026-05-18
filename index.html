@@ -750,6 +750,54 @@
       max-width: 31.5%;
       max-height: 34vh;
     }
+    .st-feature {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      width: min(960px, calc(100vw - 300px));
+    }
+    .st-feature .st-feat-main {
+      flex: 0 1 auto;
+      width: auto;
+      height: auto;
+      max-width: 50%;
+      max-height: 44vh;
+      object-fit: contain;
+    }
+    .st-feature .st-feat-side {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 0 1 auto;
+    }
+    .st-feature .st-feat-side .st-photo {
+      width: auto;
+      height: auto;
+      max-width: 150px;
+      max-height: 18vh;
+      object-fit: contain;
+    }
+    @media (max-width: 900px) {
+      .st-feature {
+        flex-direction: column;
+        width: min(540px, 92vw);
+      }
+      .st-feature .st-feat-main {
+        max-width: 100%;
+        max-height: 48vh;
+        order: -1;
+      }
+      .st-feature .st-feat-side {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .st-feature .st-feat-side .st-photo {
+        max-width: 44%;
+        max-height: 22vh;
+      }
+    }
     .st-big .st-photo {
       width: min(620px, 92vw);
       max-height: 78vh;
@@ -1114,12 +1162,16 @@
         <p class="st-cap">4 days left, i'm leaving Turkiye. my first ever time being stalked by a girl that I just met(Elif), and when she gifted me the album that she did with my 15 photos collected [she was a good stalker photograph], we cried just two hours before my departure [I didn't know how to react, I was a selfish coward there, who prioritized his studies, i could've stayed]. It felt like eating pineapple pizza with a durian. [I hate durian, but I can't stand without pineapple] But we promised to meet once I arrive in Istanbul again.</p>
       </section>
       <section class="st-slide">
-        <div class="st-grid">
-          <img class="st-photo" src="stories/s13a.jpg" alt="" loading="lazy">
-          <img class="st-photo" src="stories/s13b.jpg" alt="" loading="lazy">
-          <img class="st-photo" src="stories/s13c.jpg" alt="" loading="lazy">
-          <img class="st-photo" src="stories/s13d.jpg" alt="" loading="lazy">
-          <img class="st-photo" src="stories/s13e.jpg" alt="" loading="lazy">
+        <div class="st-feature">
+          <div class="st-feat-side">
+            <img class="st-photo" src="stories/s13b.jpg" alt="" loading="lazy">
+            <img class="st-photo" src="stories/s13c.jpg" alt="" loading="lazy">
+          </div>
+          <img class="st-photo st-feat-main" src="stories/s13a.jpg" alt="" loading="lazy">
+          <div class="st-feat-side">
+            <img class="st-photo" src="stories/s13d.jpg" alt="" loading="lazy">
+            <img class="st-photo" src="stories/s13e.jpg" alt="" loading="lazy">
+          </div>
         </div>
         <p class="st-cap">my best summer. [Sorry for photo spam] I've achieved a lot this summer, CA friends visited Uzbekistan :), made indescribable friends, added two medals to my collection [yes please!], was called two-faced/flirty in a wrong way (they were right, sometimes I would be more kind than I should (but who can measure it?, who can define?) It's us who should be defining it)</p>
       </section>
@@ -1134,7 +1186,7 @@
       <section class="st-slide">
         <img class="st-photo" src="stories/s16.jpg" alt="" loading="lazy">
         <p class="st-cap">yayyy, signed my first customer at defex.app and got into Z fellows. BuildCored is now collaborating with NazarX Uzbekistan (and being funded by the Youth Affairs Agency). It's also my first time getting rejected by a girl [she called the police] [the same girl who confessed first, and kissed me at 1 am under the birch tree]</p>
-        <p class="st-end">we're present now, come again sometime :)</p>
+        <p class="st-end">i'm present now, come again sometime :)</p>
       </section>
     </div>
 
