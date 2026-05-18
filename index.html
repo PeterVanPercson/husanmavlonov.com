@@ -290,20 +290,11 @@
       font-family: var(--mono);
       font-size: 11px;
       letter-spacing: 0.2em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--accent);
       transition: color 0.25s ease;
       white-space: nowrap;
     }
-    .st-hint {
-      font-family: var(--mono);
-      font-size: 8px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--dim);
-      white-space: nowrap;
-    }
-    .st-cover:hover .st-hint { color: var(--accent); }
     .st-cover:hover .st-stack i:nth-child(1) { transform: rotate(-12deg) translate(-10px, 5px); }
     .st-cover:hover .st-stack i:nth-child(2) { transform: rotate(9deg) translate(10px, -3px); }
     .st-cover:hover .st-stack img { transform: translateY(-3px) scale(1.03); border-color: var(--claude); }
@@ -351,20 +342,6 @@
     .meta-line > span { white-space: nowrap; }
     .meta-line .sep { color: var(--dimmer); }
 
-    .now-line {
-      font-family: var(--mono);
-      font-size: 11.5px;
-      color: var(--dim);
-      line-height: 1.6;
-      margin-top: 10px;
-    }
-    .now-line .now-key {
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      margin-right: 8px;
-    }
-    .now-line .now-key::before { content: "● "; }
 
     /* ===== CLAUDE CTA — pill text only; walker animates ABOVE the box ===== */
     .claude-wrap {
@@ -947,9 +924,8 @@
 
   <main class="page" id="top">
 
-    <button class="st-cover" id="storiesCover" type="button" aria-haspopup="dialog" aria-label="Open: memories — 16 photos with music">
-      <span class="st-label">memories [photo alert]</span>
-      <span class="st-hint">16 photos · music</span>
+    <button class="st-cover" id="storiesCover" type="button" aria-haspopup="dialog" aria-label="Open: memories">
+      <span class="st-label">&lt;&lt;memories [photo alert]</span>
     </button>
 
     <h1>Husan Mavlonov<em>.</em></h1>
@@ -964,8 +940,6 @@
       <span class="sep">/</span>
       <span>University of Michigan and Shanghai Jiao Tong</span>
     </p>
-
-    <p class="now-line"><span class="now-key">currently</span> shipping defex · running Orcas at BuildCored · Li-ion research with Lumiere</p>
 
     <div class="claude-wrap">
       <img class="claude-walker" src="claude.png" alt="" aria-hidden="true">
