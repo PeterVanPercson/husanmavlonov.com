@@ -289,13 +289,21 @@
     .st-label {
       font-family: var(--mono);
       font-size: 11px;
-      font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent);
       transition: color 0.25s ease;
       white-space: nowrap;
     }
+    .st-hint {
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--dim);
+      white-space: nowrap;
+    }
+    .st-cover:hover .st-hint { color: var(--accent); }
     .st-cover:hover .st-stack i:nth-child(1) { transform: rotate(-12deg) translate(-10px, 5px); }
     .st-cover:hover .st-stack i:nth-child(2) { transform: rotate(9deg) translate(10px, -3px); }
     .st-cover:hover .st-stack img { transform: translateY(-3px) scale(1.03); border-color: var(--claude); }
@@ -342,6 +350,21 @@
     }
     .meta-line > span { white-space: nowrap; }
     .meta-line .sep { color: var(--dimmer); }
+
+    .now-line {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--dim);
+      line-height: 1.6;
+      margin-top: 10px;
+    }
+    .now-line .now-key {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-right: 8px;
+    }
+    .now-line .now-key::before { content: "● "; }
 
     /* ===== CLAUDE CTA — pill text only; walker animates ABOVE the box ===== */
     .claude-wrap {
@@ -814,6 +837,16 @@
       transition: color 0.2s ease, transform 0.3s ease;
     }
     .st-close:hover { color: var(--fg); transform: rotate(90deg); }
+    .st-count {
+      position: fixed;
+      right: 20px; bottom: 22px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      color: var(--dim);
+      z-index: 1002;
+      font-variant-numeric: tabular-nums;
+    }
     .st-eyebrow {
       position: fixed;
       top: 22px; left: 24px;
@@ -827,8 +860,8 @@
       display: flex; align-items: center; gap: 9px;
       background: none; border: none; padding: 4px 0;
       cursor: pointer; z-index: 1002;
-      font-family: var(--mono); font-size: 10px;
-      letter-spacing: 0.16em; text-transform: uppercase;
+      font-family: var(--sans); font-size: 12px; font-weight: 400;
+      letter-spacing: 0.01em;
       color: var(--dim);
       transition: color 0.2s ease;
     }
@@ -914,8 +947,9 @@
 
   <main class="page" id="top">
 
-    <button class="st-cover" id="storiesCover" type="button" aria-haspopup="dialog" aria-label="Open: more about me">
-      <span class="st-label">&gt;&gt;more about me</span>
+    <button class="st-cover" id="storiesCover" type="button" aria-haspopup="dialog" aria-label="Open: memories — 16 photos with music">
+      <span class="st-label">memories [photo alert]</span>
+      <span class="st-hint">16 photos · music</span>
     </button>
 
     <h1>Husan Mavlonov<em>.</em></h1>
@@ -930,6 +964,8 @@
       <span class="sep">/</span>
       <span>University of Michigan and Shanghai Jiao Tong</span>
     </p>
+
+    <p class="now-line"><span class="now-key">currently</span> shipping defex · running Orcas at BuildCored · Li-ion research with Lumiere</p>
 
     <div class="claude-wrap">
       <img class="claude-walker" src="claude.png" alt="" aria-hidden="true">
@@ -955,7 +991,7 @@
         </li>
         <li>
           <a class="proj-row" href="https://mindform-ai.com" target="_blank" rel="noopener">
-            <span class="name">mind<span class="mf">form.</span><span class="cred">Endorsed for ar<span class="axx">X</span>iv · <b>Nuo Chen, NUS</b></span></span>
+            <span class="name">mind<span class="mf">form.</span><span class="cred">Co-founded · Endorsed for ar<span class="axx">X</span>iv · <b>Nuo Chen, NUS</b></span></span>
             <span class="desc"><b>The personality layer for AI.</b> Memory, tone, and character that persists across sessions.</span>
           </a>
         </li>
@@ -1120,6 +1156,7 @@
       <button class="st-tick" type="button" aria-label="Story 15"></button>
       <button class="st-tick" type="button" aria-label="Story 16"></button>
     </div>
+    <span class="st-count" id="stCount" aria-hidden="true">01 / 16</span>
   </div>
 
   <script>
@@ -1298,6 +1335,7 @@
       const closeB  = document.getElementById('stClose');
       const audio   = document.getElementById('stAudio');
       const player  = document.getElementById('stPlayer');
+      const countEl = document.getElementById('stCount');
       if (!link || !backdrop || !scroll) return;
       function syncPlayer() { if (player && audio) player.classList.toggle('paused', audio.paused); }
       if (player && audio) {
@@ -1315,6 +1353,7 @@
       function setActive(i) {
         current = i;
         ticks.forEach((t, n) => t.classList.toggle('active', n === i));
+        if (countEl) countEl.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
       }
       function goTo(i) {
         i = Math.max(0, Math.min(slides.length - 1, i));
