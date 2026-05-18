@@ -255,7 +255,7 @@
     .st-cover {
       position: fixed;
       right: 20px;
-      top: 46%;
+      top: 40%;
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
@@ -288,10 +288,11 @@
     }
     .st-label {
       font-family: var(--mono);
-      font-size: 9px;
+      font-size: 11px;
+      font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--dim);
+      color: var(--accent);
       transition: color 0.25s ease;
       white-space: nowrap;
     }
@@ -302,7 +303,7 @@
     @media (max-width: 700px) {
       .st-cover { right: 12px; gap: 9px; }
       .st-stack, .st-stack i, .st-stack img { width: 66px; height: 66px; }
-      .st-label { font-size: 8px; letter-spacing: 0.16em; }
+      .st-label { font-size: 10px; letter-spacing: 0.16em; }
     }
 
     /* ===== NAME ===== */
@@ -772,6 +773,17 @@
       text-transform: uppercase;
       color: var(--dim);
     }
+    .st-end {
+      width: min(440px, 82vw);
+      margin-top: 34px;
+      font-family: var(--serif);
+      font-size: 13px;
+      line-height: 1.5;
+      font-style: italic;
+      color: var(--dim);
+      text-align: center;
+      text-transform: lowercase;
+    }
 
     .st-nav {
       position: fixed;
@@ -1048,7 +1060,8 @@
       </section>
       <section class="st-slide">
         <img class="st-photo" src="stories/s16.jpg" alt="" loading="lazy">
-        <p class="st-cap">yayyy,  signed my first customer at defex.app and got into Z fellows. BuildCored is now collaborating with NazarX Uzbekistan (and being funded by the Youth Affairs Agency). It's also my first time getting rejected by a girl with a police [who confessed first, kissed at 1 am under the birch tree] we're present now, come again sometime ;)</p>
+        <p class="st-cap">yayyy, signed my first customer at defex.app and got into Z fellows. BuildCored is now collaborating with NazarX Uzbekistan (and being funded by the Youth Affairs Agency). It's also my first time getting rejected by a girl [she called the police] [the same girl who confessed first, and kissed me at 1 am under the birch tree]</p>
+        <p class="st-end">we're present now, come again sometime ;)</p>
       </section>
     </div>
 
@@ -1252,8 +1265,14 @@
       const ticks   = Array.from(document.querySelectorAll('#stNav .st-tick'));
       let lastFocus = null;
 
+      let current = 0;
       function setActive(i) {
+        current = i;
         ticks.forEach((t, n) => t.classList.toggle('active', n === i));
+      }
+      function goTo(i) {
+        i = Math.max(0, Math.min(slides.length - 1, i));
+        slides[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
       const io = new IntersectionObserver((entries) => {
         entries.forEach((e) => {
@@ -1287,7 +1306,10 @@
       link.addEventListener('click', open);
       if (closeB) closeB.addEventListener('click', close);
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && backdrop.classList.contains('open')) close();
+        if (!backdrop.classList.contains('open')) return;
+        if (e.key === 'Escape') { close(); return; }
+        if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); goTo(current + 1); }
+        else if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); goTo(current - 1); }
       });
     })();
 
