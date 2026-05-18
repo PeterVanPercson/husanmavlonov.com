@@ -725,6 +725,22 @@
       max-height: 40vh;
       object-fit: contain;
     }
+    .st-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      width: min(700px, 92vw);
+    }
+    .st-grid .st-photo {
+      flex: 0 1 auto;
+      width: auto;
+      height: auto;
+      max-width: 31%;
+      max-height: 30vh;
+      object-fit: contain;
+    }
     .st-photo.ph {
       aspect-ratio: 4 / 5;
       display: flex; align-items: center; justify-content: center;
@@ -995,6 +1011,16 @@
         <img class="st-photo" src="stories/s10.jpg" alt="" loading="lazy">
         <p class="st-cap">I invested in admissions over $2k, and was rejected from all of my dream unis [was brutal]. Turkiye Burslari, Stipendium Hungaricum, and UW-Madison were the left choices. I chose to go with Turkiye, since that was the only place I applied for a renewable energy major. I still remember how my dad offered me 50% of his business if I decided to stay [they were worried]</p>
       </section>
+      <section class="st-slide">
+        <div class="st-grid">
+          <img class="st-photo" src="stories/s11a.jpg" alt="" loading="lazy">
+          <img class="st-photo" src="stories/s11b.jpg" alt="" loading="lazy">
+          <img class="st-photo" src="stories/s11c.jpg" alt="" loading="lazy">
+          <img class="st-photo" src="stories/s11d.jpg" alt="" loading="lazy">
+          <img class="st-photo" src="stories/s11e.jpg" alt="" loading="lazy">
+        </div>
+        <p class="st-cap">We're Turkiye now. I've found international friends, got to travel alone, was chased by dogs, and gained broader perspectives. I also fought with an Algerian who was against women being educated, and I still think everyone has the right to study. I also believe I was in the wrong room (I couldn't find the same passion I searched for), so I decided to try admissions again and was scammed for $2k from Zuck Academy. Tho this time I got into the University of Michigan-Shanghai Jiaotong. (being rated in the top 10 for engineering)</p>
+      </section>
     </div>
 
     <div class="st-nav" id="stNav" role="tablist" aria-label="Stories">
@@ -1008,6 +1034,7 @@
       <button class="st-tick" type="button" aria-label="Story 8"></button>
       <button class="st-tick" type="button" aria-label="Story 9"></button>
       <button class="st-tick" type="button" aria-label="Story 10"></button>
+      <button class="st-tick" type="button" aria-label="Story 11"></button>
     </div>
   </div>
 
