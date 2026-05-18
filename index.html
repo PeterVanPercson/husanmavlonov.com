@@ -712,6 +712,19 @@
       max-height: 64vh;
       object-fit: contain;
     }
+    .st-vstack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      width: min(520px, 86vw);
+    }
+    .st-vstack .st-photo {
+      width: 100%;
+      height: auto;
+      max-height: 40vh;
+      object-fit: contain;
+    }
     .st-photo.ph {
       aspect-ratio: 4 / 5;
       display: flex; align-items: center; justify-content: center;
@@ -964,6 +977,13 @@
         <img class="st-photo" src="stories/s8.jpg" alt="" loading="lazy">
         <p class="st-cap">two years passed, I grew up a lot. Started making big money(but learned that money is not even 10% of what we need to have a fulfilling life), family moved in, and I started focusing on my education much more. I was humbled more than I thought I would.</p>
       </section>
+      <section class="st-slide">
+        <div class="st-vstack">
+          <img class="st-photo" src="stories/s9a.jpg" alt="" loading="lazy">
+          <img class="st-photo" src="stories/s9b.jpg" alt="" loading="lazy">
+        </div>
+        <p class="st-cap">First ever time having international friends [TKS]. I spent my year in this online classroom (and ofc my Lithuanian bestie Valeryia :) We still promise the princess treatment once we visit each other (she's in Spain rn, and I'm in Shanghai). She was the one who could call me at 1 am, wishing me a happy birthday, and sugarcoat how amazing I am, haha. I also started loving physics and started visiting the Arifov Institute Laboratory.</p>
+      </section>
     </div>
 
     <div class="st-nav" id="stNav" role="tablist" aria-label="Stories">
@@ -975,6 +995,7 @@
       <button class="st-tick" type="button" aria-label="Story 6"></button>
       <button class="st-tick" type="button" aria-label="Story 7"></button>
       <button class="st-tick" type="button" aria-label="Story 8"></button>
+      <button class="st-tick" type="button" aria-label="Story 9"></button>
     </div>
   </div>
 
