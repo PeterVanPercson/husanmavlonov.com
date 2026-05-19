@@ -1474,6 +1474,13 @@
         setActive(0);
         if (audio) { try { audio.volume = 0.65; audio.currentTime = 0; audio.play().catch(() => {}); } catch (_) {} }
         syncPlayer();
+        (function trackMem(tries) {
+          if (window.goatcounter && window.goatcounter.count) {
+            try { window.goatcounter.count({ path: 'memories-opened', title: 'Memories opened', event: true }); } catch (_) {}
+          } else if (tries < 5) {
+            setTimeout(function () { trackMem(tries + 1); }, 600);
+          }
+        })(0);
         if (closeB) closeB.focus();
       }
       function close() {
@@ -1514,5 +1521,7 @@
       });
     })();
   </script>
+  <script data-goatcounter="https://analyze.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
