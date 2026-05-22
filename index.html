@@ -35,31 +35,84 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Husan Mavlonov",
-    "url": "https://husanmavlonov.com/",
-    "mainEntityOfPage": "https://husanmavlonov.com/",
-    "image": "https://husanmavlonov.com/og.png",
-    "email": "husan@buildcored.com",
-    "jobTitle": "Builder",
-    "description": "Builder. Founder of defex and BuildCored, Z Fellow. Tashkent → Istanbul → Shanghai. University of Michigan–Shanghai Jiao Tong.",
-    "nationality": "Uzbekistani",
-    "alumniOf": [
-      { "@type": "CollegeOrUniversity", "name": "University of Michigan – Shanghai Jiao Tong Joint Institute" },
-      { "@type": "CollegeOrUniversity", "name": "Fudan University" }
-    ],
-    "knowsLanguage": ["ru", "uz", "en", "tr", "zh"],
-    "knowsAbout": ["Edge AI", "Hardware engineering", "Battery manufacturing", "Community building"],
-    "founder": [
-      { "@type": "Organization", "name": "BuildCored", "url": "https://buildcored.com/" },
-      { "@type": "Organization", "name": "defex", "url": "https://defex.app/" },
-      { "@type": "Organization", "name": "mindform", "url": "https://mindform-ai.com/" }
-    ],
-    "sameAs": [
-      "https://github.com/PeterVanPercson",
-      "https://www.linkedin.com/in/husan-mavlonov",
-      "https://www.instagram.com/mavhusan/",
-      "https://t.me/mavlonov_husan"
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://husanmavlonov.com/#person",
+        "name": "Husan Mavlonov",
+        "givenName": "Husan",
+        "familyName": "Mavlonov",
+        "url": "https://husanmavlonov.com/",
+        "mainEntityOfPage": "https://husanmavlonov.com/",
+        "image": "https://husanmavlonov.com/og.png",
+        "email": "husan@buildcored.com",
+        "jobTitle": "Builder",
+        "description": "Builder. Founder of defex and BuildCored, Z Fellow. Tashkent → Istanbul → Shanghai. University of Michigan–Shanghai Jiao Tong.",
+        "nationality": { "@type": "Country", "name": "Uzbekistan" },
+        "birthPlace": { "@type": "Place", "name": "Tashkent, Uzbekistan", "address": { "@type": "PostalAddress", "addressLocality": "Tashkent", "addressCountry": "UZ" } },
+        "homeLocation": { "@type": "Place", "name": "Shanghai, China", "address": { "@type": "PostalAddress", "addressLocality": "Shanghai", "addressCountry": "CN" } },
+        "alumniOf": [
+          { "@type": "CollegeOrUniversity", "name": "University of Michigan – Shanghai Jiao Tong Joint Institute", "url": "https://www.ji.sjtu.edu.cn/" },
+          { "@type": "CollegeOrUniversity", "name": "Fudan University", "url": "https://www.fudan.edu.cn/" }
+        ],
+        "knowsLanguage": ["en", "ru", "uz", "tr", "zh"],
+        "knowsAbout": ["Edge AI", "Computer vision", "Defect inspection", "NVIDIA Jetson", "Hardware engineering", "Battery manufacturing", "Community building"],
+        "founder": [
+          { "@id": "https://buildcored.com/#org" },
+          { "@id": "https://defex.app/#org" },
+          { "@id": "https://mindform-ai.com/#org" }
+        ],
+        "sibling": {
+          "@type": "Person",
+          "@id": "https://husanmavlonov.com/#hasan",
+          "name": "Hasan Mavlonov",
+          "givenName": "Hasan",
+          "familyName": "Mavlonov",
+          "jobTitle": "CTO, defex",
+          "alumniOf": { "@type": "CollegeOrUniversity", "name": "East China University of Science and Technology" },
+          "sameAs": [
+            "https://github.com/hasan-mavlonov",
+            "https://www.linkedin.com/in/hasanmavlonov"
+          ]
+        },
+        "sameAs": [
+          "https://github.com/PeterVanPercson",
+          "https://www.linkedin.com/in/husan-mavlonov",
+          "https://www.instagram.com/mavhusan/",
+          "https://t.me/mavlonov_husan"
+        ]
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://defex.app/#org",
+        "name": "defex",
+        "url": "https://defex.app/",
+        "description": "AI defect inspection on NVIDIA Jetson for foreign-invested SMEs in the Yangtze River Delta. Sub-50ms decision latency, on-prem only.",
+        "foundingDate": "2026",
+        "founder": [
+          { "@id": "https://husanmavlonov.com/#person" },
+          { "@id": "https://husanmavlonov.com/#hasan" }
+        ],
+        "areaServed": { "@type": "Place", "name": "Yangtze River Delta, China" },
+        "industry": "Industrial AI / Machine Vision"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://buildcored.com/#org",
+        "name": "BuildCored",
+        "url": "https://buildcored.com/",
+        "description": "AI and hardware builder community. 1,000+ builders. Home of Orcas. Funded by the Youth Affairs Agency of Uzbekistan.",
+        "founder": { "@id": "https://husanmavlonov.com/#person" },
+        "memberOf": { "@type": "Organization", "name": "Youth Affairs Agency of Uzbekistan" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://mindform-ai.com/#org",
+        "name": "mindform",
+        "url": "https://mindform-ai.com/",
+        "description": "The personality layer for AI. Memory, tone, and character that persists across sessions.",
+        "founder": { "@id": "https://husanmavlonov.com/#person" }
+      }
     ]
   }
   </script>
