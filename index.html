@@ -341,6 +341,28 @@
     .meta-line > span { white-space: nowrap; }
     .meta-line .sep { color: var(--dimmer); }
 
+    /* ===== HERO PORTRAIT — visual anchor between intro and CTAs ===== */
+    .hero-portrait {
+      display: block;
+      width: 220px;
+      max-width: 60%;
+      height: auto;
+      margin-top: 4px;
+      border-radius: 4px;
+      border: 1px solid var(--line-strong);
+      align-self: flex-start;
+      filter: grayscale(0.12);
+      transition: filter 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+    }
+    .hero-portrait:hover {
+      filter: grayscale(0);
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+    @media (max-width: 540px) {
+      .hero-portrait { width: 170px; }
+    }
+
 
     /* ===== CLAUDE CTA — pill text only; walker animates ABOVE the box ===== */
     .claude-wrap {
@@ -1008,6 +1030,8 @@
       <span class="sep">/</span>
       <span>University of Michigan and Shanghai Jiao Tong</span>
     </p>
+
+    <img class="hero-portrait" src="me.jpg" alt="Husan Mavlonov" width="500" height="580" loading="eager" decoding="async">
 
     <div class="claude-wrap">
       <img class="claude-walker" src="claude.png" alt="" aria-hidden="true">
