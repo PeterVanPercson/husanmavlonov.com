@@ -3,23 +3,51 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://husanmavlonov.com/</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://husanmavlonov.com/og.png</image:loc>
       <image:title>Husan Mavlonov · I love building.</image:title>
-      <image:caption>Husan Mavlonov — Builder. Founder of defex and BuildCored.</image:caption>
+      <image:caption>Husan Mavlonov — Builder. Founder of defex and BuildCored, Z Fellow.</image:caption>
     </image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s1.jpg</image:loc><image:title>Husan Mavlonov, 2008</image:title><image:caption>Husan Mavlonov as a baby with his mother, Tashkent, 2008</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s2.jpg</image:loc><image:title>Husan Mavlonov, Asian champion 2019</image:title><image:caption>Husan Mavlonov, Asian taekwondo champion, age 11, Uzbekistan, 2019</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s3.jpg</image:loc><image:title>Husan Mavlonov, school, 2021</image:title><image:caption>Husan Mavlonov in school, Tashkent, 2021</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s4.jpg</image:loc><image:title>Husan Mavlonov, 2021</image:title><image:caption>Husan Mavlonov at 15, Tashkent, July 2021</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s5.jpg</image:loc><image:title>Husan Mavlonov, first business with his twin brother, 2021</image:title><image:caption>Husan Mavlonov at 15, starting his first business in Tashkent with his twin brother Hasan, September 2021</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s6.jpg</image:loc><image:title>Husan Mavlonov with younger brother, 2022</image:title><image:caption>Husan Mavlonov with his younger brother, Uzbekistan, summer 2022</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s6b.jpg</image:loc><image:title>Husan Mavlonov with younger brother, 2022</image:title><image:caption>Husan Mavlonov playing with his younger brother, Uzbekistan, 2022</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s7a.jpg</image:loc><image:title>Husan Mavlonov, Tashkent, 2022</image:title><image:caption>Husan Mavlonov and his twin brother in their first house in Tashkent, winter 2022</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s7b.jpg</image:loc><image:title>Husan Mavlonov, Tashkent, 2022</image:title><image:caption>Husan Mavlonov in Tashkent with his twin brother, 2022</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s8.jpg</image:loc><image:title>Husan Mavlonov, Tashkent, 2023</image:title><image:caption>Husan Mavlonov, Tashkent, April 2023</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s9a.jpg</image:loc><image:title>Husan Mavlonov at TKS, 2023</image:title><image:caption>Husan Mavlonov with his TKS classroom — first international friends, May 2023</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s9b.jpg</image:loc><image:title>Husan Mavlonov at TKS, 2023</image:title><image:caption>Husan Mavlonov at TKS with friends, Tashkent, May 2023</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s10.jpg</image:loc><image:title>Husan Mavlonov leaving for Turkey, 2024</image:title><image:caption>Husan Mavlonov before leaving Uzbekistan for Turkey on a Türkiye Bursları scholarship, August 2024</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s11a.jpg</image:loc><image:title>Husan Mavlonov in Turkey, 2024</image:title><image:caption>Husan Mavlonov in Turkey on a Türkiye Bursları scholarship, 2024</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s11b.jpg</image:loc><image:title>Husan Mavlonov in Turkey, 2024</image:title><image:caption>Husan Mavlonov travelling in Turkey, 2024</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s11c.jpg</image:loc><image:title>Husan Mavlonov in Turkey, 2024</image:title><image:caption>Husan Mavlonov with international friends in Turkey, 2024</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s11d.jpg</image:loc><image:title>Husan Mavlonov in Istanbul, 2024</image:title><image:caption>Husan Mavlonov in Istanbul, Turkey, 2024</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s11e.jpg</image:loc><image:title>Husan Mavlonov in Turkey, 2024</image:title><image:caption>Husan Mavlonov in Turkey before leaving for Shanghai, 2024</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s12.jpg</image:loc><image:title>Husan Mavlonov, leaving Turkey 2025</image:title><image:caption>Husan Mavlonov four days before leaving Turkey for Shanghai, May 2025</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s13a.jpg</image:loc><image:title>Husan Mavlonov, summer 2025</image:title><image:caption>Husan Mavlonov in summer 2025 — his best summer, with two new medals</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s13b.jpg</image:loc><image:title>Husan Mavlonov, summer 2025</image:title><image:caption>Husan Mavlonov with friends visiting from California, Uzbekistan, summer 2025</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s13c.jpg</image:loc><image:title>Husan Mavlonov, summer 2025</image:title><image:caption>Husan Mavlonov, summer 2025</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s13d.jpg</image:loc><image:title>Husan Mavlonov, summer 2025</image:title><image:caption>Husan Mavlonov, summer 2025</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s13e.jpg</image:loc><image:title>Husan Mavlonov, summer 2025</image:title><image:caption>Husan Mavlonov, summer 2025</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s14.jpg</image:loc><image:title>Husan Mavlonov, fall 2025</image:title><image:caption>Husan Mavlonov, fall 2025 — visa delay, NEWUU research assistantship offer</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s15.jpg</image:loc><image:title>Husan Mavlonov in Shanghai, 2025</image:title><image:caption>Husan Mavlonov in Shanghai, founded BuildCored, Fudan Chinese course, 2025</image:caption></image:image>
+    <image:image><image:loc>https://husanmavlonov.com/stories/s16.jpg</image:loc><image:title>Husan Mavlonov in Shanghai, 2026</image:title><image:caption>Husan Mavlonov in Shanghai — signed first defex customer and accepted into Z Fellows, 2026</image:caption></image:image>
   </url>
   <url>
     <loc>https://husanmavlonov.com/building.html</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://husanmavlonov.com/og.png</image:loc>
       <image:title>Husan Mavlonov · Building</image:title>
+      <image:caption>What Husan Mavlonov is building — defex, BuildCored, mindform.</image:caption>
     </image:image>
   </url>
 </urlset>
