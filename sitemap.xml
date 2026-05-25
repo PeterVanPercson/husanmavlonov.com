@@ -40,6 +40,36 @@
     <image:image><image:loc>https://husanmavlonov.com/stories/s16.jpg</image:loc><image:title>Husan Mavlonov in Shanghai, 2026</image:title><image:caption>Husan Mavlonov in Shanghai — signed first defex customer and accepted into Z Fellows, 2026</image:caption></image:image>
   </url>
   <url>
+    <loc>https://husanmavlonov.com/defex/</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://husanmavlonov.com/og.png</image:loc>
+      <image:title>defex — AI defect inspection on Jetson</image:title>
+      <image:caption>Sub-50ms edge inspection for YRD factories. Built by the Mavlonov twins.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://husanmavlonov.com/press/</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://husanmavlonov.com/press/assets/husan-mavlonov-square.jpg</image:loc>
+      <image:title>Husan Mavlonov — press portrait</image:title>
+      <image:caption>Husan Mavlonov press kit headshot, square crop</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://husanmavlonov.com/press/assets/husan-mavlonov-editorial.jpg</image:loc>
+      <image:title>Husan Mavlonov — editorial portrait</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://husanmavlonov.com/press/assets/husan-mavlonov-wide.jpg</image:loc>
+      <image:title>Husan Mavlonov — wide press photo</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://husanmavlonov.com/building.html</loc>
     <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>

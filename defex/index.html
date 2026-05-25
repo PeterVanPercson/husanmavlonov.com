@@ -1,0 +1,1326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>defex — AI defect inspection on Jetson · Husan Mavlonov</title>
+  <meta name="description" content="defex is AI defect inspection on NVIDIA Jetson, built by the Mavlonov twins for foreign-invested SMEs in the Yangtze River Delta. Sub-50ms decision latency, on-prem only, OpEx-priced under plant-manager discretion. $5K upfront + $350/mo." />
+  <link rel="canonical" href="https://husanmavlonov.com/defex/" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="author" content="Husan Mavlonov" />
+  <meta name="theme-color" content="#16181c" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="referrer" content="no-referrer-when-downgrade" />
+  <meta property="og:site_name" content="Husan Mavlonov" />
+  <meta property="og:title" content="defex — AI defect inspection on Jetson" />
+  <meta property="og:description" content="Sub-50ms edge inspection for YRD factories. Built by the Mavlonov twins. Z Fellows-backed." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://husanmavlonov.com/defex/" />
+  <meta property="og:image" content="https://husanmavlonov.com/og.png" />
+  <meta property="og:image:secure_url" content="https://husanmavlonov.com/og.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="defex — AI defect inspection on Jetson" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@MavlonovHusan" />
+  <meta name="twitter:creator" content="@MavlonovHusan" />
+  <meta name="twitter:title" content="defex — AI defect inspection on Jetson" />
+  <meta name="twitter:description" content="Sub-50ms edge inspection for YRD factories. Built by the Mavlonov twins." />
+  <meta name="twitter:image" content="https://husanmavlonov.com/og.png" />
+  <link rel="me" href="https://x.com/MavlonovHusan" />
+  <link rel="me" href="https://github.com/PeterVanPercson" />
+  <link rel="me" href="https://www.linkedin.com/in/husan-mavlonov" />
+  <link rel="me" href="https://www.instagram.com/mavhusan/" />
+  <link rel="me" href="https://t.me/mavlonov_husan" />
+  <link rel="me" href="mailto:husan@buildcored.com" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "@id": "https://husanmavlonov.com/defex/#article",
+        "headline": "defex — AI defect inspection on Jetson, built for the Yangtze River Delta",
+        "description": "An edge-AI defect inspection station for foreign-invested SMEs in the YRD. Sub-50ms decision latency. OpEx-priced under plant-manager discretion. Built by the Mavlonov twins.",
+        "author": [
+          { "@id": "https://husanmavlonov.com/#person" },
+          { "@id": "https://husanmavlonov.com/#hasan" }
+        ],
+        "publisher": { "@id": "https://husanmavlonov.com/#person" },
+        "image": "https://husanmavlonov.com/og.png",
+        "datePublished": "2026-05-25",
+        "dateModified": "2026-05-25",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://husanmavlonov.com/#website" },
+        "mainEntity": { "@id": "https://defex.app/#org" },
+        "about": [
+          { "@type": "Thing", "name": "NVIDIA Jetson" },
+          { "@type": "Thing", "name": "Edge AI" },
+          { "@type": "Thing", "name": "Computer vision" },
+          { "@type": "Thing", "name": "Automated optical inspection" },
+          { "@type": "Thing", "name": "Manufacturing in the Yangtze River Delta" }
+        ],
+        "keywords": "edge AI, defect inspection, NVIDIA Jetson, YOLOv8, TensorRT, Modbus TCP, machine vision, Yangtze River Delta, foreign-invested SME, Husan Mavlonov, Hasan Mavlonov, defex"
+      },
+      {
+        "@type": "Product",
+        "@id": "https://defex.app/#product",
+        "name": "defex single-camera inspection station (v1)",
+        "description": "Single-camera, single-defect-class defect inspection station on NVIDIA Jetson Orin Nano Super. YOLOv8n via TensorRT FP16. Hardware-triggered. Modbus TCP to existing PLC. p99 decision latency under 50 ms.",
+        "brand": { "@id": "https://defex.app/#org" },
+        "manufacturer": { "@id": "https://defex.app/#org" },
+        "category": "Industrial automated optical inspection (AOI)",
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "USD",
+          "price": "5000",
+          "availability": "https://schema.org/PreOrder",
+          "url": "https://defex.app",
+          "seller": { "@id": "https://defex.app/#org" },
+          "description": "$5,000 upfront + $350/month managed service (monitoring, retraining, support)"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://husanmavlonov.com/defex/#webpage",
+        "url": "https://husanmavlonov.com/defex/",
+        "name": "defex — AI defect inspection on Jetson",
+        "isPartOf": { "@id": "https://husanmavlonov.com/#website" },
+        "primaryImageOfPage": "https://husanmavlonov.com/og.png",
+        "dateModified": "2026-05-25",
+        "inLanguage": "en",
+        "breadcrumb": { "@id": "https://husanmavlonov.com/defex/#breadcrumb" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://husanmavlonov.com/defex/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://husanmavlonov.com/" },
+          { "@type": "ListItem", "position": 2, "name": "defex", "item": "https://husanmavlonov.com/defex/" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://husanmavlonov.com/defex/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why Jetson and not a Raspberry Pi or Coral TPU?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Pi-class boards can't sustain p99 < 50 ms YOLOv8n at 5 MP. Coral USB Accelerators bottleneck on CPU capture and pre-process. Jetson Orin Nano Super (40 TOPS, 8 GB) gives 3x latency-budget headroom and a full CUDA stack — so v1 ships and v2 doesn't re-platform." }
+          },
+          {
+            "@type": "Question",
+            "name": "How does the pricing actually clear the plant manager's signature?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Foreign-invested SMEs in the YRD typically authorize plant managers ¥30,000-¥50,000 ($4.2K-$7K) discretionary spend on line improvements without overseas HQ approval. The $5K upfront fits inside that envelope; $350/month is OpEx from operations budget the plant manager already controls." }
+          },
+          {
+            "@type": "Question",
+            "name": "Does any customer data leave the factory?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. defex is edge-only by architecture. Inference, decision, and PLC I/O happen on the on-site Jetson. SQLite traceability and image archive write to NVMe locally. This aligns with 信创 (domestic-substitution) policy and removes the data-egress conversation that blocks cloud-AI vendors." }
+          },
+          {
+            "@type": "Question",
+            "name": "What's the failure mode if the model misses a defect?",
+            "acceptedAnswer": { "@type": "Answer", "text": "v1 ships configured for high recall (≥ 0.88). Trade-off is over-rejection (~5-8% false reject), recoverable via human spot-check on the reject lane. Escaped defects cause AQL audit failures that lose contracts; over-rejects cost a few extra inspector minutes." }
+          },
+          {
+            "@type": "Question",
+            "name": "Why a twin co-founder team?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Trust starts at maximum (no equity haggling, no founder-dating). Hardware-AI products have two distinct halves; one founder per half. Coordination cost is family-low — standups happen at dinner; the CTO doesn't fly to debug a GPIO timing issue." }
+          },
+          {
+            "@type": "Question",
+            "name": "Why foreign-invested SMEs, not Chinese tier-1?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Tier-1 EMS (Foxconn, Luxshare, BYD) already buy Cognex / Koh Young at ¥200k+. Their procurement is 9-18 months. A foreign founder without domestic deployment record can't credibly enter that pipeline. Foreign-invested SMEs are the structural wedge that gets proof-of-deployment and a customer base." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap"></noscript>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #16181c;
+      --fg: #e8e6df;
+      --dim: #7c7873;
+      --dimmer: #3a3835;
+      --line: #26282d;
+      --line-strong: #2e3035;
+      --accent: #a8aeb4;
+      --claude: #cc7757;
+      --jetson: #76b900;
+      --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --serif: 'Instrument Serif', Georgia, serif;
+    }
+    body.light {
+      --bg: #a8aeb4;
+      --fg: #16181c;
+      --dim: #383a3e;
+      --dimmer: #6a6c70;
+      --line: #94989c;
+      --line-strong: #828589;
+      --accent: #e8e6df;
+    }
+    html, body { transition: background 0.4s ease, color 0.4s ease; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--sans);
+      min-height: 100vh;
+      min-height: 100dvh;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    ::selection { background: var(--accent); color: var(--bg); }
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible, button:focus-visible {
+      outline: 1px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* ===== HEADER ===== */
+    .site-header {
+      display: grid;
+      grid-template-columns: 0.9fr 0.9fr 1.5fr 1fr;
+      border-bottom: 1px solid var(--line);
+    }
+    .site-header > * {
+      display: flex; align-items: center;
+      padding: 16px 24px;
+      border-left: 1px solid var(--line);
+    }
+    .site-header > *:first-child { border-left: 0; }
+    .hdr-link {
+      font-family: var(--mono); font-size: 11px;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--dim);
+      transition: color 0.2s ease;
+    }
+    .hdr-link:hover { color: var(--fg); }
+    .hdr-socials {
+      display: flex; align-items: center; gap: 18px;
+      font-family: var(--mono); font-size: 11px;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--dim);
+    }
+    .hdr-socials .label { color: var(--dim); margin-right: auto; }
+    .hdr-socials a {
+      color: var(--dim);
+      display: inline-flex; align-items: center;
+      transition: color 0.2s ease;
+    }
+    .hdr-socials a:hover { color: var(--accent); }
+    .hdr-theme {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font: inherit;
+      width: 100%;
+      padding: 16px 24px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dim);
+      border-left: 1px solid var(--line);
+      transition: color 0.2s ease, border-color 0.4s ease;
+    }
+    .hdr-theme:hover { color: var(--fg); }
+    .theme-switch {
+      width: 38px; height: 20px;
+      border-radius: 999px;
+      background: var(--line-strong);
+      position: relative;
+      flex-shrink: 0;
+      transition: background 0.3s ease;
+    }
+    .theme-switch::before {
+      content: "";
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    body.light .theme-switch::before { transform: translateX(18px); }
+
+    /* ===== BREADCRUMB ===== */
+    .crumbs {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 22px 36px 0;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .crumbs a { color: var(--dim); transition: color 0.2s ease; }
+    .crumbs a:hover { color: var(--fg); }
+    .crumbs .sep { color: var(--dimmer); margin: 0 8px; }
+    .crumbs .here { color: var(--fg); }
+
+    /* ===== PAGE ===== */
+    .page {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 32px 36px 80px;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 36px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 56px;
+    }
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .eyebrow .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--jetson);
+      box-shadow: 0 0 12px var(--jetson);
+    }
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(48px, 7vw, 80px);
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 0.95;
+      color: var(--fg);
+      margin-bottom: 22px;
+    }
+    h1 em { font-style: italic; color: var(--accent); font-weight: 400; }
+    .hero-lead {
+      font-family: var(--sans);
+      font-size: clamp(18px, 2.2vw, 22px);
+      line-height: 1.45;
+      letter-spacing: -0.018em;
+      color: var(--fg);
+      margin-bottom: 22px;
+      max-width: 32ch;
+    }
+    .hero-lead b { color: var(--accent); font-weight: 400; }
+    .hero-meta {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      line-height: 1.7;
+      color: var(--dim);
+    }
+    .hero-meta b { color: var(--fg); font-weight: 500; }
+    .hero-meta .sep { color: var(--dimmer); margin: 0 8px; }
+
+    /* spec snapshot card */
+    .spec-card {
+      align-self: end;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 22px 24px;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      line-height: 1.7;
+    }
+    .spec-card .spec-head {
+      font-size: 9.5px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .spec-card .row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      padding: 6px 0;
+      border-top: 1px dashed var(--line);
+    }
+    .spec-card .row:first-of-type { border-top: 0; padding-top: 0; }
+    .spec-card .row .k { color: var(--dim); }
+    .spec-card .row .v { color: var(--fg); }
+    .spec-card .row .v .accent { color: var(--jetson); }
+
+    /* ===== TOC ===== */
+    .toc {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 44px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    .toc-head { color: var(--accent); margin-bottom: 12px; letter-spacing: 0.2em; }
+    .toc-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 6px 24px;
+    }
+    .toc-list a { color: var(--dim); transition: color 0.2s ease; line-height: 1.7; }
+    .toc-list a:hover { color: var(--fg); }
+    .toc-list .num { color: var(--dimmer); margin-right: 6px; }
+
+    /* ===== SECTIONS ===== */
+    section {
+      margin-bottom: 64px;
+      scroll-margin-top: 24px;
+    }
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4.4vw, 44px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--fg);
+      margin-bottom: 20px;
+    }
+    h2 .num {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+      vertical-align: middle;
+      margin-right: 14px;
+      display: inline-block;
+      transform: translateY(-4px);
+    }
+    h3 {
+      font-family: var(--serif);
+      font-size: clamp(22px, 2.6vw, 26px);
+      font-weight: 400;
+      letter-spacing: -0.015em;
+      color: var(--fg);
+      margin: 32px 0 12px;
+    }
+    h3 em { font-style: italic; color: var(--accent); }
+    p, li {
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--fg);
+      letter-spacing: -0.011em;
+    }
+    p { margin-bottom: 16px; }
+    section ul, section ol {
+      padding-left: 22px;
+      margin-bottom: 22px;
+    }
+    section ul li, section ol li { margin-bottom: 8px; }
+    strong, b { color: var(--fg); font-weight: 500; }
+    em { color: var(--accent); font-style: italic; }
+    code {
+      font-family: var(--mono);
+      font-size: 13px;
+      background: rgba(255,255,255,0.04);
+      padding: 1px 6px;
+      border-radius: 3px;
+      color: var(--accent);
+    }
+    a.inline {
+      color: var(--accent);
+      border-bottom: 1px solid var(--dimmer);
+      transition: border-color 0.2s ease;
+    }
+    a.inline:hover { border-color: var(--accent); }
+
+    /* pull-quote / callout */
+    .callout {
+      border-left: 2px solid var(--accent);
+      padding: 14px 0 14px 22px;
+      margin: 26px 0;
+      font-family: var(--serif);
+      font-size: clamp(20px, 2.4vw, 26px);
+      font-style: italic;
+      line-height: 1.35;
+      color: var(--fg);
+      letter-spacing: -0.015em;
+    }
+    .callout .label {
+      display: block;
+      font-family: var(--mono);
+      font-style: normal;
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .rule-box {
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      padding: 22px 24px;
+      margin: 26px 0;
+      background: rgba(118, 185, 0, 0.04);
+    }
+    .rule-box .label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--jetson);
+      margin-bottom: 10px;
+    }
+    .rule-box p { margin-bottom: 0; }
+
+    /* tables */
+    .table-wrap { overflow-x: auto; margin: 22px 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--sans);
+      font-size: 14.5px;
+    }
+    th, td {
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      color: var(--fg);
+    }
+    th {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border-bottom: 1px solid var(--line-strong);
+      font-weight: 400;
+    }
+    td .dim { color: var(--dim); }
+    td.num, th.num { text-align: right; font-family: var(--mono); white-space: nowrap; }
+
+    /* founder cards */
+    .founders {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin: 22px 0;
+    }
+    .founder {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 22px 24px;
+    }
+    .founder-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      gap: 8px;
+    }
+    .founder-name {
+      font-family: var(--serif);
+      font-size: 22px;
+      letter-spacing: -0.015em;
+      color: var(--fg);
+    }
+    .founder-name em { font-style: italic; color: var(--accent); }
+    .founder-role {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .founder-uni {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--dim);
+      margin-bottom: 12px;
+    }
+    .founder p { font-size: 14.5px; margin-bottom: 10px; }
+    .founder ul { padding-left: 18px; }
+    .founder li { font-size: 14px; margin-bottom: 4px; color: var(--dim); }
+    .founder li b { color: var(--fg); }
+
+    /* kpi grid */
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      margin: 22px 0;
+    }
+    .kpi {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 18px 20px;
+    }
+    .kpi .v {
+      font-family: var(--serif);
+      font-size: 32px;
+      line-height: 1;
+      color: var(--fg);
+      letter-spacing: -0.02em;
+    }
+    .kpi .v em { color: var(--accent); font-style: italic; }
+    .kpi .k {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-top: 8px;
+    }
+
+    /* contact CTA */
+    .cta {
+      margin: 60px 0 0;
+      padding: 36px 40px;
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      background: rgba(204, 119, 87, 0.05);
+    }
+    .cta h3 {
+      font-family: var(--serif);
+      font-size: clamp(26px, 3.2vw, 34px);
+      margin: 0 0 14px;
+    }
+    .cta p { margin-bottom: 18px; }
+    .cta a.btn {
+      display: inline-block;
+      padding: 10px 18px;
+      border: 1px solid var(--claude);
+      background: rgba(204, 119, 87, 0.10);
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--claude);
+      transition: background 0.25s ease, transform 0.25s ease;
+      margin-right: 10px;
+    }
+    .cta a.btn:hover { background: rgba(204, 119, 87, 0.20); transform: translateY(-1px); }
+
+    /* footer */
+    footer {
+      margin-top: 80px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      color: var(--dim);
+      text-transform: uppercase;
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    footer a { color: var(--dim); transition: color 0.2s ease; }
+    footer a:hover { color: var(--fg); }
+
+    /* pipeline diagram */
+    .pipeline {
+      margin: 28px 0;
+      padding: 28px 22px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: rgba(118, 185, 0, 0.025);
+      overflow-x: auto;
+    }
+    .pipeline svg { display: block; min-width: 720px; width: 100%; height: auto; }
+    .pipeline .stage rect { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1; transition: stroke 0.3s, fill 0.3s; }
+    .pipeline .stage text { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.06em; fill: var(--fg); text-transform: uppercase; }
+    .pipeline .stage.crit rect { stroke: var(--jetson); stroke-width: 1.5; }
+    .pipeline .stage.crit text { fill: var(--jetson); }
+    .pipeline .arrow { stroke: var(--dim); stroke-width: 1; fill: none; }
+    .pipeline .arrow.crit { stroke: var(--jetson); stroke-width: 1.5; }
+    .pipeline .arrow-head { fill: var(--dim); }
+    .pipeline .arrow-head.crit { fill: var(--jetson); }
+    .pipeline .lane-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; fill: var(--accent); }
+    .pipeline .ms-badge text { font-family: var(--mono); font-size: 10px; font-weight: 500; fill: var(--jetson); letter-spacing: 0.04em; }
+
+    /* pricing comparison bars */
+    .price-bars {
+      margin: 24px 0;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .pbar {
+      display: grid;
+      grid-template-columns: 220px 1fr auto;
+      gap: 14px;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 11.5px;
+    }
+    .pbar .label { color: var(--dim); }
+    .pbar .label b { color: var(--fg); }
+    .pbar .bar {
+      height: 12px;
+      background: var(--line);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+    .pbar .fill {
+      height: 100%;
+      border-radius: 999px;
+      background: var(--dim);
+    }
+    .pbar.them .fill { background: var(--dim); }
+    .pbar.us .fill { background: var(--jetson); box-shadow: 0 0 14px rgba(118,185,0,0.5); }
+    .pbar .v { color: var(--fg); white-space: nowrap; }
+    .pbar.us .v { color: var(--jetson); font-weight: 500; }
+
+    /* FAQ */
+    .faq details {
+      border-bottom: 1px solid var(--line);
+      padding: 16px 0;
+    }
+    .faq details[open] { padding-bottom: 20px; }
+    .faq summary {
+      cursor: pointer;
+      list-style: none;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 16px;
+      font-family: var(--serif);
+      font-size: 19px;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: "+";
+      font-family: var(--mono);
+      font-size: 18px;
+      color: var(--accent);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+    .faq details[open] summary::after { content: "−"; }
+    .faq details p {
+      margin-top: 14px;
+      font-size: 15.5px;
+      color: var(--fg);
+    }
+    .faq details p:last-child { margin-bottom: 0; }
+
+    /* responsive */
+    @media (max-width: 860px) {
+      .site-header {
+        grid-template-columns: auto auto minmax(0, 1fr) auto;
+      }
+      .site-header > * { padding-left: 14px; padding-right: 14px; }
+      .crumbs { padding: 18px 22px 0; }
+      .page { padding: 22px 22px 60px; }
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding-bottom: 30px;
+        margin-bottom: 36px;
+      }
+      .spec-card { padding: 18px 20px; }
+      .founders { grid-template-columns: 1fr; }
+      .cta { padding: 26px 22px; }
+      h2 .num { display: block; margin: 0 0 6px; transform: none; }
+    }
+    @media (max-width: 540px) {
+      .hdr-socials { gap: 13px; padding-left: 14px; padding-right: 14px; justify-content: flex-end; }
+      .hdr-socials .label { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header" aria-label="primary">
+    <a href="/" class="hdr-link" data-page="home">Home</a>
+    <a href="/building.html" class="hdr-link" data-page="building">Building</a>
+    <div class="hdr-socials">
+      <span class="label">Socials</span>
+      <a href="mailto:husan@buildcored.com" rel="me" title="Email" aria-label="Email">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      </a>
+      <a href="https://t.me/mavlonov_husan" target="_blank" rel="me noopener" title="Telegram" aria-label="Telegram">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg>
+      </a>
+      <a href="https://x.com/MavlonovHusan" target="_blank" rel="me noopener" title="X (Twitter)" aria-label="X">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://github.com/PeterVanPercson" target="_blank" rel="me noopener" title="GitHub" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.3-3.2-.1-.4-.6-1.6.1-3.3 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.6 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.3.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.7-5.5 6 .5.4.9 1.1.9 2.3v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/husan-mavlonov" target="_blank" rel="me noopener" title="LinkedIn" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 .02 5 2.5 2.5 0 0 1-.02-5zM2.5 9.5h5v12h-5v-12zM9.5 9.5h4.8v1.7h.07c.67-1.26 2.3-2.6 4.74-2.6 5.07 0 6 3.3 6 7.6V21.5h-5v-6.8c0-1.62-.04-3.7-2.25-3.7-2.25 0-2.6 1.76-2.6 3.58v6.92h-5v-12z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/mavhusan/" target="_blank" rel="me noopener" title="Instagram" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.7" fill="currentColor" stroke="none"/></svg>
+      </a>
+    </div>
+    <button class="hdr-theme" id="themeToggle" aria-label="Toggle light or dark theme">
+      <span class="theme-label">Theme</span>
+      <span class="theme-switch" aria-hidden="true"></span>
+    </button>
+  </header>
+
+  <nav class="crumbs" aria-label="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <span class="here">defex</span>
+  </nav>
+
+  <main class="page" id="top">
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-h">
+      <div>
+        <div class="eyebrow"><span class="dot" aria-hidden="true"></span> Edge AI · Yangtze River Delta · pre-pilot</div>
+        <h1 id="hero-h">defex<em>.</em></h1>
+        <p class="hero-lead"><b>AI defect inspection on Jetson</b> for foreign-invested SMEs in the Yangtze River Delta — priced to clear plant-manager discretion, not HQ.</p>
+        <p class="hero-meta">
+          <b>Founders</b> Mavlonov twins · <b>Compute</b> NVIDIA Jetson Orin Nano Super · <b>Backed by</b> Z Fellows
+          <br><b>Pilot window</b> 2026-05-20 → 2026-08-11 · <b>HQ</b> Shanghai
+          <br><span style="color: var(--dimmer);">Last updated 2026-05-25 · ~11 min read</span>
+        </p>
+      </div>
+      <aside class="spec-card" aria-label="spec snapshot">
+        <div class="spec-head">v1 spec snapshot</div>
+        <div class="row"><span class="k">Decision latency (p99)</span> <span class="v"><span class="accent">&lt; 50 ms</span></span></div>
+        <div class="row"><span class="k">Throughput</span> <span class="v">1 part / sec</span></div>
+        <div class="row"><span class="k">Accuracy target</span> <span class="v">P ≥ 0.92 · R ≥ 0.88</span></div>
+        <div class="row"><span class="k">Cameras / station</span> <span class="v">1 (5 MP global shutter)</span></div>
+        <div class="row"><span class="k">BOM per station</span> <span class="v">≈ ¥8,170 (~$1.1K)</span></div>
+        <div class="row"><span class="k">SKU price</span> <span class="v"><span class="accent">$5K + $350/mo</span></span></div>
+        <div class="row"><span class="k">Output</span> <span class="v">Modbus TCP → PLC</span></div>
+      </aside>
+    </section>
+
+    <!-- TOC -->
+    <nav class="toc" aria-label="contents">
+      <div class="toc-head">Contents</div>
+      <ol class="toc-list">
+        <li><a href="#summary"><span class="num">01</span> Executive summary</a></li>
+        <li><a href="#wedge"><span class="num">02</span> The YRD wedge</a></li>
+        <li><a href="#founders"><span class="num">03</span> The Mavlonov twins</a></li>
+        <li><a href="#product"><span class="num">04</span> Product spec (v1)</a></li>
+        <li><a href="#arch"><span class="num">05</span> The 50 ms rule</a></li>
+        <li><a href="#bom"><span class="num">06</span> Bill of materials</a></li>
+        <li><a href="#pricing"><span class="num">07</span> Pricing</a></li>
+        <li><a href="#plan"><span class="num">08</span> 12-week plan</a></li>
+        <li><a href="#kpis"><span class="num">09</span> KPI gates</a></li>
+        <li><a href="#vision"><span class="num">10</span> Vision · Y1–Y5</a></li>
+        <li><a href="#faq"><span class="num">11</span> Frequently asked</a></li>
+        <li><a href="#contact"><span class="num">12</span> Contact</a></li>
+      </ol>
+    </nav>
+
+    <!-- §1 EXECUTIVE SUMMARY -->
+    <section id="summary" aria-labelledby="summary-h">
+      <h2 id="summary-h"><span class="num">01</span>Executive summary</h2>
+      <p><strong>defex builds Jetson-powered defect-inspection stations for foreign-invested SMEs in the Yangtze River Delta.</strong> v1 is a single-camera, single-defect-class station running on the NVIDIA Jetson Orin Nano Super: YOLOv8n inference via TensorRT FP16, hardware-triggered through GPIO, with Modbus TCP output to existing PLC infrastructure and sub-50 ms decision latency. The SKU is structured as OpEx — <b>$5,000 upfront + $350/month</b> — to slip inside plant-manager discretionary spend, bypassing the overseas-HQ capex cycles that kill the typical AOI vendor pitch.</p>
+
+      <p><strong>The team is the Mavlonov twins.</strong> <a class="inline" href="/">Husan</a> (CEO) studies at Shanghai Jiao Tong University, has shipped a production Claude-API product (EduRadar), and runs a 1,500-member AI/hardware community (<a class="inline" href="https://buildcored.com" target="_blank" rel="noopener">BuildCored</a>). Hasan (CTO) studies at East China University of Science and Technology, was Class Leader for the AI '28 cohort, has published research endorsed for arXiv submission (StableMind), trained CNN classifiers at the University of Cambridge ML/NN program, and shipped production RFID hardware-integration backends at Tracky in Tashkent. Same family, same city, same building rhythm. Two engineers, one decision loop.</p>
+
+      <p><strong>The wedge segment is rare in the literature but obvious on the ground.</strong> 太仓 (Taicang) hosts 560+ German firms; 嘉定 / 松江 / 安亭 host the bulk of Japanese auto-parts manufacturing in Shanghai. These factories share three properties absent from typical Chinese tier-2 suppliers: plant managers conduct business in English, procurement cycles run 6–8 weeks rather than 6–9 months, and capex limits for line-side improvements often sit with the local plant manager. The HSK 1 language gap that would block a foreign founder from the broader CN market stops being binding here. 信创 (domestic-substitution) policy aligns with our edge-only architecture: no cloud, no data egress.</p>
+
+      <div class="rule-box">
+        <div class="label">Top-line KPIs at week 12 (Aug 11, 2026)</div>
+        <ul style="margin: 6px 0 0; padding-left: 22px;">
+          <li>1 paid customer pilot signed and 50% deposit invoiced</li>
+          <li>1 second-customer LOI in hand for Q3 deployment</li>
+          <li>Production accuracy: precision ≥ 0.92, recall ≥ 0.88, decision latency p99 &lt; 50 ms</li>
+          <li>NVIDIA Inception membership active · Jetson AI Ambassador track entered (CTO)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- §2 THE YRD WEDGE -->
+    <section id="wedge" aria-labelledby="wedge-h">
+      <h2 id="wedge-h"><span class="num">02</span>The YRD wedge</h2>
+
+      <p>The cheap-AOI gap in the Yangtze River Delta is <em>structural, not temporary</em>. Cognex, Siemens, and Koh Young price their AOI systems at ¥200k+ (~$28K+), optimized for tier-1 EMS (Foxconn, Luxshare, BYD). Below that, the market is left on manual inspection — 3–8 inspectors per shift at ¥4–6k each per month, with escape rates that fail customer AQL audits and turnover that erodes consistency. Domestic challengers (微亿智造, 创新奇智, 思普锐) sit at ¥80–200k and target the same tier-1 segment. <strong>Nothing in the market hits the ¥35–70k OpEx tier where the foreign-invested SME plant manager has discretionary purchasing power.</strong></p>
+
+      <div class="callout">
+        <span class="label">The insight</span>
+        Foreign-invested SMEs in the YRD have English-fluent decision makers, 6–8 week procurement cycles, ¥30–50k plant-manager discretion, and AQL pressure baked into customer contracts. They're the perfect wedge — and they're invisible to everyone else.
+      </div>
+
+      <h3>Why this segment, not Chinese tier-2 or tier-1</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Segment</th><th>Why we don't target it first</th></tr></thead>
+          <tbody>
+            <tr><td>Chinese tier-1 EMS (Foxconn, Luxshare, BYD)</td><td><span class="dim">Already buying Cognex/Koh Young at ¥200k+. Procurement bureaucracy crushes unknown vendors. Sales cycle 9–18 months.</span></td></tr>
+            <tr><td>Chinese tier-2 suppliers</td><td><span class="dim">6–9 month procurement cycles. Strong preference for 国产 (domestic Chinese) vendors. Foreign founder is a structural negative. Discretionary budget is small.</span></td></tr>
+            <tr><td>Yiwu small-goods factories</td><td><span class="dim">Margin too thin to justify ¥35k+ upgrade. AQL pressure does not exist at the customer-contract level.</span></td></tr>
+            <tr><td><strong>Foreign-invested SMEs (target)</strong></td><td><strong>English-fluent decision makers. 6–8 week procurement. ¥30–50k plant-manager discretionary spend. AQL pressure is a contracted KPI.</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Named first prospects</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>German — Taicang (太仓)</th><th>Japanese — Jiading · Songjiang · Anting</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Kern-Liebers · Mubea Tailored Rolled Blanks · Trumpf · Stihl · Hetkamp · Knipex · Bürkert · Schunk</td>
+              <td>Yazaki Shanghai (Jiading) · Sumitomo Wiring (Songjiang) · Aisin Seiki (Anting) · Koito Shanghai (Jiading) · Denso (Anting) · Hosiden (Songjiang)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- §3 FOUNDERS -->
+    <section id="founders" aria-labelledby="founders-h">
+      <h2 id="founders-h"><span class="num">03</span>The Mavlonov twins</h2>
+
+      <p>Identical-arc co-founders. Same year of birth, same country of origin, same city of operations, near-identical English fluency, complementary technical specializations. <strong>Acquisition cost: zero. Coordination cost: family-low.</strong></p>
+
+      <div class="founders">
+        <article class="founder">
+          <div class="founder-head">
+            <span class="founder-name">Husan <em>Mavlonov</em></span>
+            <span class="founder-role">CEO · Cofounder</span>
+          </div>
+          <div class="founder-uni">Shanghai Jiao Tong University · Z Fellow · Lumiere Scholar</div>
+          <p>Strategy, customer pipeline, English-side comms, bilingual product packaging, the OpEx-packaging wedge, and integration with the <a class="inline" href="https://buildcored.com" target="_blank" rel="noopener">BuildCored</a> audience for build-in-public credibility. Leads investor and partner conversations.</p>
+          <ul>
+            <li><b>EduRadar</b> — Next.js + Anthropic SDK app for student admissions; Claude Opus + Haiku stack; live with paying users.</li>
+            <li><b>BuildCored</b> — 1,500-member AI/hardware community in China.</li>
+            <li><b>PCB YOLO baselines</b> trained before defex de-risk the W4 mAP gate.</li>
+            <li>Languages: English C1+ · Mandarin (HSK 1) · Russian native · Uzbek native · Turkish.</li>
+          </ul>
+        </article>
+        <article class="founder">
+          <div class="founder-head">
+            <span class="founder-name">Hasan <em>Mavlonov</em></span>
+            <span class="founder-role">CTO · Cofounder</span>
+          </div>
+          <div class="founder-uni">ECUST · B.Sc. AI '28 (Class Leader) · Cambridge ML program</div>
+          <p>Hardware integration (camera SDK, GPIO trigger, opto-isolator), ML training pipeline (YOLOv8 → TensorRT), the decoupled decision loop (the 50 ms architectural rule), Modbus TCP integration with customer PLCs, and operational reliability.</p>
+          <ul>
+            <li><b>Tracky (Tashkent)</b> — shipped a thermal-printer-based RFID label generator (~97% cost reduction) + real-time RFID ingestion pipeline + Django REST + PostgreSQL POS backend.</li>
+            <li><b>Elev8 (Shanghai)</b> — Stable Diffusion XL LoRA training framework via Kohya_ss + ComfyUI; AIGC influencer pipeline integrating OpenAI, Gemini, Instagram APIs.</li>
+            <li><b>StableMind</b> — two-timescale architecture for persistent personality in LLM agents, endorsed for arXiv by Nuo Chen.</li>
+            <li><b>Cambridge ML project</b> — EfficientNetB0 CNN for breast-cancer histopathology (BreaKHis 400×); transferable to defex training.</li>
+            <li>RUCODE programming contest: <b>8th of 4,000</b>. SAT 1490.</li>
+          </ul>
+        </article>
+      </div>
+
+      <h3>Why a twin team works (for this product, at this stage)</h3>
+      <ul>
+        <li><strong>Trust starts at maximum.</strong> No founder-dating, no equity haggling, no "do we want the same thing." Twin commitment is implicitly verified by 19 years of shared decision-making.</li>
+        <li><strong>Same time zone, same city.</strong> Both in Shanghai. Daily standups happen at family dinners. The CTO doesn't need a flight booked to debug a sensor.</li>
+        <li><strong>Combined language coverage.</strong> English C1+ for global investors · Mandarin (HSK 1 + B1) for CN customers · Russian for CIS partners · Uzbek for any UZ-domiciled entity work.</li>
+        <li><strong>Different schools, same trajectory.</strong> SJTU + ECUST gives access to two distinct CN university ecosystems for student talent recruiting, professor introductions, and incubator applications.</li>
+      </ul>
+    </section>
+
+    <!-- §4 PRODUCT SPEC -->
+    <section id="product" aria-labelledby="product-h">
+      <h2 id="product-h"><span class="num">04</span>Product spec (v1)</h2>
+
+      <p>v1 ships by <strong>2026-08-11</strong>. Deliberately narrow scope: single station, single camera, single defect class — customer-selected during W3 of the pilot.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Attribute</th><th>Specification</th></tr></thead>
+          <tbody>
+            <tr><td>Stations per deployment</td><td>1</td></tr>
+            <tr><td>Cameras per station</td><td>1 · Hikrobot MV-CA050-12UC · 5 MP Sony IMX264 global shutter · USB 3.0 color</td></tr>
+            <tr><td>Defect classes</td><td>1 (customer-specific)</td></tr>
+            <tr><td>Trigger</td><td>Hardware (photoelectric sensor + GPIO opto-isolator)</td></tr>
+            <tr><td>Throughput</td><td>1 part / second sustained</td></tr>
+            <tr><td>Decision latency</td><td>p99 &lt; 50 ms (capture → infer → decide → coil)</td></tr>
+            <tr><td>Accuracy target</td><td>precision ≥ 0.92 · recall ≥ 0.88</td></tr>
+            <tr><td>Uptime target</td><td>≥ 99% over 4-hour continuous customer run</td></tr>
+            <tr><td>Output</td><td>Modbus TCP coil → existing PLC</td></tr>
+            <tr><td>Operator UI</td><td>PySide6 / Qt · Simplified Chinese · 4 buttons (开始 / 暂停 / 复位 / 报警) · live preview · last 20 decisions</td></tr>
+            <tr><td>Traceability</td><td>SQLite WAL · part_id × ts × decision × class × confidence × image_path</td></tr>
+            <tr><td>Reliability hardware</td><td>Online UPS (Santak MT500S-Pro) · active fan + heatsink retrofit for Jetson · NVMe-only writes in production</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>What we deliberately <em>don't</em> ship in v1</h3>
+      <p>Multi-camera fusion, Postgres / TimescaleDB, OPC-UA / MES bridge, native Profinet / EtherCAT, second defect class, web operator UI, drift-detection v2 dashboards. All deferred. <strong>Scope discipline is the single biggest determinant of whether the pilot ships on schedule.</strong> Each deferred item is logged as a v2 backlog entry with an estimated quote impact.</p>
+    </section>
+
+    <!-- §5 ARCHITECTURE -->
+    <section id="arch" aria-labelledby="arch-h">
+      <h2 id="arch-h"><span class="num">05</span>Architecture &amp; the 50 ms rule</h2>
+
+      <h3>Pipeline (logical, single station)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Stage</th><th>Component</th><th>Tech</th></tr></thead>
+          <tbody>
+            <tr><td>Trigger</td><td>Photoelectric sensor → opto-iso → Jetson GPIO</td><td><code>libgpiod</code></td></tr>
+            <tr><td>Capture</td><td>Hardware-triggered grab, 5 MP on-demand</td><td>Hikvision MVS SDK (Python)</td></tr>
+            <tr><td>Pre-process</td><td>ROI crop · white-balance lock · intensity check</td><td>OpenCV w/ CUDA</td></tr>
+            <tr><td>Inference</td><td>YOLOv8n → ONNX → TensorRT FP16</td><td><code>trtexec</code> · TensorRT Python</td></tr>
+            <tr><td>Tracking</td><td>Trigger-indexed IoU ±2 frame window</td><td>~60-line custom module</td></tr>
+            <tr><td>Decide</td><td>Defect count + class threshold → PASS / FAIL</td><td>Per-class threshold in YAML</td></tr>
+            <tr><td>Act</td><td>Modbus TCP coil write to PLC</td><td><code>pymodbus</code> server</td></tr>
+            <tr><td>Log</td><td>Event row to SQLite (async writer)</td><td>SQLite + WAL</td></tr>
+            <tr><td>UI</td><td>Operator dashboard (Chinese)</td><td>PySide6 (Qt) on Jetson HDMI</td></tr>
+            <tr><td>Health</td><td>Watchdog + log rotation + tegrastats alarms</td><td><code>systemd</code> + Python agent</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>The decision path — visualized</h3>
+      <div class="pipeline" role="img" aria-label="defex pipeline diagram showing the critical 50ms path from sensor trigger to PLC coil write, with parallel non-blocking logging">
+        <svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg">
+          <!-- lane labels -->
+          <text class="lane-label" x="0" y="42">CRITICAL PATH · &lt; 50 ms</text>
+          <text class="lane-label" x="0" y="180">NON-BLOCKING</text>
+
+          <!-- critical path stages -->
+          <g class="stage crit">
+            <rect x="0" y="55" width="92" height="44" rx="3"/>
+            <text x="46" y="76" text-anchor="middle">Trigger</text>
+            <text x="46" y="89" text-anchor="middle" style="font-size:8px;letter-spacing:0.04em;">GPIO</text>
+          </g>
+          <g class="stage crit">
+            <rect x="112" y="55" width="92" height="44" rx="3"/>
+            <text x="158" y="76" text-anchor="middle">Capture</text>
+            <text x="158" y="89" text-anchor="middle" style="font-size:8px;letter-spacing:0.04em;">5MP grab</text>
+          </g>
+          <g class="stage crit">
+            <rect x="224" y="55" width="92" height="44" rx="3"/>
+            <text x="270" y="76" text-anchor="middle">Pre-process</text>
+            <text x="270" y="89" text-anchor="middle" style="font-size:8px;letter-spacing:0.04em;">ROI · WB</text>
+          </g>
+          <g class="stage crit">
+            <rect x="336" y="55" width="92" height="44" rx="3"/>
+            <text x="382" y="76" text-anchor="middle">Infer</text>
+            <text x="382" y="89" text-anchor="middle" style="font-size:8px;letter-spacing:0.04em;">TRT FP16</text>
+          </g>
+          <g class="stage crit">
+            <rect x="448" y="55" width="92" height="44" rx="3"/>
+            <text x="494" y="76" text-anchor="middle">Decide</text>
+            <text x="494" y="89" text-anchor="middle" style="font-size:8px;letter-spacing:0.04em;">PASS/FAIL</text>
+          </g>
+          <g class="stage crit">
+            <rect x="560" y="55" width="92" height="44" rx="3"/>
+            <text x="606" y="76" text-anchor="middle">PLC coil</text>
+            <text x="606" y="89" text-anchor="middle" style="font-size:8px;letter-spacing:0.04em;">Modbus TCP</text>
+          </g>
+
+          <!-- critical arrows -->
+          <path class="arrow crit" d="M92 77 L112 77"/>
+          <polygon class="arrow-head crit" points="112,77 106,73 106,81"/>
+          <path class="arrow crit" d="M204 77 L224 77"/>
+          <polygon class="arrow-head crit" points="224,77 218,73 218,81"/>
+          <path class="arrow crit" d="M316 77 L336 77"/>
+          <polygon class="arrow-head crit" points="336,77 330,73 330,81"/>
+          <path class="arrow crit" d="M428 77 L448 77"/>
+          <polygon class="arrow-head crit" points="448,77 442,73 442,81"/>
+          <path class="arrow crit" d="M540 77 L560 77"/>
+          <polygon class="arrow-head crit" points="560,77 554,73 554,81"/>
+
+          <!-- ms latency arc label above -->
+          <path class="arrow crit" d="M0 30 Q 330 8 660 30" style="stroke-dasharray: 3 3;"/>
+          <g class="ms-badge">
+            <rect x="290" y="15" width="80" height="20" rx="3" fill="var(--bg)" stroke="var(--jetson)" stroke-width="1"/>
+            <text x="330" y="29" text-anchor="middle">p99 &lt; 50 ms</text>
+          </g>
+
+          <!-- non-blocking lane -->
+          <g class="stage">
+            <rect x="112" y="155" width="92" height="38" rx="3"/>
+            <text x="158" y="178" text-anchor="middle">SQLite WAL</text>
+          </g>
+          <g class="stage">
+            <rect x="224" y="155" width="92" height="38" rx="3"/>
+            <text x="270" y="178" text-anchor="middle">Op UI</text>
+          </g>
+          <g class="stage">
+            <rect x="336" y="155" width="92" height="38" rx="3"/>
+            <text x="382" y="178" text-anchor="middle">Health agent</text>
+          </g>
+          <g class="stage">
+            <rect x="448" y="155" width="92" height="38" rx="3"/>
+            <text x="494" y="178" text-anchor="middle">Daily report</text>
+          </g>
+          <g class="stage">
+            <rect x="560" y="155" width="92" height="38" rx="3"/>
+            <text x="606" y="178" text-anchor="middle">Image archive</text>
+          </g>
+
+          <!-- branch arrows from critical → non-blocking -->
+          <path class="arrow" d="M158 99 L158 155" stroke-dasharray="4 3"/>
+          <path class="arrow" d="M270 99 L270 155" stroke-dasharray="4 3"/>
+          <path class="arrow" d="M382 99 L382 155" stroke-dasharray="4 3"/>
+          <path class="arrow" d="M494 99 L494 155" stroke-dasharray="4 3"/>
+          <path class="arrow" d="M606 99 L606 155" stroke-dasharray="4 3"/>
+        </svg>
+      </div>
+      <p style="font-size: 13.5px; color: var(--dim); margin-top: -10px;">Critical path (green) must complete in &lt; 50 ms per part. Non-blocking lane (gray) handles persistence, UI, and reports on a separate output queue — never in the decision path.</p>
+
+      <div class="rule-box">
+        <div class="label">Non-negotiable architectural constraint · the 50 ms rule</div>
+        <p>Capture, inference, decision, and PLC I/O run on dedicated threads communicating through a bounded ring buffer. <strong>The decision thread never blocks on disk, network, or UI.</strong> The reject coil must fire within 50 ms of trigger or a defective part ships and we lose the contract. SQLite writes, log rotation, UI redraws, and dashboard polling are all consumers of a <em>separate</em> output queue — never in the decision path.</p>
+      </div>
+    </section>
+
+    <!-- §6 BOM -->
+    <section id="bom" aria-labelledby="bom-h">
+      <h2 id="bom-h"><span class="num">06</span>Bill of materials</h2>
+
+      <p>Prices verified against the Shanghai market, May 2026. Bought via JD.com for items with returns risk; 1688.com for commodity items.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Category · Item</th><th>Spec</th><th class="num">Unit ¥</th></tr></thead>
+          <tbody>
+            <tr><td><b>Camera</b></td><td>Hikrobot MV-CA050-12UC · 5 MP Sony IMX264 GS · USB 3.0</td><td class="num">3,500</td></tr>
+            <tr><td><b>Lens</b></td><td>Computar M2514-MP2 · 25 mm · F1.4 · C-mount · 2/3" 5 MP-rated</td><td class="num">450</td></tr>
+            <tr><td><b>Polarizer</b></td><td>27 mm C-mount linear (kills solder-mask glare)</td><td class="num">150</td></tr>
+            <tr><td><b>Coaxial light</b></td><td>OPT-CO50-W · 50 mm · white · 24 V</td><td class="num">750</td></tr>
+            <tr><td><b>Dome light</b></td><td>OPT-DO80 · 80 mm · white</td><td class="num">900</td></tr>
+            <tr><td><b>Light controller</b></td><td>4-channel constant-current · 24 V · strobe input</td><td class="num">400</td></tr>
+            <tr><td><b>USB 3 cable</b></td><td>Type-A ↔ Micro-B locking · 3 m · industrial</td><td class="num">70</td></tr>
+            <tr><td><b>Color checker</b></td><td>Gray card + 24-patch ColorChecker copy</td><td class="num">80</td></tr>
+            <tr><td><b>Frame</b></td><td>2020 T-slot aluminum · 4× 500 mm + brackets</td><td class="num">260</td></tr>
+            <tr><td><b>Light enclosure</b></td><td>Black foamcore + tape (kills ambient bleed)</td><td class="num">40</td></tr>
+            <tr><td><b>Online UPS</b></td><td>Santak (山特) MT500S-Pro · 500 VA · double-conversion</td><td class="num">550</td></tr>
+            <tr><td><b>Active fan</b></td><td>Noctua-class 40 mm 5 V PWM + heatsink retrofit (Jetson)</td><td class="num">130</td></tr>
+            <tr><td><b>Photoelectric sensor</b></td><td>Omron E3Z-LS61 or domestic E3F-DS30C4 clone</td><td class="num">200</td></tr>
+            <tr><td><b>GPIO opto-iso</b></td><td>4-channel · 24 V ↔ 3.3 V · screw terminals</td><td class="num">120</td></tr>
+            <tr><td><b>Datamatrix reader</b></td><td>Honeywell N3680 or 新大陆 NLS-FM430 (only if PCB target)</td><td class="num">350</td></tr>
+            <tr><th colspan="2"><strong>Total per station</strong></th><th class="num"><strong>≈ ¥8,170 (~$1,150)</strong></th></tr>
+            <tr><td colspan="2" class="dim">Reserve (adjustments / replacements / mis-orders)</td><td class="num"><span class="dim">≈ 1,000</span></td></tr>
+            <tr><th colspan="2"><strong>Working budget per deployment</strong></th><th class="num"><strong>¥9,000–9,500</strong></th></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="font-size: 13.5px; color: var(--dim);">Jetson Orin Nano Super, 256 GB NVMe, microSD, and the founders' Mac M-series dev hardware are owned and not counted in per-station BOM. <strong>Gross margin per station at $5K SKU: ~77%.</strong></p>
+    </section>
+
+    <!-- §7 PRICING -->
+    <section id="pricing" aria-labelledby="pricing-h">
+      <h2 id="pricing-h"><span class="num">07</span>Pricing</h2>
+
+      <p><strong>OpEx packaging is the wedge.</strong> Upfront ≤ $5K sits inside plant-manager discretionary spend, bypassing overseas HQ capex cycles that kill the typical AOI pitch.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tier</th><th>Hardware</th><th class="num">Upfront</th><th class="num">Monthly</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Benchmark pilot</td><td>1 station</td><td class="num">$0</td><td class="num">$0</td><td><span class="dim">Lighthouse customer only. 28-day cap. Case-study + reference call rights.</span></td></tr>
+            <tr><td><strong>Single-cam SKU (v1)</strong></td><td>1 station</td><td class="num"><strong>$5,000</strong></td><td class="num"><strong>$350</strong></td><td>OpEx-packaged. Targets plant-manager discretion.</td></tr>
+            <tr><td>Dual-cam SKU (v2 quote)</td><td>2 stations, same line</td><td class="num">$7,800</td><td class="num">$560</td><td><span class="dim">Q4 2026 delivery (multi-cam fusion).</span></td></tr>
+            <tr><td>Line SKU (v2 quote)</td><td>3+ stations + central dashboard</td><td class="num">$10K+</td><td class="num">$840+</td><td><span class="dim">Q4 2026 delivery.</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Unit economics — single-cam SKU</h3>
+      <div class="kpis">
+        <div class="kpi"><div class="v">$5,000</div><div class="k">SKU upfront</div></div>
+        <div class="kpi"><div class="v">$1,150</div><div class="k">BOM</div></div>
+        <div class="kpi"><div class="v"><em>~77%</em></div><div class="k">Gross margin</div></div>
+        <div class="kpi"><div class="v">$350<span style="font-size:14px;color:var(--dim);"> /mo</span></div><div class="k">Recurring service</div></div>
+        <div class="kpi"><div class="v">$4,200<span style="font-size:14px;color:var(--dim);"> /yr</span></div><div class="k">ARR per station</div></div>
+        <div class="kpi"><div class="v"><em>~$5K</em><span style="font-size:14px;color:var(--dim);"> /mo</span></div><div class="k">Customer savings (vs 3-shift inspectors)</div></div>
+      </div>
+
+      <h3>What the customer was paying before</h3>
+      <p>The competitive landscape, sized by what an SME plant manager actually shoulders:</p>
+      <div class="price-bars" role="img" aria-label="Pricing comparison: Cognex 28K, manual inspection 7K per month, defex 5K + 350 per month">
+        <div class="pbar them">
+          <div class="label"><b>Cognex / Koh Young</b> AOI</div>
+          <div class="bar"><div class="fill" style="width: 100%;"></div></div>
+          <div class="v">$28K+ upfront</div>
+        </div>
+        <div class="pbar them">
+          <div class="label"><b>Manual inspection</b> · 2 shifts</div>
+          <div class="bar"><div class="fill" style="width: 50%;"></div></div>
+          <div class="v">~$7K / month</div>
+        </div>
+        <div class="pbar them">
+          <div class="label"><b>Domestic CN challengers</b> · 微亿智造 etc.</div>
+          <div class="bar"><div class="fill" style="width: 40%;"></div></div>
+          <div class="v">$11–28K upfront</div>
+        </div>
+        <div class="pbar us">
+          <div class="label"><b>defex</b> · single-cam SKU</div>
+          <div class="bar"><div class="fill" style="width: 18%;"></div></div>
+          <div class="v">$5K + $350/mo</div>
+        </div>
+      </div>
+      <p style="font-size: 13.5px; color: var(--dim);">Same line, ~80% lower upfront cost, ~93% lower recurring vs human inspection. Sits inside the discretionary band the plant manager can sign off without HQ.</p>
+    </section>
+
+    <!-- §8 12-WEEK PLAN -->
+    <section id="plan" aria-labelledby="plan-h">
+      <h2 id="plan-h"><span class="num">08</span>12-week pilot plan</h2>
+
+      <p>2026-05-20 → 2026-08-11. Critical gate is <strong>W4</strong> — YOLOv8n trained on collected samples must reach mAP@0.5 ≥ 0.70. If that gate misses after one retrain attempt, project pauses. Everything downstream is sequenced to begin only after W4 clears.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Week</th><th>Milestone</th><th>Gate / KPI</th></tr></thead>
+          <tbody>
+            <tr><td>W1–W2</td><td>Hire bilingual partner; AHK Shanghai + German Centre Taicang intros; first 5 customer-discovery calls</td><td>3 plant tours scheduled</td></tr>
+            <tr><td>W3</td><td>Lighthouse customer selected; defect class + part defined</td><td>Signed pilot MOU</td></tr>
+            <tr><td>W3–W4</td><td>Sample collection on-site (1,000+ images); annotation pipeline live</td><td>Train/val split &gt; 80/20</td></tr>
+            <tr><td><strong>W4 GATE</strong></td><td>YOLOv8n trained · TensorRT FP16 export</td><td><strong>mAP@0.5 ≥ 0.70</strong></td></tr>
+            <tr><td>W5–W6</td><td>Capture jig + lighting + UPS + opto-iso wired; 8-hour soak in lab</td><td>p99 latency &lt; 50 ms in lab</td></tr>
+            <tr><td>W7–W8</td><td>On-site install; Modbus TCP integration with customer PLC; operator training</td><td>2-hour line run completed</td></tr>
+            <tr><td>W9–W10</td><td>Production validation: 4-hour continuous run, daily reports auto-emailed</td><td>P ≥ 0.92 · R ≥ 0.88</td></tr>
+            <tr><td>W11</td><td>Customer sign-off; case study drafted; reference call scheduled</td><td>Sign-off doc countersigned</td></tr>
+            <tr><td><strong>W12</strong></td><td><strong>Paid PO invoiced (50% deposit); second-customer LOI signed</strong></td><td><strong>Cash in bank · LOI in hand</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- §9 KPI GATES -->
+    <section id="kpis" aria-labelledby="kpis-h">
+      <h2 id="kpis-h"><span class="num">09</span>KPI gates &amp; definition of done</h2>
+
+      <div class="kpis">
+        <div class="kpi"><div class="v"><em>≥ 0.70</em></div><div class="k">W4 · mAP@0.5</div></div>
+        <div class="kpi"><div class="v"><em>≥ 0.92</em></div><div class="k">Precision (production)</div></div>
+        <div class="kpi"><div class="v"><em>≥ 0.88</em></div><div class="k">Recall (production)</div></div>
+        <div class="kpi"><div class="v"><em>&lt; 50ms</em></div><div class="k">Decision latency p99</div></div>
+        <div class="kpi"><div class="v"><em>≥ 99%</em></div><div class="k">4-hour uptime</div></div>
+        <div class="kpi"><div class="v"><em>1</em></div><div class="k">Paid pilots at W12</div></div>
+        <div class="kpi"><div class="v"><em>1</em></div><div class="k">Second-customer LOIs</div></div>
+        <div class="kpi"><div class="v"><em>Active</em></div><div class="k">NVIDIA Inception</div></div>
+      </div>
+
+      <h3>Risk register (top 5)</h3>
+      <ul>
+        <li><strong>W4 mAP miss</strong> — single biggest project risk. Mitigation: defex CTO has trained YOLO baselines on PCB datasets before defex; transferable. Backup plan: pause project after 1 retrain, refund deposit.</li>
+        <li><strong>Customer line access</strong> — Foreign-invested plants gate plant-floor access. Mitigation: bilingual partner pre-secured; alternative customer queued.</li>
+        <li><strong>PLC integration friction</strong> — Modbus TCP coil mapping varies. Mitigation: pre-built test stand mimicking 3 common PLC families (Siemens S7, Mitsubishi MELSEC, Omron CJ).</li>
+        <li><strong>Hardware supply lead time</strong> — Hikrobot camera 2-week lead. Mitigation: 2 cameras on order at project start.</li>
+        <li><strong>Founder bandwidth</strong> — CEO mid-semester at SJTU. Mitigation: pilot sequenced to land in summer break window.</li>
+      </ul>
+    </section>
+
+    <!-- §10 VISION -->
+    <section id="vision" aria-labelledby="vision-h">
+      <h2 id="vision-h"><span class="num">10</span>Vision · Y1–Y5</h2>
+
+      <ul>
+        <li><strong>Y1 (2026):</strong> Single-cam SKU shipping. 3–5 paid stations across foreign-invested SMEs in 太仓 / 嘉定 / 松江. NVIDIA Inception active. First case study.</li>
+        <li><strong>Y2:</strong> Dual-cam + line SKU shipping. 30+ stations across 10+ customers. Defect-dataset accumulation creates a switching-cost moat per customer. Hire 2 deployment engineers in Shanghai.</li>
+        <li><strong>Y3:</strong> Expand wedge — broader Chinese tier-2 SMEs (we now have proof-of-deployment to credential the foreign-founder gap). MES/OPC-UA bridge ships.</li>
+        <li><strong>Y4:</strong> Multi-line dashboard SKU; multi-tenant SaaS layer for centrally managing N stations. Series-A funding window.</li>
+        <li><strong>Y5:</strong> defex is the default budget AOI vendor across the YRD foreign-invested manufacturing base. Expansion into Vietnam / Thailand foreign-invested clusters.</li>
+      </ul>
+    </section>
+
+    <!-- §11 FAQ -->
+    <section id="faq" class="faq" aria-labelledby="faq-h">
+      <h2 id="faq-h"><span class="num">11</span>Frequently asked</h2>
+      <details>
+        <summary>Why Jetson and not a Raspberry Pi or a Coral TPU?</summary>
+        <p>Pi-class boards can't sustain p99 &lt; 50 ms YOLOv8n at 5 MP with margin for retraining headroom. Coral USB Accelerators handle inference but force CPU bottlenecks on capture + pre-process. Jetson Orin Nano Super (40 TOPS · 8 GB) gives us 3× headroom on the latency budget and a full CUDA stack for OpenCV acceleration — meaning we ship one v1 architecture and don't re-platform for v2.</p>
+      </details>
+      <details>
+        <summary>How does pricing actually clear the plant manager's signature?</summary>
+        <p>Foreign-invested SMEs in the YRD typically authorize plant managers ¥30,000–¥50,000 ($4.2K–$7K) discretionary spend on line improvements without overseas HQ approval. Our $5K upfront fits inside that envelope. The $350/month service line is OpEx — pulled from the operations budget the plant manager already controls, not the capex budget that requires the 6–9 month HQ approval cycle that kills competitor pitches.</p>
+      </details>
+      <details>
+        <summary>What happens to customer data? Does anything leave the factory?</summary>
+        <p>Nothing. defex is edge-only by architecture. Inference, decision, and PLC I/O happen on the on-site Jetson. SQLite traceability and image archive write to NVMe locally. Daily reports are generated locally and emailed via the customer's SMTP if they enable it; otherwise sit on the device. This aligns with 信创 (domestic-substitution) policy and removes the data-egress conversation that blocks cloud-AI vendors.</p>
+      </details>
+      <details>
+        <summary>What's the failure mode if your model misses a defect?</summary>
+        <p>v1 ships configured for high recall (≥ 0.88). The trade-off is over-rejection (~5–8% false reject in the field), which is recoverable via human spot-check on the reject lane. This is the deliberately safer end of the precision/recall curve for first deployment — escaped defects cause AQL audit failures that lose contracts; over-rejects cost a few extra inspector minutes. We tune toward higher precision in v2 once we have 4+ weeks of customer-line data.</p>
+      </details>
+      <details>
+        <summary>Why a twin team and not a solo founder?</summary>
+        <p>Three reasons. (1) Trust starts at maximum — no equity haggling, no founder-dating, no misaligned commitment level. (2) Hardware-AI products have two distinct halves; one founder per half is the right structure. The CTO debugs sensors and trains models; the CEO closes plant managers and runs the application stack. (3) Coordination cost is family-low — standups happen at dinner. The CTO doesn't need a flight booked to fix a GPIO timing issue.</p>
+      </details>
+      <details>
+        <summary>What about Chinese tier-1 manufacturing? Why not start there?</summary>
+        <p>Tier-1 EMS (Foxconn, Luxshare, BYD) are already buying Cognex and Koh Young at ¥200k+. Their procurement is a 9–18 month bureaucracy. A foreign founder with no domestic deployment record can't credibly enter that pipeline. Foreign-invested SMEs are the structural wedge that gets us proof-of-deployment and a customer base; tier-2 Chinese suppliers become reachable in Year 3 once we have references.</p>
+      </details>
+      <details>
+        <summary>What does "Z Fellows-backed" mean here?</summary>
+        <p>Z Fellows is a small-grant + community program for founders in their teens and early twenties, accepting roughly 30 per cohort. Husan was accepted in early 2026. The capital is modest by Silicon Valley standards but the credentialing + the alumni network unlock investor conversations and customer warm intros that a 19-year-old solo founder couldn't otherwise reach.</p>
+      </details>
+      <details>
+        <summary>How can I follow defex's progress?</summary>
+        <p>Build logs are posted on <a class="inline" href="https://x.com/MavlonovHusan" target="_blank" rel="noopener">@MavlonovHusan on X</a> and inside <a class="inline" href="https://buildcored.com" target="_blank" rel="noopener">BuildCored</a>. The product site is <a class="inline" href="https://defex.app" target="_blank" rel="noopener">defex.app</a>. For pilot inquiries: <a class="inline" href="mailto:husan@buildcored.com">husan@buildcored.com</a>.</p>
+      </details>
+    </section>
+
+    <!-- §12 CONTACT -->
+    <section id="contact" class="cta" aria-labelledby="contact-h">
+      <h3 id="contact-h">Want to pilot defex on your line?</h3>
+      <p>If you run a foreign-invested SME line in the YRD and want an inspection station that fits inside your discretionary spend, we want to hear from you. Pilot slots for Q3 2026 are limited.</p>
+      <a class="btn" href="mailto:husan@buildcored.com?subject=defex%20pilot%20interest&body=Hi%20Husan%2C%0A%0AI%27d%20like%20to%20discuss%20a%20defex%20pilot.%20Our%20line%3A%20">Email for a pilot slot</a>
+      <a class="btn" href="https://defex.app" target="_blank" rel="noopener">defex.app ↗</a>
+    </section>
+
+    <footer>
+      <div>
+        <a href="/">← Husan Mavlonov</a>
+      </div>
+      <div>
+        defex · built by the <a href="/">Mavlonov twins</a> · Shanghai
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    // Theme toggle — shares localStorage key 'hm-theme' with the rest of the site
+    (function () {
+      const btn = document.getElementById('themeToggle');
+      if (!btn) return;
+      const STORAGE = 'hm-theme';
+      function apply(theme) {
+        if (theme === 'light') document.body.classList.add('light');
+        else document.body.classList.remove('light');
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', theme === 'light' ? '#a8aeb4' : '#16181c');
+      }
+      const saved = localStorage.getItem(STORAGE);
+      if (saved) apply(saved);
+      else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) apply('light');
+      btn.addEventListener('click', () => {
+        const isLight = document.body.classList.toggle('light');
+        const theme = isLight ? 'light' : 'dark';
+        localStorage.setItem(STORAGE, theme);
+        apply(theme);
+      });
+    })();
+  </script>
+
+</body>
+</html>

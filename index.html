@@ -100,6 +100,10 @@
           "https://www.linkedin.com/in/husan-mavlonov",
           "https://www.instagram.com/mavhusan/",
           "https://t.me/mavlonov_husan"
+        ],
+        "subjectOf": [
+          { "@id": "https://husanmavlonov.com/defex/#article" },
+          { "@id": "https://husanmavlonov.com/press/#webpage" }
         ]
       },
       {
@@ -435,6 +439,25 @@
     }
     .meta-line > span { white-space: nowrap; }
     .meta-line .sep { color: var(--dimmer); }
+
+    /* tiny quiet "more" footer-style nav at the bottom of main */
+    .more-links {
+      margin-top: 32px;
+      padding-top: 18px;
+      border-top: 1px dashed var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .more-links a {
+      color: var(--dim);
+      transition: color 0.2s ease;
+    }
+    .more-links a:hover { color: var(--fg); }
 
 
 
@@ -1138,6 +1161,11 @@
         </li>
       </ul>
     </div>
+
+    <nav class="more-links" aria-label="more">
+      <a href="/defex/">defex deep dive →</a>
+      <a href="/press/">press kit →</a>
+    </nav>
 
   </main>
 
