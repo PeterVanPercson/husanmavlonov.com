@@ -1429,12 +1429,36 @@
         if (jumper) jumper.classList.remove('live');
       }
 
+      // ---------- focus management ----------
+      function bgEls() {
+        return Array.prototype.filter.call(
+          document.body.children,
+          (el) => el !== backdrop && el.id !== 'stBackdrop'
+        );
+      }
+      function setInert(on) {
+        bgEls().forEach((el) => {
+          if (on) { el.setAttribute('inert', ''); el.setAttribute('aria-hidden', 'true'); }
+          else { el.removeAttribute('inert'); el.removeAttribute('aria-hidden'); }
+        });
+      }
+      function trapTab(e) {
+        if (e.key !== 'Tab') return;
+        const f = backdrop.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+        if (!f.length) return;
+        const first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+
       // ---------- open / close ----------
       function open() {
         lastFocus = document.activeElement;
         backdrop.classList.add('open');
         backdrop.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
+        setInert(true);
+        backdrop.addEventListener('keydown', trapTab);
         if (closeBtn) closeBtn.focus();
         // measure AFTER the open transition settles (modal scale back to 1)
         setTimeout(startJumper, 380);
@@ -1443,6 +1467,8 @@
         backdrop.classList.remove('open');
         backdrop.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
+        setInert(false);
+        backdrop.removeEventListener('keydown', trapTab);
         stopJumper();
         if (lastFocus && lastFocus.focus) lastFocus.focus();
       }
