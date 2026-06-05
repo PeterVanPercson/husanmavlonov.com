@@ -45,6 +45,7 @@
   <link rel="shortcut icon" href="/favicon.ico" />
   <!-- Self-hosted fonts: preload the 3 above-the-fold faces, inline @font-face below. font-display:optional = no flash/swap. -->
   <link rel="preload" href="/fonts/instrumentserif-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/instrumentserif-400i.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/jetbrainsmono-400.woff2" as="font" type="font/woff2" crossorigin>
   <style>
@@ -188,8 +189,8 @@
       --dimmer: #6a6c70;
       --line: #94989c;
       --line-strong: #828589;
-      --accent: #e8e6df;                 /* cream — was the dark theme's fg, now the highlight */
-      --accent-rgb: 232, 230, 223;
+      --accent: #2a2f36;                 /* dark slate — symmetric inversion; 6.0:1 on light-gray bg (was cream #e8e6df, 1.79:1, failed AA) */
+      --accent-rgb: 42, 47, 54;
     }
 
     html, body {
