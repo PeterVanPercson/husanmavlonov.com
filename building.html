@@ -77,11 +77,12 @@
   <style>
     @font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/instrumentserif-400.woff2) format('woff2')}
     @font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-display:optional;src:url(/fonts/instrumentserif-400i.woff2) format('woff2')}
-    @font-face{font-family:'Inter';font-style:normal;font-weight:300;font-display:optional;src:url(/fonts/inter-300.woff2) format('woff2')}
     @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/inter-400.woff2) format('woff2')}
     @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:optional;src:url(/fonts/inter-500.woff2) format('woff2')}
     @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/jetbrainsmono-400.woff2) format('woff2')}
-    @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:optional;src:url(/fonts/jetbrainsmono-500.woff2) format('woff2')}
+    @font-face{font-family:'Serif Fallback';src:local('Georgia');size-adjust:106%;ascent-override:99%;descent-override:31%;line-gap-override:0%}
+    @font-face{font-family:'Sans Fallback';src:local('Arial'),local('Helvetica Neue');size-adjust:105%;ascent-override:97%;descent-override:24%;line-gap-override:0%}
+    @font-face{font-family:'Mono Fallback';src:local('Menlo'),local('Consolas');size-adjust:110%;ascent-override:102%;descent-override:30%;line-gap-override:0%}
   </style>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -96,9 +97,9 @@
       --accent: #a8aeb4;                 /* neutral cool gray */
       --accent-rgb: 168, 174, 180;
       --claude: #cc7757;
-      --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-      --sans: 'Inter', system-ui, -apple-system, sans-serif;
-      --serif: 'Instrument Serif', Georgia, serif;
+      --mono: 'JetBrains Mono', 'Mono Fallback', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --sans: 'Inter', 'Sans Fallback', system-ui, -apple-system, sans-serif;
+      --serif: 'Instrument Serif', 'Serif Fallback', Georgia, serif;
     }
     body.light {
       --bg: #a8aeb4;                     /* neutral gray — was dark's accent */
@@ -116,6 +117,7 @@
       color: var(--fg);
       font-family: var(--sans);
       min-height: 100vh;
+      min-height: 100dvh;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
       transition: background 0.4s ease, color 0.4s ease;
