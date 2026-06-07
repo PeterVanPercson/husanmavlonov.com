@@ -798,9 +798,10 @@
       box-sizing: border-box;
     }
     .st-photo {
-      width: min(440px, 82vw);
+      width: auto;
+      max-width: min(440px, 82vw);
       max-height: 62vh;
-      object-fit: cover;
+      object-fit: contain;   /* show the WHOLE photo — never crop faces out of group shots */
       border-radius: 8px;
       border: 1px solid var(--line-strong);
       display: block;
@@ -907,7 +908,7 @@
       }
     }
     .st-big .st-photo {
-      width: min(620px, 92vw);
+      max-width: min(620px, 92vw);
       max-height: 78vh;
     }
     .st-big .st-cap { margin-top: 16px; }
@@ -1050,7 +1051,8 @@
     }
     @media (max-width: 560px) {
       .st-nav { right: calc(12px + env(safe-area-inset-right)); }
-      .st-cap, .st-photo { width: 88vw; }
+      .st-cap { width: 88vw; }
+      .st-photo { max-width: 88vw; }
       .st-player { right: calc(56px + env(safe-area-inset-right)); }
       .st-player .st-track { display: none; }
       .st-date { display: none; }
