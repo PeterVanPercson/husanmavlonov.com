@@ -29,7 +29,7 @@
   <a href="https://husanmavlonov.com"><img alt="Website" src="https://img.shields.io/badge/husanmavlonov.com-16181c?style=flat-square&labelColor=16181c&color=a8aeb4" /></a>
   <a href="https://x.com/MavlonovHusan"><img alt="X" src="https://img.shields.io/badge/@MavlonovHusan-16181c?style=flat-square&logo=x&logoColor=white&labelColor=16181c" /></a>
   <a href="https://www.linkedin.com/in/husan-mavlonov"><img alt="LinkedIn" src="https://img.shields.io/badge/husan--mavlonov-16181c?style=flat-square&logo=linkedin&logoColor=white&labelColor=16181c&color=0a66c2" /></a>
-  <a href="https://t.me/mavlonov_husan"><img alt="Telegram" src="https://img.shields.io/badge/mavlonov__husan-16181c?style=flat-square&logo=telegram&logoColor=white&labelColor=16181c&color=26a5e4" /></a>
+  <a href="https://t.me/husanmd"><img alt="Telegram" src="https://img.shields.io/badge/husanmd-16181c?style=flat-square&logo=telegram&logoColor=white&labelColor=16181c&color=26a5e4" /></a>
   <a href="mailto:husan@buildcored.com"><img alt="Email" src="https://img.shields.io/badge/husan@buildcored.com-16181c?style=flat-square&logo=gmail&logoColor=white&labelColor=16181c&color=d9534f" /></a>
 </p>
 
