@@ -49,7 +49,7 @@
         "isPartOf": { "@id": "https://husanmavlonov.com/#website" },
         "about": { "@id": "https://husanmavlonov.com/#person" },
         "primaryImageOfPage": "https://husanmavlonov.com/og.png",
-        "dateModified": "2026-05-23",
+        "dateModified": "2026-07-29",
         "inLanguage": "en",
         "breadcrumb": { "@id": "https://husanmavlonov.com/building.html#breadcrumb" }
       },
@@ -70,17 +70,17 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="shortcut icon" href="/favicon.ico" />
   <!-- Self-hosted fonts: preload the 3 above-the-fold faces, inline @font-face below. font-display:optional = no flash/swap. -->
-  <link rel="preload" href="/fonts/instrumentserif-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/instrumentserif-400i.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" type="image/webp" href="/bg-sf-1024.webp" media="(max-width: 700px)">
+  <link rel="preload" as="image" type="image/webp" href="/bg-sf-1600.webp" media="(min-width: 701px) and (max-width: 1699px)">
+  <link rel="preload" as="image" type="image/webp" href="/bg-sf-2560.webp" media="(min-width: 1700px)">
+  <link rel="preload" href="/fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/jetbrainsmono-400.woff2" as="font" type="font/woff2" crossorigin>
   <style>
-    @font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/instrumentserif-400.woff2) format('woff2')}
-    @font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-display:optional;src:url(/fonts/instrumentserif-400i.woff2) format('woff2')}
+    @font-face{font-family:'Inter';font-style:normal;font-weight:300;font-display:optional;src:url(/fonts/inter-300.woff2) format('woff2')}
     @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/inter-400.woff2) format('woff2')}
     @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:optional;src:url(/fonts/inter-500.woff2) format('woff2')}
     @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/jetbrainsmono-400.woff2) format('woff2')}
-    @font-face{font-family:'Serif Fallback';src:local('Georgia');size-adjust:106%;ascent-override:99%;descent-override:31%;line-gap-override:0%}
     @font-face{font-family:'Sans Fallback';src:local('Arial'),local('Helvetica Neue');size-adjust:105%;ascent-override:97%;descent-override:24%;line-gap-override:0%}
     @font-face{font-family:'Mono Fallback';src:local('Menlo'),local('Consolas');size-adjust:110%;ascent-override:102%;descent-override:30%;line-gap-override:0%}
   </style>
@@ -99,7 +99,8 @@
       --claude: #cc7757;
       --mono: 'JetBrains Mono', 'Mono Fallback', ui-monospace, SFMono-Regular, Menlo, monospace;
       --sans: 'Inter', 'Sans Fallback', system-ui, -apple-system, sans-serif;
-      --serif: 'Instrument Serif', 'Serif Fallback', Georgia, serif;
+      /* one geometric grotesque, differentiated by weight + tight tracking (see index.html) */
+      --display: 'Inter', 'Sans Fallback', system-ui, -apple-system, sans-serif;
     }
     body.light {
       --bg: #a8aeb4;                     /* neutral gray — was dark's accent */
@@ -223,26 +224,32 @@
       .hdr-socials a[aria-label="Email"] { display: none; }
     }
 
-    /* ===== PAGE ===== */
+    /* ===== PAGE — glass card floating on the shared SF backdrop ===== */
     .page {
       max-width: 720px;
-      margin: 0 auto;
-      padding: 40px 36px 96px;
+      margin: 26px auto 46px;
+      padding: 34px 38px 40px;
       display: flex;
       flex-direction: column;
       gap: 24px;
+      border-radius: 18px;
+    }
+    /* index.html shifts its card left of centre to clear the fixed memories widget;
+       mirror it here so the pane doesn't jump sideways when you navigate between pages */
+    @media (min-width: 1000px) {
+      .page { left: -80px; }
     }
 
     h1 {
-      font-family: var(--serif);
-      font-size: clamp(34px, 5.2vw, 56px);
-      font-weight: 400;
-      letter-spacing: -0.025em;
-      line-height: 0.96;
+      font-family: var(--display);
+      font-size: clamp(38px, 5.8vw, 64px);
+      font-weight: 500;
+      letter-spacing: -0.048em;
+      line-height: 0.93;
       color: var(--fg);
       transition: color 0.4s ease;
     }
-    h1 em { font-style: italic; color: var(--accent); font-weight: 400; }
+    h1 em { font-style: normal; color: var(--accent); font-weight: 500; }
 
     /* ===== SOON LIST — matches "I built." on home ===== */
     .soon { margin-top: 18px; }
@@ -265,11 +272,12 @@
     }
     .soon-item:last-child { border-bottom: 1px dashed var(--line); }
     .soon-item .name {
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: 22px;
+      font-family: var(--display);
+      font-style: normal;
+      font-weight: 500;
+      font-size: 21px;
       color: var(--fg);
-      letter-spacing: -0.01em;
+      letter-spacing: -0.036em;
       transition: color 0.2s ease;
     }
     .soon-item a.name:hover { color: var(--accent); }
@@ -295,23 +303,26 @@
     }
 
     .cta-line {
-      font-family: var(--serif);
-      font-style: italic;
+      font-family: var(--display);
+      font-style: normal;
+      font-weight: 400;
       font-size: clamp(17px, 1.9vw, 21px);
-      line-height: 1.4;
+      line-height: 1.42;
+      letter-spacing: -0.028em;
       color: var(--fg);
-      opacity: 0.82;
+      opacity: 0.86;
       max-width: 580px;
       margin-top: 18px;
     }
     .why-line {
-      font-family: var(--serif);
-      font-style: italic;
+      font-family: var(--display);
+      font-style: normal;
+      font-weight: 400;
       font-size: clamp(17px, 1.9vw, 21px);
-      line-height: 1.35;
-      letter-spacing: -0.005em;
+      line-height: 1.38;
+      letter-spacing: -0.028em;
       color: var(--fg);
-      opacity: 0.78;
+      opacity: 0.86;
       max-width: 620px;
       margin: 8px 0 4px;
     }
@@ -342,18 +353,24 @@
     }
 
     @media (max-width: 540px) {
-      .page { padding: 28px 22px 64px; gap: 20px; }
+      .page { margin: 14px 12px 34px; padding: 26px 20px 32px; gap: 20px; border-radius: 14px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
   </style>
+  <!-- shared SF backdrop + glass material; loaded LAST so it wins over the inline styles -->
+  <link rel="stylesheet" href="/glass.css">
 </head>
 <body>
   <a href="#top" class="skip-link">Skip to content</a>
 
-  <header class="site-header" aria-label="primary">
+  <!-- shared SF backdrop — decorative; identical markup on every page -->
+  <div class="bg-plate" aria-hidden="true"></div>
+  <div class="bg-scrim" aria-hidden="true"></div>
+
+  <header class="site-header glass" aria-label="primary">
     <a href="index.html" class="hdr-link" data-page="home">Home</a>
     <a href="building.html" class="hdr-link" aria-current="page" data-page="building">Building</a>
     <div class="hdr-socials">
@@ -383,7 +400,7 @@
     </button>
   </header>
 
-  <main class="page" id="top">
+  <main class="page glass" id="top">
 
     <h1>Building<em>.</em></h1>
     <p class="why-line">Long bet on AI for battery manufacturing.</p>
@@ -415,6 +432,21 @@
   </main>
 
   <script>
+    // ============================================
+    // SF BACKDROP — fade in once the photo is decoded so it never pops in mid-read
+    // ============================================
+    (function () {
+      const plate = document.querySelector('.bg-plate');
+      if (!plate) return;
+      const ready = () => document.body.classList.add('bg-ready');
+      const src = getComputedStyle(plate).backgroundImage.match(/url\(["']?([^"')]+)["']?\)/);
+      if (!src) { ready(); return; }
+      const img = new Image();
+      img.onload = img.onerror = ready;
+      img.src = src[1];
+      if (img.complete) ready();
+    })();
+
     (function () {
       const btn = document.getElementById('themeToggle');
       if (!btn) return;

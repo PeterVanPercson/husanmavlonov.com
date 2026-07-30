@@ -11,14 +11,16 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="shortcut icon" href="/favicon.ico" />
-  <link rel="preload" href="/fonts/instrumentserif-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" type="image/webp" href="/bg-sf-1024.webp" media="(max-width: 700px)">
+  <link rel="preload" as="image" type="image/webp" href="/bg-sf-1600.webp" media="(min-width: 701px) and (max-width: 1699px)">
+  <link rel="preload" as="image" type="image/webp" href="/bg-sf-2560.webp" media="(min-width: 1700px)">
+  <link rel="preload" href="/fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/jetbrainsmono-400.woff2" as="font" type="font/woff2" crossorigin>
   <style>
-    @font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/instrumentserif-400.woff2) format('woff2')}
     @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/inter-400.woff2) format('woff2')}
+    @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:optional;src:url(/fonts/inter-500.woff2) format('woff2')}
     @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/jetbrainsmono-400.woff2) format('woff2')}
-    @font-face{font-family:'Serif Fallback';src:local('Georgia');size-adjust:106%;ascent-override:99%;descent-override:31%;line-gap-override:0%}
     @font-face{font-family:'Sans Fallback';src:local('Arial'),local('Helvetica Neue');size-adjust:105%;ascent-override:97%;descent-override:24%;line-gap-override:0%}
     @font-face{font-family:'Mono Fallback';src:local('Menlo'),local('Consolas');size-adjust:110%;ascent-override:102%;descent-override:30%;line-gap-override:0%}
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,7 +28,10 @@
       --bg: #16181c; --fg: #e8e6df; --dim: #908b83; --accent: #a8aeb4;
       --mono: 'JetBrains Mono', 'Mono Fallback', ui-monospace, Menlo, monospace;
       --sans: 'Inter', 'Sans Fallback', system-ui, -apple-system, sans-serif;
-      --serif: 'Instrument Serif', 'Serif Fallback', Georgia, serif;
+      --display: 'Inter', 'Sans Fallback', system-ui, -apple-system, sans-serif;
+    }
+    body.light {
+      --bg: #a8aeb4; --fg: #16181c; --dim: #383a3e; --accent: #2a2f36;
     }
     html, body {
       background: var(--bg); color: var(--fg);
@@ -36,11 +41,24 @@
       -webkit-font-smoothing: antialiased;
     }
     main {
+      position: relative;
+      z-index: 2;
       min-height: 100vh;
       min-height: 100dvh;
+      display: flex;
+      align-items: center; justify-content: center;
+      padding: 40px 24px;
+    }
+    /* the copy needs a pane of its own — on this page there is no other chrome between
+       the type and the photograph */
+    .n4-card {
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      gap: 18px; padding: 40px; text-align: center;
+      gap: 18px;
+      padding: 44px 40px 40px;
+      border-radius: 18px;
+      max-width: 560px;
+      text-align: center;
     }
     .code {
       font-family: var(--mono); font-size: 12px;
@@ -48,13 +66,13 @@
       color: var(--accent);
     }
     h1 {
-      font-family: var(--serif); font-weight: 400;
+      font-family: var(--display); font-weight: 500;
       font-size: clamp(40px, 9vw, 84px);
       line-height: 1; letter-spacing: -0.02em;
     }
     h1 em { color: var(--accent); font-style: normal; }
     p {
-      font-family: var(--serif); font-size: clamp(18px, 2.6vw, 24px);
+      font-family: var(--display); font-size: clamp(17px, 2.4vw, 21px);
       color: var(--dim); max-width: 30ch;
     }
     a.home {
@@ -68,13 +86,47 @@
     }
     a.home:hover { color: var(--fg); }
   </style>
+  <!-- shared SF backdrop + glass material; loaded LAST so it wins over the inline styles -->
+  <link rel="stylesheet" href="/glass.css">
 </head>
 <body>
+  <!-- shared SF backdrop — decorative; identical markup on every page -->
+  <div class="bg-plate" aria-hidden="true"></div>
+  <div class="bg-scrim" aria-hidden="true"></div>
   <main>
-    <span class="code">404 · not found</span>
-    <h1>Husan Mavlonov<em>.</em></h1>
-    <p>lost the thread. nothing lives at this address.</p>
-    <a class="home" href="/">← back to start</a>
+    <div class="n4-card glass">
+      <span class="code">404 · not found</span>
+      <h1>Husan Mavlonov<em>.</em></h1>
+      <p>lost the thread. nothing lives at this address.</p>
+      <a class="home" href="/"><i class="arw">←</i> back to start</a>
+    </div>
   </main>
+  <script>
+    // match the other pages: restore the saved theme before the backdrop settles
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem('hm-theme'); } catch (e) {}
+      var light = saved ? saved === 'light'
+        : (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches);
+      if (light) {
+        document.body.classList.add('light');
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', '#a8aeb4');
+      }
+    })();
+
+    // fade the shared backdrop in on decode
+    (function () {
+      const plate = document.querySelector('.bg-plate');
+      if (!plate) return;
+      const ready = () => document.body.classList.add('bg-ready');
+      const src = getComputedStyle(plate).backgroundImage.match(/url\(["']?([^"')]+)["']?\)/);
+      if (!src) { ready(); return; }
+      const img = new Image();
+      img.onload = img.onerror = ready;
+      img.src = src[1];
+      if (img.complete) ready();
+    })();
+  </script>
 </body>
 </html>

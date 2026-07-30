@@ -4,14 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Husan Mavlonov — Builder (defex, BuildCored)</title>
-  <meta name="description" content="Husan Mavlonov — builder. Founder of defex and BuildCored, Z Fellow. Tashkent → Istanbul → Shanghai. University of Michigan–Shanghai Jiao Tong." />
+  <meta name="description" content="Husan Mavlonov — builder. Founder of defex and BuildCored. Z Fellow, F.Inc Fellow, Silkroad Fellow, Lumiere Scholar. Tashkent → Istanbul → Shanghai → San Francisco." />
   <link rel="canonical" href="https://husanmavlonov.com/" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <meta name="theme-color" content="#16181c" />
   <meta name="color-scheme" content="dark light" />
   <meta name="author" content="Husan Mavlonov" />
   <meta property="og:title" content="Husan Mavlonov — Builder" />
-  <meta property="og:description" content="Builder. Founder of defex and BuildCored, Z Fellow. Tashkent → Istanbul → Shanghai." />
+  <meta property="og:description" content="Builder. Founder of defex and BuildCored. Z Fellow · F.Inc · Silkroad. Tashkent → Istanbul → Shanghai → San Francisco." />
   <meta property="og:site_name" content="Husan Mavlonov" />
   <meta property="og:type" content="profile" />
   <meta property="og:url" content="https://husanmavlonov.com/" />
@@ -44,19 +44,20 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="shortcut icon" href="/favicon.ico" />
   <!-- Self-hosted fonts: preload the 3 above-the-fold faces, inline @font-face below. font-display:optional = no flash/swap. -->
-  <link rel="preload" href="/fonts/instrumentserif-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/instrumentserif-400i.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/jetbrainsmono-400.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- SF backdrop: preload only the one variant this viewport will actually paint -->
+  <link rel="preload" as="image" type="image/webp" href="/bg-sf-1024.webp" media="(max-width: 700px)">
+  <link rel="preload" as="image" type="image/webp" href="/bg-sf-1600.webp" media="(min-width: 701px) and (max-width: 1699px)">
+  <link rel="preload" as="image" type="image/webp" href="/bg-sf-2560.webp" media="(min-width: 1700px)">
   <style>
     /* real faces (font-display:optional = paints real font at first paint or never swaps mid-view) */
-    @font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/instrumentserif-400.woff2) format('woff2')}
-    @font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-display:optional;src:url(/fonts/instrumentserif-400i.woff2) format('woff2')}
+    @font-face{font-family:'Inter';font-style:normal;font-weight:300;font-display:optional;src:url(/fonts/inter-300.woff2) format('woff2')}
     @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/inter-400.woff2) format('woff2')}
     @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:optional;src:url(/fonts/inter-500.woff2) format('woff2')}
     @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/jetbrainsmono-400.woff2) format('woff2')}
     /* metric-matched fallbacks (computed from font x-height tables) — fallback occupies identical space, so a slow-load fallback paint causes NO reflow/"pop" between navigations */
-    @font-face{font-family:'Serif Fallback';src:local('Georgia');size-adjust:106%;ascent-override:99%;descent-override:31%;line-gap-override:0%}
     @font-face{font-family:'Sans Fallback';src:local('Arial'),local('Helvetica Neue');size-adjust:105%;ascent-override:97%;descent-override:24%;line-gap-override:0%}
     @font-face{font-family:'Mono Fallback';src:local('Menlo'),local('Consolas');size-adjust:110%;ascent-override:102%;descent-override:30%;line-gap-override:0%}
   </style>
@@ -75,15 +76,16 @@
         "image": "https://husanmavlonov.com/og.png",
         "email": "husan@buildcored.com",
         "jobTitle": "Builder",
-        "description": "Builder. Founder of defex and BuildCored, Z Fellow. Tashkent → Istanbul → Shanghai. University of Michigan–Shanghai Jiao Tong.",
+        "description": "Builder. Founder of defex and BuildCored. Z Fellow, F.Inc Fellow, Silkroad Fellow. Tashkent → Istanbul → Shanghai → San Francisco. University of Michigan–Shanghai Jiao Tong.",
         "nationality": { "@type": "Country", "name": "Uzbekistan" },
+        "homeLocation": { "@type": "Place", "name": "San Francisco, California" },
         "alumniOf": [
           { "@type": "CollegeOrUniversity", "name": "University of Michigan – Shanghai Jiao Tong Joint Institute", "url": "https://www.ji.sjtu.edu.cn/" },
           { "@type": "CollegeOrUniversity", "name": "Fudan University", "url": "https://www.fudan.edu.cn/" }
         ],
         "knowsLanguage": ["en", "ru", "uz", "tr", "zh"],
         "knowsAbout": ["Edge AI", "Computer vision", "Defect inspection", "NVIDIA Jetson", "Hardware engineering", "Battery manufacturing", "Community building"],
-        "award": ["Z Fellow", "Lumiere Scholar"],
+        "award": ["Z Fellow", "F.Inc Fellow", "Silkroad Fellow", "Lumiere Scholar"],
         "founder": [
           { "@id": "https://buildcored.com/#org" },
           { "@id": "https://defex.app/#org" },
@@ -161,7 +163,7 @@
         "about": { "@id": "https://husanmavlonov.com/#person" },
         "primaryImageOfPage": "https://husanmavlonov.com/og.png",
         "datePublished": "2026-04-01",
-        "dateModified": "2026-05-23",
+        "dateModified": "2026-07-29",
         "inLanguage": "en"
       }
     ]
@@ -183,7 +185,10 @@
       --claude: #cc7757;
       --mono: 'JetBrains Mono', 'Mono Fallback', ui-monospace, SFMono-Regular, Menlo, monospace;
       --sans: 'Inter', 'Sans Fallback', system-ui, -apple-system, sans-serif;
-      --serif: 'Instrument Serif', 'Serif Fallback', Georgia, serif;
+      /* Display face: one geometric grotesque, differentiated by weight + tight tracking
+         rather than by a second family. The old Instrument Serif read dated against the
+         glass, so it's retired — hierarchy now comes from size/weight/tracking. */
+      --display: 'Inter', 'Sans Fallback', system-ui, -apple-system, sans-serif;
     }
     body.light {
       --bg: #a8aeb4;                     /* neutral gray — was the dark theme's accent, now the main */
@@ -209,6 +214,9 @@
 
     ::selection { background: var(--accent); color: var(--bg); }
 
+    /* The SF backdrop + the glass material now live in /glass.css, linked after this
+       block so every page shares one identical backdrop. Do not re-declare them here. */
+
     a { color: inherit; text-decoration: none; }
     a:focus-visible, button:focus-visible {
       outline: 1px solid var(--accent);
@@ -230,17 +238,19 @@
     }
     .skip-link:focus { left: 16px; outline: none; }
 
-    /* ===== HEADER — Hermes-style cell grid ===== */
+    /* ===== HEADER — Hermes-style cell grid, cut from the same glass as the card ===== */
     .site-header {
       display: grid;
       grid-template-columns: 0.9fr 0.9fr 1.5fr 1fr;
-      border-bottom: 1px solid var(--line);
-      transition: border-color 0.4s ease;
+      z-index: 2;
+      transition: border-color 0.4s ease, background 0.4s ease;
     }
+    /* .site-header.glass surface lives in /glass.css */
     .site-header > * {
       display: flex;
       align-items: center;
       padding: 16px 24px;
+      /* --line is redefined inside .glass, so the cell dividers read on the photo */
       border-left: 1px solid var(--line);
       transition: border-color 0.4s ease, color 0.3s ease, background 0.3s ease;
     }
@@ -337,16 +347,18 @@
       .hdr-socials a[aria-label="Email"] { display: none; }
     }
 
-    /* ===== PAGE LAYOUT ===== */
+    /* ===== PAGE LAYOUT — a glass card floating on the photo ===== */
     .page {
       max-width: 720px;
-      margin: 0 auto;
-      padding: 32px 36px 12px;
+      margin: 26px auto 46px;
+      padding: 34px 38px 32px;
       display: flex;
       flex-direction: column;
       gap: 14px;
       position: relative;
+      z-index: 2;
       left: 0;
+      border-radius: 18px;
     }
     /* shift the whole body a bit left on wide screens; stories widget stays right */
     @media (min-width: 1000px) {
@@ -395,9 +407,10 @@
       letter-spacing: 0.2em;
       text-transform: lowercase;
       color: var(--accent);
-      transition: color 0.25s ease;
+      transition: color 0.25s ease, background 0.4s ease, border-color 0.4s ease;
       white-space: nowrap;
     }
+    /* .st-label.glass pill surface lives in /glass.css */
     .st-cover:hover .st-stack i:nth-child(1) { transform: rotate(-12deg) translate(-10px, 5px); }
     .st-cover:hover .st-stack i:nth-child(2) { transform: rotate(9deg) translate(10px, -3px); }
     .st-cover:hover .st-stack img { transform: translateY(-3px) scale(1.03); border-color: var(--claude); }
@@ -410,25 +423,25 @@
 
     /* ===== NAME ===== */
     h1 {
-      font-family: var(--serif);
-      font-size: clamp(34px, 5.2vw, 56px);
-      font-weight: 400;
-      letter-spacing: -0.025em;
-      line-height: 0.96;
+      font-family: var(--display);
+      font-size: clamp(38px, 5.8vw, 64px);
+      font-weight: 500;
+      letter-spacing: -0.048em;   /* tight optical tracking — the modern display idiom */
+      line-height: 0.93;
       color: var(--fg);
       transition: color 0.4s ease;
     }
-    h1 em { font-style: italic; color: var(--accent); font-weight: 400; }
+    h1 em { font-style: normal; color: var(--accent); font-weight: 500; }
 
     .lead {
       font-family: var(--sans);
-      font-weight: 400;
-      font-size: clamp(18px, 2.2vw, 24px);
-      line-height: 1.25;
-      letter-spacing: -0.022em;
+      font-weight: 500;
+      font-size: clamp(19px, 2.3vw, 25px);
+      line-height: 1.22;
+      letter-spacing: -0.034em;
       color: var(--fg);
     }
-    .lead b { color: var(--accent); font-weight: 400; }
+    .lead b { color: var(--accent); font-weight: 500; }
 
     .meta-line {
       font-family: var(--mono);
@@ -444,7 +457,7 @@
     }
     .meta-line > span { white-space: nowrap; }
     .meta-line .sep { color: var(--dimmer); }
-    /* arrows: JetBrains Mono (and Instrument Serif) lack U+2192, so render them in a stable system stack instead of whatever the OS picks */
+    /* arrows: JetBrains Mono lacks U+2192, so render them in a stable system stack instead of whatever the OS picks */
     .meta-line .arw { font-style: normal; font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
 
 
@@ -462,31 +475,38 @@
       display: inline-flex;
       align-items: center;
       padding: 6px 14px;
-      background: rgba(204, 119, 87, 0.10);
-      border: 1px solid rgba(204, 119, 87, 0.45);
+      /* the photo behind this pill is warm orange, which would swallow terracotta text —
+         so the pill carries its own hard knock-down and a lifted Claude tone */
+      background: rgba(16, 12, 10, 0.34);
+      -webkit-backdrop-filter: blur(14px) saturate(1.6) brightness(0.34);
+      backdrop-filter: blur(14px) saturate(1.6) brightness(0.34);
+      border: 1px solid rgba(240, 166, 128, 0.55);
       border-radius: 999px;
       font-family: var(--mono);
       font-size: 10px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--claude);
+      color: #f0a680;
       cursor: pointer;
       transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
     }
     .claude-cta:hover {
-      background: rgba(204, 119, 87, 0.20);
-      border-color: var(--claude);
+      background: rgba(204, 119, 87, 0.34);
+      border-color: #f7bb9a;
       transform: translateY(-1px);
     }
-    /* Light theme override — pill goes solid for high contrast on steel-blue bg */
+    /* Light theme — pill goes solid, darkened enough that white type clears AA */
     body.light .claude-cta {
-      background: var(--claude);
-      border-color: var(--claude);
+      background: #b3542f;
+      border-color: #b3542f;
       color: #fff;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      text-shadow: none;
     }
     body.light .claude-cta:hover {
-      background: #b85f3f;
-      border-color: #b85f3f;
+      background: #9c4527;
+      border-color: #9c4527;
     }
     .claude-walker {
       position: absolute;
@@ -521,17 +541,18 @@
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s ease;
+      /* visibility, not just opacity: with opacity alone the three controls inside stayed
+         in the tab order while invisible (.st-backdrop already did this correctly) */
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
       z-index: 1000;
     }
-    .cc-backdrop.open { opacity: 1; pointer-events: auto; }
+    .cc-backdrop.open { opacity: 1; pointer-events: auto; visibility: visible; }
     .cc-modal {
       position: relative;
       width: min(560px, 92vw);
       height: 400px;
-      background: var(--bg);
-      border: 1px solid var(--line-strong);
-      border-radius: 8px;
+      border-radius: 14px;
       overflow: hidden;
       padding: 0 46px;
       display: flex;
@@ -542,6 +563,8 @@
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .cc-backdrop.open .cc-modal { transform: translateY(0) scale(1); }
+    /* .cc-modal.glass and .cc-backdrop surfaces live in /glass.css */
+    body.light .cc-choice { background: rgba(22, 24, 28, 0.05); }
 
     .cc-close {
       position: absolute;
@@ -563,9 +586,10 @@
       font-size: 10px;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--claude);
+      color: #f0a680;              /* lifted Claude tone — raw --claude is sub-AA on glass */
       margin-bottom: 10px;
     }
+    body.light .cc-eyebrow { color: #9c4527; }
     .cc-me {
       display: inline-block;
       width: 1.7em;            /* ≈ matches the eyebrow text height */
@@ -579,14 +603,14 @@
       border: 1px solid var(--line);
     }
     .cc-title {
-      font-family: var(--serif);
-      font-size: 40px;
-      font-weight: 400;
-      letter-spacing: -0.02em;
+      font-family: var(--display);
+      font-size: 41px;
+      font-weight: 500;
+      letter-spacing: -0.042em;
       color: var(--fg);
       line-height: 1;
     }
-    .cc-title em { font-style: italic; color: var(--accent); font-weight: 400; }
+    .cc-title em { font-style: normal; color: var(--accent); font-weight: 500; }
 
     .cc-choices {
       display: grid;
@@ -611,11 +635,12 @@
       transform: translateY(-2px);
     }
     .cc-choice-name {
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: 23px;
+      font-family: var(--display);
+      font-style: normal;
+      font-weight: 500;
+      font-size: 21px;
       color: var(--fg);
-      letter-spacing: -0.01em;
+      letter-spacing: -0.034em;
     }
     .cc-choice-desc {
       font-size: 12.5px;
@@ -678,16 +703,21 @@
     }
     .built .proj-row:hover { padding-left: 8px; }
     .built .name {
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: 22px;
+      font-family: var(--display);
+      font-style: normal;
+      font-weight: 500;
+      font-size: 21px;
       color: var(--fg);
-      letter-spacing: -0.01em;
+      letter-spacing: -0.036em;
       transition: color 0.2s ease;
     }
     .built .proj-row:hover .name { color: var(--accent); }
-    .built .name .defex-dot { color: #FF5B16; }
-    .built .name .mf { color: #F0386B; }
+    /* brand accents, lifted for the glass pane — the pane's surface luminance is well above
+       the flat background these hexes were originally picked against */
+    .built .name .defex-dot { color: #FF7A45; }
+    .built .name .mf { color: #FF6B90; }
+    body.light .built .name .defex-dot { color: #C7400C; }
+    body.light .built .name .mf { color: #C41E4E; }
     /* unified credential line — one system for all three projects */
     .built .cred {
       display: block;
@@ -701,13 +731,14 @@
     }
     .built .cred b { color: var(--fg); font-weight: 500; }
     .built .cred .zfz {
-      font-weight: 700;
+      font-weight: 500;   /* 500 is a real self-hosted face; 700 was synthesised bold */
       background: linear-gradient(135deg, #6EA8FF, #2F6BE5);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .built .cred .axx { font-weight: 500; color: #B31B1B; }
+    .built .cred .axx { font-weight: 500; color: #E86A6A; }
+    body.light .built .cred .axx { color: #9E1111; }
     .built .cred .emb { height: 20px; width: auto; vertical-align: middle; margin: 0 4px; position: relative; top: -1px; }
     .built .cred-uz { line-height: 1.2; }
     .built .desc {
@@ -725,13 +756,14 @@
     }
 
     .why-line {
-      font-family: var(--serif);
-      font-style: italic;
+      font-family: var(--display);
+      font-style: normal;
+      font-weight: 400;
       font-size: clamp(17px, 1.9vw, 21px);
-      line-height: 1.35;
-      letter-spacing: -0.005em;
+      line-height: 1.38;
+      letter-spacing: -0.028em;
       color: var(--fg);
-      opacity: 0.78;
+      opacity: 0.82;
       max-width: 620px;
       margin-top: 18px;
     }
@@ -758,8 +790,10 @@
     }
 
     @media (max-width: 540px) {
-      .page { padding: 28px 22px 64px; gap: 18px; }
-      .built li { grid-template-columns: 1fr; gap: 4px; padding: 12px 0; }
+      /* card keeps a gutter so it reads as glass floating on the photo, not a full-bleed panel */
+      .page { margin: 14px 12px 34px; padding: 26px 20px 28px; gap: 18px; border-radius: 14px; }
+      /* (the project rows are handled by the .built .proj-row rule above — the old
+         `.built li` copy of these declarations was dead and doubled the padding) */
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -928,9 +962,11 @@
     }
     .st-cap {
       width: min(440px, 82vw);
-      font-family: var(--serif);
-      font-size: 19px;
-      line-height: 1.45;
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: -0.02em;
       color: var(--fg);
       text-align: center;
       text-transform: lowercase;
@@ -953,7 +989,7 @@
     .st-end {
       width: min(440px, 82vw);
       margin-top: 46px;
-      font-family: var(--serif);
+      font-family: var(--display);
       font-size: 18px;
       line-height: 1.55;
       letter-spacing: 0.01em;
@@ -1065,6 +1101,8 @@
       .st-date { display: none; }
     }
   </style>
+  <!-- shared SF backdrop + glass material; loaded LAST so it wins over the inline styles -->
+  <link rel="stylesheet" href="/glass.css">
 </head>
 <body>
   <!--
@@ -1073,7 +1111,11 @@
   -->
   <a href="#top" class="skip-link">Skip to content</a>
 
-  <header class="site-header" aria-label="primary">
+  <!-- SF backdrop — decorative only, hence no alt text anywhere near it -->
+  <div class="bg-plate" aria-hidden="true"></div>
+  <div class="bg-scrim" aria-hidden="true"></div>
+
+  <header class="site-header glass" aria-label="primary">
     <a href="index.html" class="hdr-link" aria-current="page" data-page="home">Home</a>
     <a href="building.html" class="hdr-link" data-page="building">Building</a>
     <div class="hdr-socials">
@@ -1103,19 +1145,30 @@
     </button>
   </header>
 
-  <main class="page" id="top">
+  <!-- Lives OUTSIDE .page on purpose: .page has a backdrop-filter, which makes it the
+       containing block for position:fixed descendants — the pill would get trapped in the card. -->
+  <button class="st-cover" id="storiesCover" type="button" aria-haspopup="dialog" aria-label="Open: memories">
+    <span class="st-label glass">&lt;&lt;memories [photo alert]</span>
+  </button>
 
-    <button class="st-cover" id="storiesCover" type="button" aria-haspopup="dialog" aria-label="Open: memories">
-      <span class="st-label">&lt;&lt;memories [photo alert]</span>
-    </button>
+  <main class="page glass" id="top">
 
     <h1>Husan Mavlonov<em>.</em></h1>
     <p class="lead">I love building.</p>
 
     <p class="meta-line">
-      <span>Tashkent <i class="arw">→</i> Istanbul <i class="arw">→</i> Shanghai</span>
+      <!-- one span per city so flex-wrap can break the chain: with four cities the single
+           nowrap span overflowed the card on 360–375px phones -->
+      <span>Tashkent <i class="arw">→</i></span>
+      <span>Istanbul <i class="arw">→</i></span>
+      <span>Shanghai <i class="arw">→</i></span>
+      <span>San Francisco</span>
       <span class="sep">·</span>
       <span>Z Fellow</span>
+      <span class="sep">·</span>
+      <span>F.Inc Fellow</span>
+      <span class="sep">·</span>
+      <span>Silkroad Fellow</span>
       <span class="sep">·</span>
       <span>Lumiere Scholar</span>
       <span class="sep">/</span>
@@ -1157,7 +1210,7 @@
 
   <!-- ===== CLAUDE CHOOSER MODAL ===== -->
   <div class="cc-backdrop" id="ccBackdrop" aria-hidden="true">
-    <div class="cc-modal" role="dialog" aria-modal="true" aria-label="Pick Claude Code or Claude Cowork">
+    <div class="cc-modal glass" role="dialog" aria-modal="true" aria-label="Pick Claude Code or Claude Cowork">
 
       <button class="cc-close" id="ccClose" type="button" aria-label="Close">
         <img src="claude-logo.png" alt="" aria-hidden="true">
@@ -1321,6 +1374,23 @@
 
   <script>
     // ============================================
+    // SF BACKDROP — fade in only once the photo is decoded, so it never pops in
+    // mid-read (same discipline as font-display:optional above)
+    // ============================================
+    (function () {
+      const plate = document.querySelector('.bg-plate');
+      if (!plate) return;
+      const ready = () => document.body.classList.add('bg-ready');
+      // read whichever variant the media queries actually resolved to
+      const src = getComputedStyle(plate).backgroundImage.match(/url\(["']?([^"')]+)["']?\)/);
+      if (!src) { ready(); return; }
+      const img = new Image();
+      img.onload = img.onerror = ready;
+      img.src = src[1];
+      if (img.complete) ready();
+    })();
+
+    // ============================================
     // THEME TOGGLE — persists to localStorage, respects system pref on first visit
     // ============================================
     (function () {
@@ -1446,8 +1516,17 @@
       }
       function setInert(on) {
         bgEls().forEach((el) => {
-          if (on) { el.setAttribute('inert', ''); el.setAttribute('aria-hidden', 'true'); }
-          else { el.removeAttribute('inert'); el.removeAttribute('aria-hidden'); }
+          if (on) {
+            el.setAttribute('inert', '');
+            // remember whether the author already hid this from AT (the backdrop plates are
+            // permanently aria-hidden) so closing doesn't un-hide it
+            if (el.hasAttribute('aria-hidden')) el.dataset.keepAriaHidden = '1';
+            el.setAttribute('aria-hidden', 'true');
+          } else {
+            el.removeAttribute('inert');
+            if (el.dataset.keepAriaHidden) delete el.dataset.keepAriaHidden;
+            else el.removeAttribute('aria-hidden');
+          }
         });
       }
       function trapTab(e) {
@@ -1567,8 +1646,16 @@
       function setInert(on) {
         Array.prototype.forEach.call(document.body.children, (el) => {
           if (el === backdrop) return;
-          if (on) { el.setAttribute('inert', ''); el.setAttribute('aria-hidden', 'true'); }
-          else { el.removeAttribute('inert'); el.removeAttribute('aria-hidden'); }
+          if (on) {
+            el.setAttribute('inert', '');
+            // see the Claude picker's setInert: preserve author-set aria-hidden
+            if (el.hasAttribute('aria-hidden')) el.dataset.keepAriaHidden = '1';
+            el.setAttribute('aria-hidden', 'true');
+          } else {
+            el.removeAttribute('inert');
+            if (el.dataset.keepAriaHidden) delete el.dataset.keepAriaHidden;
+            else el.removeAttribute('aria-hidden');
+          }
         });
       }
       function trapTab(e) {
