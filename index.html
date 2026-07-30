@@ -49,11 +49,10 @@
   <link rel="preload" href="/fonts/jetbrainsmono-400.woff2" as="font" type="font/woff2" crossorigin>
   <!-- SF backdrop: preload only the one variant this viewport will actually paint -->
   <link rel="preload" as="image" type="image/webp" href="/bg-sf-1024.webp" media="(max-width: 700px)">
-  <link rel="preload" as="image" type="image/webp" href="/bg-sf-1600.webp" media="(min-width: 701px) and (max-width: 1699px)">
+  <link rel="preload" as="image" type="image/webp" href="/bg-sf-1600.webp" media="(min-width: 700.01px) and (max-width: 1699.99px)">
   <link rel="preload" as="image" type="image/webp" href="/bg-sf-2560.webp" media="(min-width: 1700px)">
   <style>
     /* real faces (font-display:optional = paints real font at first paint or never swaps mid-view) */
-    @font-face{font-family:'Inter';font-style:normal;font-weight:300;font-display:optional;src:url(/fonts/inter-300.woff2) format('woff2')}
     @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/inter-400.woff2) format('woff2')}
     @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:optional;src:url(/fonts/inter-500.woff2) format('woff2')}
     @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/jetbrainsmono-400.woff2) format('woff2')}
@@ -415,6 +414,14 @@
     .st-cover:hover .st-stack i:nth-child(2) { transform: rotate(9deg) translate(10px, -3px); }
     .st-cover:hover .st-stack img { transform: translateY(-3px) scale(1.03); border-color: var(--claude); }
     .st-cover:hover .st-label { color: var(--fg); }
+    /* this ring lands on the photograph, not on a pane, so it cannot rely on --accent —
+       a white stroke inside a dark halo reads against any backdrop */
+    .st-cover:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 3px;
+      border-radius: 999px;
+      box-shadow: 0 0 0 5px rgba(10, 11, 13, 0.62);
+    }
     @media (max-width: 700px) {
       .st-cover { right: 12px; gap: 9px; }
       .st-stack, .st-stack i, .st-stack img { width: 66px; height: 66px; }
@@ -1147,9 +1154,11 @@
 
   <!-- Lives OUTSIDE .page on purpose: .page has a backdrop-filter, which makes it the
        containing block for position:fixed descendants — the pill would get trapped in the card. -->
-  <button class="st-cover" id="storiesCover" type="button" aria-haspopup="dialog" aria-label="Open: memories">
-    <span class="st-label glass">&lt;&lt;memories [photo alert]</span>
-  </button>
+  <aside aria-label="Memories">
+    <button class="st-cover" id="storiesCover" type="button" aria-haspopup="dialog" aria-label="Open memories [photo alert]">
+      <span class="st-label glass">&lt;&lt;memories [photo alert]</span>
+    </button>
+  </aside>
 
   <main class="page glass" id="top">
 
