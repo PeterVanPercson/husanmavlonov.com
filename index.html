@@ -132,7 +132,7 @@
         "@id": "https://buildcored.com/#org",
         "name": "BuildCored",
         "url": "https://buildcored.com/",
-        "description": "AI and hardware builder community. 1,000+ builders. Home of Orcas. Funded by the Youth Affairs Agency of Uzbekistan.",
+        "description": "AI and hardware builder community. 1,500+ builders. Home of Orcas. Funded by the Youth Affairs Agency of Uzbekistan.",
         "founder": { "@id": "https://husanmavlonov.com/#person" },
         "memberOf": { "@type": "Organization", "name": "Youth Affairs Agency of Uzbekistan" }
       },
@@ -466,6 +466,58 @@
     .meta-line .sep { color: var(--dimmer); }
     /* arrows: JetBrains Mono lacks U+2192, so render them in a stable system stack instead of whatever the OS picks */
     .meta-line .arw { font-style: normal; font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
+
+    /* ===== NOW — live status line ===== */
+    .now-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 10px;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--dim);
+      line-height: 1.6;
+      margin-top: 2px;
+    }
+    .now-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      flex-shrink: 0;
+      position: relative;
+    }
+    /* expanding pulse ring — the universal "live right now" signal */
+    .now-dot::after {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px solid #4ade80;
+      opacity: 0;
+      animation: nowPulse 2.4s ease-out infinite;
+    }
+    @keyframes nowPulse {
+      0%   { transform: scale(0.4); opacity: 0.9; }
+      70%  { transform: scale(1.3); opacity: 0; }
+      100% { transform: scale(1.3); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .now-dot::after { animation: none; }
+    }
+    .now-label {
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 10px;
+      color: var(--accent);
+    }
+    .now-line a {
+      color: var(--fg);
+      border-bottom: 1px solid var(--dimmer);
+      padding-bottom: 1px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .now-line a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .now-dates { color: var(--dimmer); }
 
 
 
@@ -1184,6 +1236,13 @@
       <span>University of Michigan and Shanghai Jiao Tong</span>
     </p>
 
+    <p class="now-line">
+      <span class="now-dot" aria-hidden="true"></span>
+      <span class="now-label">Now</span>
+      <span>San Francisco — building <a href="https://defex.app" target="_blank" rel="noopener">defex.app</a>, raising pre-seed</span>
+      <span class="now-dates">aug–oct 2026</span>
+    </p>
+
     <div class="claude-wrap">
       <img class="claude-walker" src="claude.png" alt="" aria-hidden="true">
       <button class="claude-cta" type="button" id="claudeCtaBtn" aria-haspopup="dialog">
@@ -1197,7 +1256,7 @@
         <li>
           <a class="proj-row" href="https://buildcored.com" target="_blank" rel="noopener">
             <span class="name">BuildCored.<span class="cred cred-uz">Funded by<img class="emb" src="uzb-emblem.png" alt="" onerror="this.remove()"><b>Youth Affairs Agency</b></span></span>
-            <span class="desc"><b>1,000+ builders.</b> Home of <b>Orcas</b>. I run challenges and push my limits with other people.</span>
+            <span class="desc"><b>1,500+ builders.</b> Home of <b>Orcas</b>. I run challenges and push my limits with other people.</span>
           </a>
         </li>
         <li>
