@@ -19,6 +19,12 @@
       The Claude modal is the one flat surface left.
    ========================================================================== */
 
+/* the page's own ground colour matches the backdrop base, so any frame the
+   browser paints before the plate (navigation, slow decode) is the right
+   colour instead of the old slate — no flash between sections */
+body       { background-color: #3c4c30; }
+body.light { background-color: #1266c4; }
+
 /* ---- the backdrop: painted sky + drifting halftone clouds + a navy scrim ---- */
 .bg-plate,
 .bg-clouds,

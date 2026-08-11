@@ -5,12 +5,8 @@
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var layers = document.querySelectorAll('.bg-clouds .cloud-p');
   if (!layers.length) return;
-  // anchor the drift phase to the wall clock so a drifter is in the SAME spot
-  // on every page — no jump when navigating (alternate = 2×duration cycle)
-  document.querySelectorAll('.cloud-p img').forEach(function (img) {
-    var d = parseFloat(getComputedStyle(img).animationDuration) || 160;
-    img.style.animationDelay = (-(Date.now() / 1000 % (2 * d))).toFixed(1) + 's';
-  });
+  // (drift-phase anchoring lives in the inline script right after .bg-clouds —
+  // it must run BEFORE first paint, which a deferred script cannot guarantee)
   var ticking = false;
   function apply() {
     var y = window.scrollY || 0;

@@ -51,6 +51,9 @@
   <!-- SF backdrop: preload only the one variant this viewport will actually paint -->
   <link rel="preload" as="image" href="/sky/aida.png">
   <link rel="preload" as="image" type="image/webp" href="/sky/orca.webp">
+  <link rel="preload" as="image" type="image/webp" href="/sky/cloud-1.webp">
+  <link rel="preload" as="image" type="image/webp" href="/sky/cloud-2.webp">
+  <link rel="preload" as="image" type="image/webp" href="/sky/cloud-3.webp" media="(min-width: 700.01px)">
   <style>
     /* real faces (font-display:optional = paints real font at first paint or never swaps mid-view) */
     @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/inter-400.woff2) format('woff2')}
@@ -1164,7 +1167,7 @@
     }
   </style>
   <!-- shared SF backdrop + glass material; loaded LAST so it wins over the inline styles -->
-  <link rel="stylesheet" href="/glass.css?v=4">
+  <link rel="stylesheet" href="/glass.css?v=5">
 </head>
 <body>
 <script>/* pre-paint: apply saved theme + skip the backdrop fade after the first load,
@@ -1179,10 +1182,12 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
   <!-- SF backdrop — decorative only, hence no alt text anywhere near it -->
   <div class="bg-plate" aria-hidden="true"></div>
   <div class="bg-clouds" aria-hidden="true">
-    <div class="cloud-p cp-1" data-depth="0.10"><img class="c-sky" src="/sky/cloud-1.webp" alt="" width="1240" height="780" decoding="async" loading="lazy"><img class="c-stitch" src="/sky/orca.webp" alt="" width="582" height="640" decoding="async"></div>
-    <div class="cloud-p cp-2" data-depth="0.05"><img class="c-sky" src="/sky/cloud-2.webp" alt="" width="1180" height="720" decoding="async" loading="lazy"><img class="c-stitch" src="/sky/orca.webp" alt="" width="582" height="640" decoding="async"></div>
-    <div class="cloud-p cp-3" data-depth="0.16"><img class="c-sky" src="/sky/cloud-3.webp" alt="" width="820" height="520" decoding="async" loading="lazy"><img class="c-stitch" src="/sky/orca.webp" alt="" width="582" height="640" decoding="async"></div>
+    <div class="cloud-p cp-1" data-depth="0.10"><img class="c-sky" src="/sky/cloud-1.webp" alt="" width="1240" height="780" decoding="sync"><img class="c-stitch" src="/sky/orca.webp" alt="" width="582" height="640" decoding="sync"></div>
+    <div class="cloud-p cp-2" data-depth="0.05"><img class="c-sky" src="/sky/cloud-2.webp" alt="" width="1180" height="720" decoding="sync"><img class="c-stitch" src="/sky/orca.webp" alt="" width="582" height="640" decoding="sync"></div>
+    <div class="cloud-p cp-3" data-depth="0.16"><img class="c-sky" src="/sky/cloud-3.webp" alt="" width="820" height="520" decoding="sync"><img class="c-stitch" src="/sky/orca.webp" alt="" width="582" height="640" decoding="sync"></div>
   </div>
+  <script>/* pre-paint: clock-anchored drift phase - same drifter position on every page */
+  try{document.querySelectorAll('.cloud-p img').forEach(function(g){var d=parseFloat(getComputedStyle(g).animationDuration)||160;g.style.animationDelay=(-(Date.now()/1e3%(2*d))).toFixed(1)+'s'})}catch(e){}</script>
   <div class="bg-scrim" aria-hidden="true"></div>
 
   <header class="site-header glass" aria-label="primary">
@@ -1806,6 +1811,6 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
   </script>
   <script data-goatcounter="https://analyze.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
-<script src="/sky.js?v=4" defer></script>
+<script src="/sky.js?v=5" defer></script>
 </body>
 </html>
