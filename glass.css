@@ -7,10 +7,11 @@
 
    Two ideas hold the whole thing together:
 
-   1. The sky is a flat painted azure with halftone-dither clouds (generated
-      assets in /sky/) — a print texture, not a photograph. Clouds drift on a
-      very slow CSS loop and get a light scroll parallax from /sky.js. Only
-      exposure moves per theme; the hue never shifts.
+   1. Two skies, one per theme. LIGHT is the painted azure with halftone-dither
+      clouds (pear.no print texture). DARK is the family cross-stitch: green
+      aida cloth (generated tile) with small stitched orcas — extracted from
+      the real embroidery photo — drifting where the clouds would be. Both
+      layers share the same drift loop + scroll parallax from /sky.js.
 
    2. There are NO panes. Type sits straight on the sky (pear.no discipline) with
       a soft navy halo for legibility; the .glass class survives in the markup
@@ -29,16 +30,19 @@
 }
 
 .bg-plate {
-  background: linear-gradient(180deg, #0d55ad 0%, #1266c4 36%, #1b74d6 62%, #0e59b0 100%);
-  /* Hue never moves per theme — dark mode just pulls exposure down toward evening. */
-  filter: brightness(0.80);
+  /* dark (default): the aida weave, colour baked into the tile (#3c4c30 family) */
+  background: #3c4c30 url(/sky/aida.png) repeat;
+  background-size: 44px 44px;
   opacity: 0;                       /* faded in on load — see the page script */
-  transition: opacity 1s ease, filter 0.4s ease;
+  transition: opacity 1s ease, background 0.4s ease;
 }
 body.bg-ready .bg-plate       { opacity: 1; }
-body.light .bg-plate          { filter: none; }
+body.light .bg-plate {
+  background: linear-gradient(180deg, #0d55ad 0%, #1266c4 36%, #1b74d6 62%, #0e59b0 100%);
+}
 
-/* clouds: three halftone puffs at different depths; the wrapper takes the JS
+/* drifters: each slot holds a cloud (.c-sky, light theme) AND a stitched orca
+   (.c-stitch, dark theme) — CSS shows one per theme. The wrapper takes the JS
    parallax translate, the img takes the slow CSS drift, so the transforms never fight */
 .bg-clouds { overflow: hidden; }
 .cloud-p {
@@ -54,31 +58,41 @@ body.light .bg-plate          { filter: none; }
   animation: cloud-drift var(--dur, 160s) ease-in-out infinite alternate;
 }
 body.bg-ready .cloud-p img { opacity: 1; }
-body.light .bg-clouds      { filter: none; }
-.bg-clouds                 { filter: brightness(0.88); transition: filter 0.4s ease; }
 
-.cp-1 { width: min(40vw, 560px); left: -13vw; top: -7vh;   --drift:  46px; --dur: 170s; }
-.cp-2 { width: min(40vw, 560px); right: -5vw; bottom: 6vh; --drift: -38px; --dur: 210s; }
-.cp-3 { width: min(19vw, 280px); right: 16vw; top: 11vh;   --drift:  60px; --dur: 130s; }
+.cloud-p .c-sky            { display: none; }
+body.light .cloud-p .c-sky { display: block; }
+body.light .cloud-p .c-stitch { display: none; }
+
+/* dark (default): small orcas, fully in frame, left and right — cp-2 swims the other way */
+.cp-1 { width: min(14vw, 190px); left: 4vw;   top: 14vh;    --drift:  46px; --dur: 170s; }
+.cp-2 { width: min(16vw, 220px); right: 5vw;  bottom: 10vh; --drift: -38px; --dur: 210s; --flip: -1; }
+.cp-3 { width: min(9vw, 120px);  right: 12vw; top: 9vh;     --drift:  60px; --dur: 130s; }
+
+/* light: the pear cloud layout */
+body.light .cp-1 { width: min(40vw, 560px); left: -13vw; top: -7vh;   right: auto; bottom: auto; --flip: 1; }
+body.light .cp-2 { width: min(40vw, 560px); right: -5vw; bottom: 6vh; left: auto;  top: auto;    --flip: 1; }
+body.light .cp-3 { width: min(19vw, 280px); right: 16vw; top: 9vh; }
 
 @keyframes cloud-drift {
-  from { transform: translateX(calc(var(--drift) * -1)); }
-  to   { transform: translateX(var(--drift)); }
+  from { transform: translateX(calc(var(--drift) * -1)) scaleX(var(--flip, 1)); }
+  to   { transform: translateX(var(--drift)) scaleX(var(--flip, 1)); }
 }
 
 @media (max-width: 700px) {
-  /* two clouds are plenty on a phone; let them breathe wider */
-  .cp-1 { width: 74vw; left: -16vw; top: 4vh; }
-  .cp-2 { width: 64vw; right: -14vw; bottom: 5vh; }
+  /* two drifters are plenty on a phone */
+  .cp-1 { width: 26vw; left: 5vw;  top: 10vh; }
+  .cp-2 { width: 30vw; right: 5vw; bottom: 9vh; }
   .cp-3 { display: none; }
+  body.light .cp-1 { width: 74vw; left: -16vw; top: 4vh; }
+  body.light .cp-2 { width: 64vw; right: -14vw; bottom: 5vh; }
 }
 
-/* Just enough navy vignette to seat the glass and stop the edges glaring —
-   the same deep blue family as the sky, never grey. */
+/* Just enough vignette to seat the type and stop the edges glaring — deep
+   green over the cloth (dark), deep blue over the sky (light), never grey. */
 .bg-scrim {
   background:
-    radial-gradient(122% 88% at 70% 16%, rgba(4,30,64,0) 0%, rgba(4,30,64,0.08) 58%, rgba(4,30,64,0.30) 100%),
-    linear-gradient(180deg, rgba(4,30,64,0.34) 0%, rgba(4,30,64,0.06) 26%, rgba(4,30,64,0.10) 62%, rgba(4,30,64,0.40) 100%);
+    radial-gradient(122% 88% at 70% 16%, rgba(14,22,10,0) 0%, rgba(14,22,10,0.10) 58%, rgba(14,22,10,0.36) 100%),
+    linear-gradient(180deg, rgba(14,22,10,0.36) 0%, rgba(14,22,10,0.08) 26%, rgba(14,22,10,0.12) 62%, rgba(14,22,10,0.44) 100%);
   transition: background 0.4s ease;
 }
 body.light .bg-scrim {
@@ -116,9 +130,9 @@ body.light .bg-scrim {
 .glass,
 .st-backdrop {
   --fg: #f8f7f2;
-  --dim: #e7ecf4;
-  --dimmer: #b9c9de;
-  --accent: #f0ead8;                 /* cream — same family as the clouds */
+  --dim: #e9ede4;
+  --dimmer: #b8c4ae;                 /* sage on the cloth */
+  --accent: #f0ead8;                 /* cream — clouds and stitches alike */
   --accent-rgb: 240, 234, 216;
   --line: rgba(255, 255, 255, 0.24);
   --line-strong: rgba(255, 255, 255, 0.40);
@@ -128,8 +142,8 @@ body.light .bg-scrim {
   border: 0;
   box-shadow: none;
   text-shadow:
-    0 1px 2px rgba(5, 28, 58, 0.45),
-    0 2px 18px rgba(5, 28, 58, 0.38);
+    0 1px 2px rgba(12, 20, 8, 0.50),
+    0 2px 18px rgba(12, 20, 8, 0.40);
 }
 body.light .glass {
   --fg: #f8f7f2;
@@ -169,32 +183,39 @@ body.light .st-label.glass {
 }
 .st-label.glass:hover { border-color: var(--line-strong); }
 @media (max-width: 700px) {
-  /* on a phone the chip floats over real text, so it needs a flat navy fill
+  /* on a phone the chip floats over real text, so it needs a flat fill
      (a control surface, same family as the modal — still no glass) */
-  .st-label.glass,
-  body.light .st-label.glass { background: rgba(6, 28, 58, 0.88); }
+  .st-label.glass             { background: rgba(16, 26, 12, 0.90); }
+  body.light .st-label.glass  { background: rgba(6, 28, 58, 0.88); }
 }
 
-/* ---- OVERLAYS: flat deep-navy plates (dimmed sky, no blur, no glass) ---- */
-.st-backdrop,
-body.light .st-backdrop {
-  background: rgba(5, 26, 54, 0.93) !important;
+/* ---- OVERLAYS: flat dark plates (no blur, no glass) — green-black over the
+   cloth, deep navy over the sky ---- */
+.st-backdrop {
+  background: rgba(13, 21, 10, 0.94) !important;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
+  text-shadow: 0 1px 2px rgba(8, 14, 6, 0.50);
+}
+body.light .st-backdrop {
+  background: rgba(5, 26, 54, 0.93) !important;
   text-shadow: 0 1px 2px rgba(4, 20, 42, 0.50);
 }
 
-.cc-backdrop,
-body.light .cc-backdrop {
-  background: rgba(5, 26, 54, 0.78);
+.cc-backdrop {
+  background: rgba(13, 21, 10, 0.80);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
+body.light .cc-backdrop { background: rgba(5, 26, 54, 0.78); }
 
-/* the modal is the one true surface left: a flat navy card, hairline edge */
-.cc-modal.glass,
+/* the modal is the one true surface left: a flat card, hairline edge */
+.cc-modal.glass {
+  background: #24371e;
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  box-shadow: 0 34px 80px -38px rgba(8, 14, 6, 0.80);
+}
 body.light .cc-modal.glass {
   background: #0a2f5e;
-  border: 1px solid rgba(255, 255, 255, 0.20);
   box-shadow: 0 34px 80px -38px rgba(3, 16, 34, 0.80);
 }
