@@ -1,5 +1,5 @@
 /* =============================================================================
-   glass.css — the San Francisco backdrop + the glass material.
+   glass.css — the blue-sky backdrop + the ink that sits on it.
 
    SINGLE SOURCE OF TRUTH. Every page links this, so the backdrop is byte-identical
    on index / building / 404 and does NOT change when you navigate or open an
@@ -7,21 +7,20 @@
 
    Two ideas hold the whole thing together:
 
-   1. The photo is used with its OWN colours — no grade, no tint, no saturation boost.
-      Only exposure moves per theme (brightness/contrast). Colour-grading it was tried
-      and reverted: any cast makes a real photograph look artificial.
+   1. The sky is a flat painted azure with halftone-dither clouds (generated
+      assets in /sky/) — a print texture, not a photograph. Clouds drift on a
+      very slow CSS loop and get a light scroll parallax from /sky.js. Only
+      exposure moves per theme; the hue never shifts.
 
-   2. The glass is near-invisible. The little contrast it needs comes from a gentle
-      backdrop-filter brightness(), never from opacity — opacity is what turns glass
-      into a matte slab. Blur stays LOW (9px) for the same reason: heavy blur is
-      frosted glass, not clear glass. Type tokens are re-tuned inside the pane
-      because the site's --dim was calibrated against a flat background.
+   2. There are NO panes. Type sits straight on the sky (pear.no discipline) with
+      a soft navy halo for legibility; the .glass class survives in the markup
+      purely as the ink scope that re-tunes the type tokens for the blue ground.
+      The Claude modal is the one flat surface left.
    ========================================================================== */
 
-/* Base colours stay exactly as the site's own design system defines them — no cast. */
-
-/* ---- the backdrop: photo plate + a light cool scrim ---- */
+/* ---- the backdrop: painted sky + drifting halftone clouds + a navy scrim ---- */
 .bg-plate,
+.bg-clouds,
 .bg-scrim {
   position: fixed;
   inset: 0;
@@ -30,41 +29,62 @@
 }
 
 .bg-plate {
-  background-image: url(/bg-sf-1600.webp);
-  background-size: cover;
-  background-position: 56% 46%;
-  /* The photo's own colours, untouched. Only EXPOSURE moves per theme — no hue shift, no
-     saturation boost, no tint. Grading it was a mistake: it read artificial. */
-  filter: brightness(0.72);
-  opacity: 0;                       /* faded in on decode — see the page script */
+  background: linear-gradient(180deg, #0d55ad 0%, #1266c4 36%, #1b74d6 62%, #0e59b0 100%);
+  /* Hue never moves per theme — dark mode just pulls exposure down toward evening. */
+  filter: brightness(0.80);
+  opacity: 0;                       /* faded in on load — see the page script */
   transition: opacity 1s ease, filter 0.4s ease;
 }
 body.bg-ready .bg-plate       { opacity: 1; }
-/* Light theme barely touches exposure. Pushing brightness up on a warm sunset just blows the
-   orange out and reads cheap — so instead the light pane carries a white veil (below) and the
-   photograph is left alone. */
-body.light .bg-plate          { filter: brightness(1.04); }
+body.light .bg-plate          { filter: none; }
+
+/* clouds: three halftone puffs at different depths; the wrapper takes the JS
+   parallax translate, the img takes the slow CSS drift, so the transforms never fight */
+.bg-clouds { overflow: hidden; }
+.cloud-p {
+  position: absolute;
+  will-change: transform;
+}
+.cloud-p img {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  animation: cloud-drift var(--dur, 160s) ease-in-out infinite alternate;
+}
+body.bg-ready .cloud-p img { opacity: 1; }
+body.light .bg-clouds      { filter: none; }
+.bg-clouds                 { filter: brightness(0.88); transition: filter 0.4s ease; }
+
+.cp-1 { width: min(40vw, 560px); left: -13vw; top: -7vh;   --drift:  46px; --dur: 170s; }
+.cp-2 { width: min(40vw, 560px); right: -5vw; bottom: 6vh; --drift: -38px; --dur: 210s; }
+.cp-3 { width: min(19vw, 280px); right: 16vw; top: 11vh;   --drift:  60px; --dur: 130s; }
+
+@keyframes cloud-drift {
+  from { transform: translateX(calc(var(--drift) * -1)); }
+  to   { transform: translateX(var(--drift)); }
+}
 
 @media (max-width: 700px) {
-  /* narrower crop: bias right so the bridge tower survives the cover-crop */
-  .bg-plate { background-image: url(/bg-sf-1024.webp); background-position: 64% 44%; }
-}
-@media (min-width: 1700px) {
-  .bg-plate { background-image: url(/bg-sf-2560.webp); }
+  /* two clouds are plenty on a phone; let them breathe wider */
+  .cp-1 { width: 74vw; left: -16vw; top: 4vh; }
+  .cp-2 { width: 64vw; right: -14vw; bottom: 5vh; }
+  .cp-3 { display: none; }
 }
 
-/* Just enough vignette to seat the glass and stop the top/bottom edges glaring.
-   Neutral greys, matched to the site's own --bg — a coloured scrim tints the photo. */
+/* Just enough navy vignette to seat the glass and stop the edges glaring —
+   the same deep blue family as the sky, never grey. */
 .bg-scrim {
   background:
-    radial-gradient(122% 88% at 70% 16%, rgba(22,24,28,0) 0%, rgba(22,24,28,0.10) 58%, rgba(22,24,28,0.32) 100%),
-    linear-gradient(180deg, rgba(22,24,28,0.50) 0%, rgba(22,24,28,0.10) 26%, rgba(22,24,28,0.15) 62%, rgba(22,24,28,0.54) 100%);
+    radial-gradient(122% 88% at 70% 16%, rgba(4,30,64,0) 0%, rgba(4,30,64,0.08) 58%, rgba(4,30,64,0.30) 100%),
+    linear-gradient(180deg, rgba(4,30,64,0.34) 0%, rgba(4,30,64,0.06) 26%, rgba(4,30,64,0.10) 62%, rgba(4,30,64,0.40) 100%);
   transition: background 0.4s ease;
 }
 body.light .bg-scrim {
   background:
-    radial-gradient(122% 88% at 70% 16%, rgba(255,255,255,0.12) 0%, rgba(226,226,224,0.14) 58%, rgba(206,206,204,0.34) 100%),
-    linear-gradient(180deg, rgba(232,232,230,0.50) 0%, rgba(226,226,224,0.12) 26%, rgba(226,226,224,0.18) 62%, rgba(216,216,214,0.52) 100%);
+    radial-gradient(122% 88% at 70% 16%, rgba(6,46,92,0) 0%, rgba(6,46,92,0.05) 58%, rgba(6,46,92,0.18) 100%),
+    linear-gradient(180deg, rgba(6,46,92,0.16) 0%, rgba(6,46,92,0.03) 26%, rgba(6,46,92,0.05) 62%, rgba(6,46,92,0.22) 100%);
 }
 
 /* real content rides above the backdrop */
@@ -79,236 +99,102 @@ body.light .bg-scrim {
   font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
 
-/* the new backdrop fade must respect a reduced-motion preference on EVERY page,
-   including 404 which has no global motion guard of its own */
+/* backdrop fade AND cloud drift must respect a reduced-motion preference on EVERY
+   page, including 404 which has no global motion guard of its own (sky.js checks
+   the same query before attaching its scroll parallax) */
 @media (prefers-reduced-motion: reduce) {
-  .bg-plate, .bg-scrim, .glass { transition: none; }
+  .bg-plate, .bg-clouds, .bg-scrim, .glass, .cloud-p img { transition: none; }
+  .cloud-p img { animation: none; }
 }
 
-/* ---- the material ---- */
+/* ---- no material: ink straight on the sky ----
+   The glass panes are gone (user call: text only, no surfaces). The .glass class
+   stays in the markup as the INK SCOPE: it re-tunes the type tokens for sitting
+   on the painted sky, in BOTH themes — the theme toggle now only moves the sky's
+   exposure. A soft navy halo keeps type legible when a halftone cloud drifts
+   underneath; it reads as atmosphere, not as a box. */
+.glass,
+.st-backdrop {
+  --fg: #f8f7f2;
+  --dim: #e7ecf4;
+  --dimmer: #b9c9de;
+  --accent: #f0ead8;                 /* cream — same family as the clouds */
+  --accent-rgb: 240, 234, 216;
+  --line: rgba(255, 255, 255, 0.24);
+  --line-strong: rgba(255, 255, 255, 0.40);
+}
 .glass {
-  position: relative;
-  isolation: isolate;
-  background: rgba(20, 22, 26, 0.12);
-  -webkit-backdrop-filter: blur(9px) brightness(0.68);
-  backdrop-filter: blur(9px) brightness(0.68);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow:
-    0 30px 68px -34px rgba(10, 11, 13, 0.52),
-    inset 0 1px 0 rgba(255, 255, 255, 0.26),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.06);
-  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-
-  --fg: #f7f5f0;
-  --dim: #e2e0da;
-  --dimmer: #a9a6a0;
-  --accent: #dedcd6;
-  --accent-rgb: 222, 220, 214;
-  --line: rgba(255, 255, 255, 0.16);
-  --line-strong: rgba(255, 255, 255, 0.28);
-  text-shadow: 0 1px 2px rgba(10, 11, 13, 0.42);
+  background: none;
+  border: 0;
+  box-shadow: none;
+  text-shadow:
+    0 1px 2px rgba(5, 28, 58, 0.45),
+    0 2px 18px rgba(5, 28, 58, 0.38);
 }
-
-/* a thin diagonal glint + a rim bloom — a highlight, not a milky wash */
-.glass::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  pointer-events: none;
-  background:
-    linear-gradient(112deg, rgba(255,255,255,0) 28%, rgba(255,255,255,0.07) 34%, rgba(255,255,255,0.015) 38%, rgba(255,255,255,0) 44%),
-    radial-gradient(120% 40% at 18% -18%, rgba(255,255,255,0.10), rgba(255,255,255,0) 70%);
-}
-
 body.light .glass {
-  /* Light mode is the one case where the pane cannot be near-invisible: dark type over a
-     sunset needs a bright FLOOR, and lifting the floor with brightness() alone blows the
-     photo out. So this is a genuine frosted-white pane — still glass (rim, glint, blur,
-     photo legible through it), just not invisible. Dark mode keeps the near-invisible pane. */
-  background: rgba(255, 255, 255, 0.56);
-  -webkit-backdrop-filter: blur(16px) brightness(1.08);
-  backdrop-filter: blur(16px) brightness(1.08);
-  border-color: rgba(255, 255, 255, 0.72);
-  box-shadow:
-    0 30px 68px -36px rgba(28, 30, 34, 0.34),
-    inset 0 1px 0 rgba(255, 255, 255, 0.80),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.28);
-
-  --fg: #14161a;
-  --dim: #22242a;
-  --dimmer: #5f6165;
-  --accent: #1a1c21;
-  --accent-rgb: 26, 28, 33;
-  --line: rgba(22, 24, 28, 0.20);
-  --line-strong: rgba(22, 24, 28, 0.32);
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.50);
-}
-body.light .glass::before {
-  background:
-    linear-gradient(112deg, rgba(255,255,255,0) 28%, rgba(255,255,255,0.26) 34%, rgba(255,255,255,0.06) 38%, rgba(255,255,255,0) 44%),
-    radial-gradient(120% 40% at 18% -18%, rgba(255,255,255,0.34), rgba(255,255,255,0) 70%);
+  --fg: #f8f7f2;
+  --dim: #e7ecf4;
+  --dimmer: #c3d2e6;
+  --accent: #f4efdf;
+  --accent-rgb: 244, 239, 223;
+  --line: rgba(255, 255, 255, 0.28);
+  --line-strong: rgba(255, 255, 255, 0.44);
+  background: none;
+  border: 0;
+  box-shadow: none;
+  text-shadow:
+    0 1px 2px rgba(5, 28, 58, 0.40),
+    0 2px 18px rgba(5, 28, 58, 0.32);
 }
 
-/* ---- per-surface tweaks ---- */
+/* ---- per-surface ---- */
 
-/* full-bleed header: bottom edge only, flatter sweep */
-.site-header.glass {
-  border-width: 0 0 1px 0;
-  border-radius: 0;
-  box-shadow:
-    0 14px 34px -28px rgba(10, 11, 13, 0.44),
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
-}
+/* header: floating nav, no bar */
+.site-header.glass,
 body.light .site-header.glass {
-  box-shadow:
-    0 14px 34px -30px rgba(28, 30, 34, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.74),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.22);
+  border: 0;
+  background: none;
+  box-shadow: none;
 }
 
-/* the memories pill sits straight on the photo's brightest band (the sky), so it
-   needs a harder knock-down than the big panes to hold its 10px type */
-.st-label.glass {
+/* the memories chip keeps a hairline outline (it is a button), nothing else */
+.st-label.glass,
+body.light .st-label.glass {
   padding: 5px 12px;
   border-radius: 999px;
-  /* .glass's transition shorthand drops `color`, which this pill needs for its hover ease */
-  transition: color 0.25s ease, background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-  -webkit-backdrop-filter: blur(12px) brightness(0.42);
-  backdrop-filter: blur(12px) brightness(0.42);
-  box-shadow:
-    0 12px 26px -18px rgba(10, 11, 13, 0.58),
-    inset 0 1px 0 rgba(255, 255, 255, 0.30);
+  border: 1px solid var(--line);
+  background: none;
+  box-shadow: none;
+  transition: color 0.25s ease, border-color 0.25s ease;
 }
-body.light .st-label.glass {
-  background: rgba(255, 255, 255, 0.58);
-  -webkit-backdrop-filter: blur(14px) brightness(1.06);
-  backdrop-filter: blur(14px) brightness(1.06);
-  box-shadow:
-    0 12px 26px -18px rgba(28, 30, 34, 0.32),
-    inset 0 1px 0 rgba(255, 255, 255, 0.80);
+.st-label.glass:hover { border-color: var(--line-strong); }
+@media (max-width: 700px) {
+  /* on a phone the chip floats over real text, so it needs a flat navy fill
+     (a control surface, same family as the modal — still no glass) */
+  .st-label.glass,
+  body.light .st-label.glass { background: rgba(6, 28, 58, 0.88); }
 }
 
-/* ---- OVERLAYS: keep the SAME backdrop visible instead of covering it ----
-   Both of these used to paint an opaque var(--bg), which is why the site looked
-   like a different page once you opened Memories or the Claude picker. */
-.st-backdrop {
-  background: rgba(20, 22, 26, 0.62) !important;
-  -webkit-backdrop-filter: blur(22px) brightness(0.72);
-  backdrop-filter: blur(22px) brightness(0.72);
-  /* The overlay is NOT a .glass host, but its backdrop is now translucent — so it needs
-     the same re-tuned ink, or captions keep the palette calibrated for a solid page. */
-  --fg: #f7f5f0;
-  --dim: #e2e0da;
-  --dimmer: #a9a6a0;
-  --accent: #dedcd6;
-  --line: rgba(255, 255, 255, 0.16);
-  --line-strong: rgba(255, 255, 255, 0.28);
-  text-shadow: 0 1px 2px rgba(10, 11, 13, 0.42);
-}
+/* ---- OVERLAYS: flat deep-navy plates (dimmed sky, no blur, no glass) ---- */
+.st-backdrop,
 body.light .st-backdrop {
-  background: rgba(238, 238, 236, 0.80) !important;
-  -webkit-backdrop-filter: blur(24px) brightness(1.04);
-  backdrop-filter: blur(24px) brightness(1.04);
-  --fg: #14161a;
-  --dim: #22242a;
-  --dimmer: #5f6165;
-  --accent: #1a1c21;
-  --line: rgba(22, 24, 28, 0.20);
-  --line-strong: rgba(22, 24, 28, 0.32);
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.50);
+  background: rgba(5, 26, 54, 0.93) !important;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  text-shadow: 0 1px 2px rgba(4, 20, 42, 0.50);
 }
 
-.cc-backdrop {
-  background: rgba(18, 20, 24, 0.52);
-  -webkit-backdrop-filter: blur(14px) brightness(0.8);
-  backdrop-filter: blur(14px) brightness(0.8);
-}
+.cc-backdrop,
 body.light .cc-backdrop {
-  background: rgba(236, 236, 234, 0.62);
-  -webkit-backdrop-filter: blur(14px) brightness(1.04);
-  backdrop-filter: blur(14px) brightness(1.04);
+  background: rgba(5, 26, 54, 0.78);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
-/* the modal already sits on a dimmed backdrop, so it needs almost no knock-down */
-.cc-modal.glass {
-  background: rgba(20, 22, 26, 0.34);
-  -webkit-backdrop-filter: blur(16px) brightness(0.9);
-  backdrop-filter: blur(16px) brightness(0.9);
-}
+/* the modal is the one true surface left: a flat navy card, hairline edge */
+.cc-modal.glass,
 body.light .cc-modal.glass {
-  background: rgba(255, 255, 255, 0.62);
-  -webkit-backdrop-filter: blur(18px) brightness(1.05);
-  backdrop-filter: blur(18px) brightness(1.05);
-}
-
-/* ---- graceful degradation ----
-   No backdrop-filter, or the viewer asked for less transparency: panes go solid and
-   the type reverts to the flat-background tokens it was originally calibrated for. */
-/* NOTE on the selector lists below: the per-surface rules above are (0,2,0)/(0,2,1), so a
-   bare `.glass` reset (0,1,0) loses to them and the pane would stay translucent. Every
-   surface therefore has to be named explicitly here, at matching specificity. */
-@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  .glass,
-  .site-header.glass,
-  .st-label.glass,
-  .cc-modal.glass {
-    background: var(--bg);
-    text-shadow: none;
-    --fg: #e8e6df; --dim: #908b83; --accent: #a8aeb4; --accent-rgb: 168, 174, 180;
-    --line: #26282d; --line-strong: #2e3035;
-  }
-  body.light .glass,
-  body.light .site-header.glass,
-  body.light .st-label.glass,
-  body.light .cc-modal.glass {
-    background: var(--bg);
-    text-shadow: none;
-    --fg: #16181c; --dim: #383a3e; --accent: #2a2f36; --accent-rgb: 42, 47, 54;
-    --line: #94989c; --line-strong: #828589;
-  }
-  .glass::before, body.light .glass::before { background: none; }
-  .st-backdrop, body.light .st-backdrop { background: var(--bg) !important; text-shadow: none; }
-  .cc-backdrop, body.light .cc-backdrop { background: rgba(8, 9, 11, 0.86); }
-  body.bg-ready .bg-plate { opacity: 0.28; }
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  .glass,
-  .site-header.glass,
-  .st-label.glass,
-  .cc-modal.glass {
-    background: var(--bg);
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    text-shadow: none;
-    --fg: #e8e6df; --dim: #908b83; --accent: #a8aeb4; --accent-rgb: 168, 174, 180;
-    --line: #26282d; --line-strong: #2e3035;
-  }
-  body.light .glass,
-  body.light .site-header.glass,
-  body.light .st-label.glass,
-  body.light .cc-modal.glass {
-    background: var(--bg);
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    text-shadow: none;
-    --fg: #16181c; --dim: #383a3e; --accent: #2a2f36; --accent-rgb: 42, 47, 54;
-    --line: #94989c; --line-strong: #828589;
-  }
-  .glass::before, body.light .glass::before { background: none; }
-  .st-backdrop, body.light .st-backdrop {
-    background: var(--bg) !important;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    text-shadow: none;
-  }
-  .cc-backdrop, body.light .cc-backdrop {
-    background: rgba(8, 9, 11, 0.90);
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
-  body.bg-ready .bg-plate { opacity: 0.2; }
+  background: #0a2f5e;
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  box-shadow: 0 34px 80px -38px rgba(3, 16, 34, 0.80);
 }

@@ -46,17 +46,20 @@
   <!-- Self-hosted fonts: preload the 3 above-the-fold faces, inline @font-face below. font-display:optional = no flash/swap. -->
   <link rel="preload" href="/fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/jetbrainsmono-400.woff2" as="font" type="font/woff2" crossorigin>
   <!-- SF backdrop: preload only the one variant this viewport will actually paint -->
-  <link rel="preload" as="image" type="image/webp" href="/bg-sf-1024.webp" media="(max-width: 700px)">
-  <link rel="preload" as="image" type="image/webp" href="/bg-sf-1600.webp" media="(min-width: 700.01px) and (max-width: 1699.99px)">
-  <link rel="preload" as="image" type="image/webp" href="/bg-sf-2560.webp" media="(min-width: 1700px)">
+  <link rel="preload" as="image" type="image/webp" href="/sky/cloud-1.webp">
+  <link rel="preload" as="image" type="image/webp" href="/sky/cloud-2.webp">
+  <link rel="preload" as="image" type="image/webp" href="/sky/cloud-3.webp" media="(min-width: 700.01px)">
   <style>
     /* real faces (font-display:optional = paints real font at first paint or never swaps mid-view) */
     @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/inter-400.woff2) format('woff2')}
     @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:optional;src:url(/fonts/inter-500.woff2) format('woff2')}
     @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/jetbrainsmono-400.woff2) format('woff2')}
     /* metric-matched fallbacks (computed from font x-height tables) — fallback occupies identical space, so a slow-load fallback paint causes NO reflow/"pop" between navigations */
+    @font-face{font-family:'Newsreader';font-style:normal;font-weight:400 500;font-display:optional;src:url(/fonts/newsreader-latin.woff2) format('woff2')}
+    @font-face{font-family:'Serif Fallback';src:local('Iowan Old Style'),local('Georgia');size-adjust:94%;ascent-override:98%;descent-override:26%;line-gap-override:0%}
     @font-face{font-family:'Sans Fallback';src:local('Arial'),local('Helvetica Neue');size-adjust:105%;ascent-override:97%;descent-override:24%;line-gap-override:0%}
     @font-face{font-family:'Mono Fallback';src:local('Menlo'),local('Consolas');size-adjust:110%;ascent-override:102%;descent-override:30%;line-gap-override:0%}
   </style>
@@ -184,10 +187,9 @@
       --claude: #cc7757;
       --mono: 'JetBrains Mono', 'Mono Fallback', ui-monospace, SFMono-Regular, Menlo, monospace;
       --sans: 'Inter', 'Sans Fallback', system-ui, -apple-system, sans-serif;
-      /* Display face: one geometric grotesque, differentiated by weight + tight tracking
-         rather than by a second family. The old Instrument Serif read dated against the
-         glass, so it's retired — hierarchy now comes from size/weight/tracking. */
-      --display: 'Inter', 'Sans Fallback', system-ui, -apple-system, sans-serif;
+      /* Display face: Newsreader — the closest open equivalent to pear.no's Flecha
+         (that one is commercial). Light editorial serif on the open sky. */
+      --display: 'Newsreader', 'Serif Fallback', 'Iowan Old Style', Georgia, serif;
     }
     body.light {
       --bg: #a8aeb4;                     /* neutral gray — was the dark theme's accent, now the main */
@@ -423,7 +425,9 @@
       box-shadow: 0 0 0 5px rgba(10, 11, 13, 0.62);
     }
     @media (max-width: 700px) {
-      .st-cover { right: 12px; gap: 9px; }
+      /* phone: pin the chip bottom-right like a floating button — mid-viewport it
+         lands on top of the NOW line now that it has no glass pane under it */
+      .st-cover { right: 12px; gap: 9px; top: auto; bottom: 16px; transform: none; }
       .st-stack, .st-stack i, .st-stack img { width: 66px; height: 66px; }
       .st-label { font-size: 10px; letter-spacing: 0.16em; }
     }
@@ -432,13 +436,13 @@
     h1 {
       font-family: var(--display);
       font-size: clamp(38px, 5.8vw, 64px);
-      font-weight: 500;
-      letter-spacing: -0.048em;   /* tight optical tracking — the modern display idiom */
-      line-height: 0.93;
+      font-weight: 400;
+      letter-spacing: -0.012em;
+      line-height: 1.02;
       color: var(--fg);
       transition: color 0.4s ease;
     }
-    h1 em { font-style: normal; color: var(--accent); font-weight: 500; }
+    h1 em { font-style: normal; color: var(--accent); font-weight: 400; }
 
     .lead {
       font-family: var(--sans);
@@ -664,12 +668,12 @@
     .cc-title {
       font-family: var(--display);
       font-size: 41px;
-      font-weight: 500;
-      letter-spacing: -0.042em;
+      font-weight: 400;
+      letter-spacing: -0.012em;
       color: var(--fg);
       line-height: 1;
     }
-    .cc-title em { font-style: normal; color: var(--accent); font-weight: 500; }
+    .cc-title em { font-style: normal; color: var(--accent); font-weight: 400; }
 
     .cc-choices {
       display: grid;
@@ -696,10 +700,10 @@
     .cc-choice-name {
       font-family: var(--display);
       font-style: normal;
-      font-weight: 500;
+      font-weight: 400;
       font-size: 21px;
       color: var(--fg);
-      letter-spacing: -0.034em;
+      letter-spacing: -0.012em;
     }
     .cc-choice-desc {
       font-size: 12.5px;
@@ -1172,6 +1176,11 @@
 
   <!-- SF backdrop — decorative only, hence no alt text anywhere near it -->
   <div class="bg-plate" aria-hidden="true"></div>
+  <div class="bg-clouds" aria-hidden="true">
+    <div class="cloud-p cp-1" data-depth="0.10"><img src="/sky/cloud-1.webp" alt="" width="1240" height="780" decoding="async"></div>
+    <div class="cloud-p cp-2" data-depth="0.05"><img src="/sky/cloud-2.webp" alt="" width="1180" height="720" decoding="async"></div>
+    <div class="cloud-p cp-3" data-depth="0.16"><img src="/sky/cloud-3.webp" alt="" width="820" height="520" decoding="async" loading="lazy"></div>
+  </div>
   <div class="bg-scrim" aria-hidden="true"></div>
 
   <header class="site-header glass" aria-label="primary">
@@ -1440,7 +1449,7 @@
 
   <script>
     // ============================================
-    // SF BACKDROP — fade in only once the photo is decoded, so it never pops in
+    // SKY BACKDROP — fade in once the plate resolves (pure gradient: instantly)
     // mid-read (same discipline as font-display:optional above)
     // ============================================
     (function () {
@@ -1795,5 +1804,6 @@
   </script>
   <script data-goatcounter="https://analyze.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
+<script src="/sky.js" defer></script>
 </body>
 </html>

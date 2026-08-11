@@ -11,16 +11,19 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="shortcut icon" href="/favicon.ico" />
-  <link rel="preload" as="image" type="image/webp" href="/bg-sf-1024.webp" media="(max-width: 700px)">
-  <link rel="preload" as="image" type="image/webp" href="/bg-sf-1600.webp" media="(min-width: 700.01px) and (max-width: 1699.99px)">
-  <link rel="preload" as="image" type="image/webp" href="/bg-sf-2560.webp" media="(min-width: 1700px)">
+  <link rel="preload" as="image" type="image/webp" href="/sky/cloud-1.webp">
+  <link rel="preload" as="image" type="image/webp" href="/sky/cloud-2.webp">
+  <link rel="preload" as="image" type="image/webp" href="/sky/cloud-3.webp" media="(min-width: 700.01px)">
   <link rel="preload" href="/fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/jetbrainsmono-400.woff2" as="font" type="font/woff2" crossorigin>
   <style>
     @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/inter-400.woff2) format('woff2')}
     @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:optional;src:url(/fonts/inter-500.woff2) format('woff2')}
     @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/jetbrainsmono-400.woff2) format('woff2')}
+    @font-face{font-family:'Newsreader';font-style:normal;font-weight:400 500;font-display:optional;src:url(/fonts/newsreader-latin.woff2) format('woff2')}
+    @font-face{font-family:'Serif Fallback';src:local('Iowan Old Style'),local('Georgia');size-adjust:94%;ascent-override:98%;descent-override:26%;line-gap-override:0%}
     @font-face{font-family:'Sans Fallback';src:local('Arial'),local('Helvetica Neue');size-adjust:105%;ascent-override:97%;descent-override:24%;line-gap-override:0%}
     @font-face{font-family:'Mono Fallback';src:local('Menlo'),local('Consolas');size-adjust:110%;ascent-override:102%;descent-override:30%;line-gap-override:0%}
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,7 +31,7 @@
       --bg: #16181c; --fg: #e8e6df; --dim: #908b83; --accent: #a8aeb4;
       --mono: 'JetBrains Mono', 'Mono Fallback', ui-monospace, Menlo, monospace;
       --sans: 'Inter', 'Sans Fallback', system-ui, -apple-system, sans-serif;
-      --display: 'Inter', 'Sans Fallback', system-ui, -apple-system, sans-serif;
+      --display: 'Newsreader', 'Serif Fallback', 'Iowan Old Style', Georgia, serif;
     }
     body.light {
       --bg: #a8aeb4; --fg: #16181c; --dim: #383a3e; --accent: #2a2f36;
@@ -66,9 +69,9 @@
       color: var(--accent);
     }
     h1 {
-      font-family: var(--display); font-weight: 500;
+      font-family: var(--display); font-weight: 400;
       font-size: clamp(40px, 9vw, 84px);
-      line-height: 1; letter-spacing: -0.02em;
+      line-height: 1; letter-spacing: -0.012em;
     }
     h1 em { color: var(--accent); font-style: normal; }
     p {
@@ -92,6 +95,11 @@
 <body>
   <!-- shared SF backdrop — decorative; identical markup on every page -->
   <div class="bg-plate" aria-hidden="true"></div>
+  <div class="bg-clouds" aria-hidden="true">
+    <div class="cloud-p cp-1" data-depth="0.10"><img src="/sky/cloud-1.webp" alt="" width="1240" height="780" decoding="async"></div>
+    <div class="cloud-p cp-2" data-depth="0.05"><img src="/sky/cloud-2.webp" alt="" width="1180" height="720" decoding="async"></div>
+    <div class="cloud-p cp-3" data-depth="0.16"><img src="/sky/cloud-3.webp" alt="" width="820" height="520" decoding="async" loading="lazy"></div>
+  </div>
   <div class="bg-scrim" aria-hidden="true"></div>
   <main>
     <div class="n4-card glass">
@@ -128,5 +136,6 @@
       if (img.complete) ready();
     })();
   </script>
+<script src="/sky.js" defer></script>
 </body>
 </html>
