@@ -362,9 +362,12 @@
     }
   </style>
   <!-- shared SF backdrop + glass material; loaded LAST so it wins over the inline styles -->
-  <link rel="stylesheet" href="/glass.css?v=3">
+  <link rel="stylesheet" href="/glass.css?v=4">
 </head>
 <body>
+<script>/* pre-paint: apply saved theme + skip the backdrop fade after the first load,
+   so navigating between pages never re-flashes the (identical) backdrop */
+try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(prefers-color-scheme: light)').matches))document.body.classList.add('light');if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('bg-instant');else sessionStorage.setItem('hm-bg','1')}catch(e){}</script>
   <a href="#top" class="skip-link">Skip to content</a>
 
   <!-- shared SF backdrop — decorative; identical markup on every page -->
@@ -495,7 +498,7 @@
   </script>
   <script data-goatcounter="https://analyze.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
-<script src="/sky.js?v=3" defer></script>
+<script src="/sky.js?v=4" defer></script>
 </body>
 </html>
 

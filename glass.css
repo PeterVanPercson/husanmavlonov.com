@@ -59,6 +59,11 @@ body.light .bg-plate {
 }
 body.bg-ready .cloud-p img { opacity: 1; }
 
+/* repeat navigations (html.bg-instant, set pre-paint from sessionStorage):
+   the backdrop is identical page-to-page, so skip the fade entirely */
+html.bg-instant .bg-plate,
+html.bg-instant .cloud-p img { opacity: 1; transition: none; }
+
 .cloud-p .c-sky            { display: none; }
 body.light .cloud-p .c-sky { display: block; }
 body.light .cloud-p .c-stitch { display: none; }
