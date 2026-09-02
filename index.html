@@ -446,15 +446,6 @@
     }
     h1 em { font-style: normal; color: var(--accent); font-weight: 400; }
 
-    .lead {
-      font-family: var(--sans);
-      font-weight: 500;
-      font-size: clamp(19px, 2.3vw, 25px);
-      line-height: 1.22;
-      letter-spacing: -0.034em;
-      color: var(--fg);
-    }
-    .lead b { color: var(--accent); font-weight: 500; }
 
     .meta-line {
       font-family: var(--mono);
@@ -472,58 +463,17 @@
     .meta-line .sep { color: var(--dimmer); }
     /* arrows: JetBrains Mono lacks U+2192, so render them in a stable system stack instead of whatever the OS picks */
     .meta-line .arw { font-style: normal; font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
-
-    /* ===== NOW — live status line ===== */
-    .now-line {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px 10px;
-      font-family: var(--mono);
-      font-size: 11.5px;
-      color: var(--dim);
-      line-height: 1.6;
-      margin-top: 2px;
-    }
-    .now-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: #4ade80;
-      flex-shrink: 0;
-      position: relative;
-    }
-    /* expanding pulse ring — the universal "live right now" signal */
-    .now-dot::after {
-      content: "";
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      border: 1px solid #4ade80;
-      opacity: 0;
-      animation: nowPulse 2.4s ease-out infinite;
-    }
-    @keyframes nowPulse {
-      0%   { transform: scale(0.4); opacity: 0.9; }
-      70%  { transform: scale(1.3); opacity: 0; }
-      100% { transform: scale(1.3); opacity: 0; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .now-dot::after { animation: none; }
-    }
-    .now-label {
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      font-size: 10px;
-      color: var(--accent);
-    }
-    .now-line a {
+    /* Powell.st — the one link in the meta line, so it needs to read as one */
+    .meta-line a.powell {
       color: var(--fg);
       border-bottom: 1px solid var(--dimmer);
       padding-bottom: 1px;
-      transition: color 0.2s ease, border-color 0.2s ease;
+      /* colour only: Chromium keeps a stale var() when border-color is mid-transition,
+         so the underline would hold the other theme's tint after a live toggle */
+      transition: color 0.2s ease;
     }
-    .now-line a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-    .now-dates { color: var(--dimmer); }
+    .meta-line a.powell:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
 
 
 
@@ -1231,7 +1181,6 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
   <main class="page glass" id="top">
 
     <h1>Husan Mavlonov<em>.</em></h1>
-    <p class="lead">I love building.</p>
 
     <p class="meta-line">
       <!-- one span per city so flex-wrap can break the chain: with four cities the single
@@ -1239,7 +1188,7 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
       <span>Tashkent <i class="arw">→</i></span>
       <span>Istanbul <i class="arw">→</i></span>
       <span>Shanghai <i class="arw">→</i></span>
-      <span>San Francisco</span>
+      <span><a class="powell" href="https://powell.st" target="_blank" rel="noopener">Powell.st</a>, San Francisco</span>
       <span class="sep">·</span>
       <span>Z Fellow</span>
       <span class="sep">·</span>
@@ -1247,15 +1196,9 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
       <span class="sep">·</span>
       <span>Silkroad Fellow</span>
       <span class="sep">/</span>
-      <span>University of Michigan and Shanghai Jiao Tong dropout</span>
+      <span>Dropout at UMich and SJTU</span>
     </p>
 
-    <p class="now-line">
-      <span class="now-dot" aria-hidden="true"></span>
-      <span class="now-label">Now</span>
-      <span>Powell St, San Francisco — building <a href="https://defex.app" target="_blank" rel="noopener">defex.app</a>, raising pre-seed</span>
-      <span class="now-dates">aug–oct 2026</span>
-    </p>
 
     <div class="claude-wrap">
       <img class="claude-walker" src="claude.png" alt="" aria-hidden="true">
