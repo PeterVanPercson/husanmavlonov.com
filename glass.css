@@ -90,11 +90,13 @@ body.light .cp-3 { width: min(19vw, 280px); right: 16vw; top: 9vh; }
 }
 
 @media (max-width: 700px) {
-  /* two drifters are plenty on a phone */
-  .cp-1 { width: 26vw; left: 5vw;  top: 10vh; }
+  /* Two drifters are plenty on a phone, and the top one sits BELOW the text
+     block: on a narrow screen the copy runs down the upper third, and a
+     photographic orca behind it costs more legibility than the halo buys back. */
+  .cp-1 { width: 26vw; left: 5vw;  top: 34vh; }
   .cp-2 { width: 30vw; right: 5vw; bottom: 9vh; }
   .cp-3 { display: none; }
-  body.light .cp-1 { width: 74vw; left: -16vw; top: 4vh; }
+  body.light .cp-1 { width: 74vw; left: -16vw; top: 30vh; }
   body.light .cp-2 { width: 64vw; right: -14vw; bottom: 5vh; }
 }
 

@@ -4,14 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Husan Mavlonov — Builder (defex, BuildCored)</title>
-  <meta name="description" content="Husan Mavlonov — builder. Founder of defex and BuildCored. Z Fellow, F.Inc Fellow, Silkroad Fellow. Tashkent → Istanbul → Shanghai → San Francisco." />
+  <meta name="description" content="Husan Mavlonov — builder, founder of defex and BuildCored. At powell.st, San Francisco. Dropout at UMich and SJTU." />
   <link rel="canonical" href="https://husanmavlonov.com/" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <meta name="theme-color" content="#16181c" />
   <meta name="color-scheme" content="dark light" />
   <meta name="author" content="Husan Mavlonov" />
   <meta property="og:title" content="Husan Mavlonov — Builder" />
-  <meta property="og:description" content="Builder. Founder of defex and BuildCored. Z Fellow · F.Inc · Silkroad. Tashkent → Istanbul → Shanghai → San Francisco." />
+  <meta property="og:description" content="Husan Mavlonov — builder, founder of defex and BuildCored. At powell.st, San Francisco. Dropout at UMich and SJTU." />
   <meta property="og:site_name" content="Husan Mavlonov" />
   <meta property="og:type" content="profile" />
   <meta property="og:url" content="https://husanmavlonov.com/" />
@@ -28,7 +28,7 @@
   <meta name="twitter:site" content="@MavlonovHusan" />
   <meta name="twitter:creator" content="@MavlonovHusan" />
   <meta name="twitter:title" content="Husan Mavlonov" />
-  <meta name="twitter:description" content="Builder. Founder of defex and BuildCored. Z Fellow &middot; F.Inc &middot; Silkroad. Powell.st, San Francisco." />
+  <meta name="twitter:description" content="Husan Mavlonov — builder, founder of defex and BuildCored. At powell.st, San Francisco. Dropout at UMich and SJTU." />
   <meta name="twitter:image" content="https://husanmavlonov.com/og.png" />
   <meta name="twitter:image:alt" content="Husan Mavlonov — builder, founder of defex and BuildCored." />
   <meta name="referrer" content="no-referrer-when-downgrade" />
@@ -174,34 +174,23 @@
   }
   </script>
   <style>
+    /* Stripped to the bone on purpose: name, one line, socials. The backdrop and
+       the ink tokens live in /glass.css — this file only sets the base palette
+       (which glass.css overrides inside .glass) and lays out three elements. */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ===== THEMES — dark (default) + light ===== */
     :root {
       --bg: #16181c;
       --fg: #e8e6df;
       --dim: #908b83;
       --dimmer: #3a3835;
-      --line: #26282d;
-      --line-strong: #2e3035;
-      --accent: #a8aeb4;                 /* neutral cool gray */
-      --accent-rgb: 168, 174, 180;
-      --claude: #cc7757;
+      --accent: #a8aeb4;
       --mono: 'JetBrains Mono', 'Mono Fallback', ui-monospace, SFMono-Regular, Menlo, monospace;
       --sans: 'Inter', 'Sans Fallback', system-ui, -apple-system, sans-serif;
-      /* Display face: Newsreader — the closest open equivalent to pear.no's Flecha
-         (that one is commercial). Light editorial serif on the open sky. */
       --display: 'Newsreader', 'Serif Fallback', 'Iowan Old Style', Georgia, serif;
     }
     body.light {
-      --bg: #a8aeb4;                     /* neutral gray — was the dark theme's accent, now the main */
-      --fg: #16181c;                     /* dark slate — was the dark theme's bg */
-      --dim: #383a3e;                    /* dark neutral gray for AA on light gray */
-      --dimmer: #6a6c70;
-      --line: #94989c;
-      --line-strong: #828589;
-      --accent: #2a2f36;                 /* dark slate — symmetric inversion; 6.0:1 on light-gray bg (was cream #e8e6df, 1.79:1, failed AA) */
-      --accent-rgb: 42, 47, 54;
+      --bg: #a8aeb4; --fg: #16181c; --dim: #383a3e; --dimmer: #6a6c70; --accent: #2a2f36;
     }
 
     html, body {
@@ -214,143 +203,8 @@
       text-rendering: optimizeLegibility;
       transition: background 0.4s ease, color 0.4s ease;
     }
-
     ::selection { background: var(--accent); color: var(--bg); }
 
-    /* The SF backdrop + the glass material now live in /glass.css, linked after this
-       block so every page shares one identical backdrop. Do not re-declare them here. */
-
-    a { color: inherit; text-decoration: none; }
-    a:focus-visible, button:focus-visible {
-      outline: 1px solid var(--accent);
-      outline-offset: 3px;
-      border-radius: 2px;
-    }
-
-    .skip-link {
-      position: absolute;
-      left: -9999px; top: 8px;
-      background: var(--accent); color: var(--bg);
-      padding: 10px 14px;
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      z-index: 100;
-      border-radius: 2px;
-    }
-    .skip-link:focus { left: 16px; outline: none; }
-
-    /* ===== HEADER — Hermes-style cell grid, cut from the same glass as the card ===== */
-    .site-header {
-      display: grid;
-      grid-template-columns: 0.9fr 0.9fr 1.5fr 1fr;
-      z-index: 2;
-      transition: border-color 0.4s ease, background 0.4s ease;
-    }
-    /* .site-header.glass surface lives in /glass.css */
-    .site-header > * {
-      display: flex;
-      align-items: center;
-      padding: 16px 24px;
-      /* --line is redefined inside .glass, so the cell dividers read on the photo */
-      border-left: 1px solid var(--line);
-      transition: border-color 0.4s ease, color 0.3s ease, background 0.3s ease;
-    }
-    .site-header > *:first-child { border-left: 0; }
-
-
-    .hdr-link {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--dim);
-      transition: color 0.2s ease;
-    }
-    .hdr-link:hover { color: var(--fg); }
-    .hdr-link[aria-current="page"] { color: var(--fg); }
-
-    .hdr-socials {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--dim);
-    }
-    .hdr-socials .label { color: var(--dim); margin-right: auto; }
-    .hdr-socials a {
-      color: var(--dim);
-      display: inline-flex;
-      align-items: center;
-      transition: color 0.2s ease;
-    }
-    .hdr-socials a:hover { color: var(--accent); }
-    .hdr-socials svg { display: block; }
-
-    .hdr-theme {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font: inherit;
-      width: 100%;
-      padding: 16px 24px;
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--dim);
-      border-left: 1px solid var(--line);
-      transition: color 0.2s ease, border-color 0.4s ease;
-    }
-    .hdr-theme:hover { color: var(--fg); }
-    .theme-switch {
-      width: 38px; height: 20px;
-      border-radius: 999px;
-      background: var(--line-strong);
-      position: relative;
-      flex-shrink: 0;
-      transition: background 0.3s ease;
-    }
-    .theme-switch::before {
-      content: "";
-      position: absolute;
-      top: 2px; left: 2px;
-      width: 14px; height: 14px;
-      border-radius: 50%;
-      background: var(--accent);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    body.light .theme-switch::before { transform: translateX(18px); }
-
-    @media (max-width: 860px) {
-      .site-header {
-        grid-template-columns: auto auto minmax(0, 1fr) auto;
-      }
-      .hdr-socials .label { display: none; }
-      .hdr-socials { gap: 13px; justify-content: flex-end; padding-left: 14px; padding-right: 14px; }
-      .hdr-theme { padding: 16px 14px; }
-      .hdr-theme .theme-label { display: none; }
-    }
-    @media (max-width: 540px) {
-      .site-header > * { padding-left: 11px; padding-right: 11px; }
-      .hdr-link { font-size: 9.5px; letter-spacing: 0.06em; }
-      .hdr-socials { gap: 11px; }
-      .hdr-socials svg { width: 14px; height: 14px; }
-      .hdr-theme { padding-left: 11px; padding-right: 11px; }
-    }
-    @media (max-width: 374px) {
-      .hdr-socials a[aria-label="Email"] { display: none; }
-    }
-
-    /* ===== PAGE LAYOUT — a glass card floating on the photo ===== */
     .page {
       max-width: 720px;
       margin: 26px auto 46px;
@@ -360,81 +214,9 @@
       gap: 14px;
       position: relative;
       z-index: 2;
-      left: 0;
       border-radius: 18px;
     }
-    /* shift the whole body a bit left on wide screens; stories widget stays right */
-    @media (min-width: 1000px) {
-      .page { left: -80px; }
-    }
 
-
-    /* on-page teaser — fixed middle-right: a small photo stack you flip through */
-    .st-cover {
-      position: fixed;
-      right: 20px;
-      top: 40%;
-      transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 9px;
-      background: none;
-      border: none;
-      padding: 0;
-      cursor: pointer;
-      z-index: 40;
-    }
-    .st-stack { position: relative; width: 96px; height: 96px; }
-    .st-stack i, .st-stack img {
-      position: absolute; inset: 0;
-      width: 96px; height: 96px;
-      border-radius: 8px;
-      box-sizing: border-box;
-      border: 1px solid var(--line-strong);
-    }
-    .st-stack i {
-      background: var(--line);
-      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
-    }
-    .st-stack i:nth-child(1) { transform: rotate(-6deg) translate(-3px, 2px); z-index: 1; }
-    .st-stack i:nth-child(2) { transform: rotate(4deg) translate(3px, -1px); z-index: 2; }
-    .st-stack img {
-      object-fit: cover;
-      z-index: 3;
-      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.25s ease;
-    }
-    .st-label {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: lowercase;
-      color: var(--accent);
-      transition: color 0.25s ease, background 0.4s ease, border-color 0.4s ease;
-      white-space: nowrap;
-    }
-    /* .st-label.glass pill surface lives in /glass.css */
-    .st-cover:hover .st-stack i:nth-child(1) { transform: rotate(-12deg) translate(-10px, 5px); }
-    .st-cover:hover .st-stack i:nth-child(2) { transform: rotate(9deg) translate(10px, -3px); }
-    .st-cover:hover .st-stack img { transform: translateY(-3px) scale(1.03); border-color: var(--claude); }
-    .st-cover:hover .st-label { color: var(--fg); }
-    /* this ring lands on the photograph, not on a pane, so it cannot rely on --accent —
-       a white stroke inside a dark halo reads against any backdrop */
-    .st-cover:focus-visible {
-      outline: 2px solid #fff;
-      outline-offset: 3px;
-      border-radius: 999px;
-      box-shadow: 0 0 0 5px rgba(10, 11, 13, 0.62);
-    }
-    @media (max-width: 700px) {
-      /* phone: pin the chip bottom-right like a floating button — mid-viewport it
-         lands on top of the NOW line now that it has no glass pane under it */
-      .st-cover { right: 12px; gap: 9px; top: auto; bottom: 16px; transform: none; }
-      .st-stack, .st-stack i, .st-stack img { width: 66px; height: 66px; }
-      .st-label { font-size: 10px; letter-spacing: 0.16em; }
-    }
-
-    /* ===== NAME ===== */
     h1 {
       font-family: var(--display);
       font-size: clamp(38px, 5.8vw, 64px);
@@ -446,678 +228,64 @@
     }
     h1 em { font-style: normal; color: var(--accent); font-weight: 400; }
 
-
     .meta-line {
       font-family: var(--mono);
-      font-size: 11.5px;
-      letter-spacing: 0;
+      font-size: 13px;
       color: var(--dim);
       line-height: 1.6;
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
       gap: 4px 8px;
-      margin-top: -4px;
+      margin-top: -2px;
     }
     .meta-line > span { white-space: nowrap; }
-    .meta-line .sep { color: var(--dimmer); }
-    /* arrows: JetBrains Mono lacks U+2192, so render them in a stable system stack instead of whatever the OS picks */
-    .meta-line .arw { font-style: normal; font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
-    /* Powell.st — the one link in the meta line, so it needs to read as one */
+    .sep { color: var(--dimmer); }
+
+    /* Powell.st — the one link in the meta line, so it needs to read as one.
+       Colour-only transition: Chromium keeps a stale var() on a border-color
+       that is mid-transition, which left the other theme's tint after a toggle. */
     .meta-line a.powell {
       color: var(--fg);
       border-bottom: 1px solid var(--dimmer);
       padding-bottom: 1px;
-      /* colour only: Chromium keeps a stale var() when border-color is mid-transition,
-         so the underline would hold the other theme's tint after a live toggle */
       transition: color 0.2s ease;
     }
     .meta-line a.powell:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
-
-
-
-
-    /* ===== CLAUDE CTA — pill text only; walker animates ABOVE the box ===== */
-    .claude-wrap {
-      position: relative;
-      width: max-content;
-      max-width: 100%;
-      margin-top: 38px;       /* room for the walker above */
-      padding-top: 4px;
-    }
-    .claude-cta {
-      display: inline-flex;
-      align-items: center;
-      padding: 6px 14px;
-      /* the photo behind this pill is warm orange, which would swallow terracotta text —
-         so the pill carries its own hard knock-down and a lifted Claude tone */
-      background: rgba(16, 12, 10, 0.34);
-      -webkit-backdrop-filter: blur(14px) saturate(1.6) brightness(0.34);
-      backdrop-filter: blur(14px) saturate(1.6) brightness(0.34);
-      border: 1px solid rgba(240, 166, 128, 0.55);
-      border-radius: 999px;
+    .socials {
+      margin-top: 12px;
       font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #f0a680;
-      cursor: pointer;
-      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
-    }
-    .claude-cta:hover {
-      background: rgba(204, 119, 87, 0.34);
-      border-color: #f7bb9a;
-      transform: translateY(-1px);
-    }
-    /* Light theme — pill goes solid, darkened enough that white type clears AA */
-    body.light .claude-cta {
-      background: #b3542f;
-      border-color: #b3542f;
-      color: #fff;
-      -webkit-backdrop-filter: none;
-      backdrop-filter: none;
-      text-shadow: none;
-    }
-    body.light .claude-cta:hover {
-      background: #9c4527;
-      border-color: #9c4527;
-    }
-    .claude-walker {
-      position: absolute;
-      bottom: calc(100% - 10px);   /* sits on the top edge of the pill */
-      left: 14px;
-      width: 30px;
-      height: 30px;
-      display: block;
-      pointer-events: none;
-      animation: walkerStroll 9s ease-in-out infinite;
-    }
-    @keyframes walkerStroll {
-      0%, 100% { left: 14px; transform: scaleX(1); }
-      45%      { left: calc(100% - 44px); transform: scaleX(1); }
-      50%      { left: calc(100% - 44px); transform: scaleX(-1); }
-      95%      { left: 14px; transform: scaleX(-1); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .claude-walker { animation: none; }
-    }
-
-    /* ===== CLAUDE CHOOSER MODAL ===== */
-    .cc-backdrop {
-      position: fixed; inset: 0;
-      height: 100vh;
-      height: 100dvh;
-      background: rgba(8, 9, 11, 0.74);
-      -webkit-backdrop-filter: blur(3px);
-      backdrop-filter: blur(3px);
+      font-size: 13px;
+      line-height: 1.6;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      /* visibility, not just opacity: with opacity alone the three controls inside stayed
-         in the tab order while invisible (.st-backdrop already did this correctly) */
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-      z-index: 1000;
-    }
-    .cc-backdrop.open { opacity: 1; pointer-events: auto; visibility: visible; }
-    .cc-modal {
-      position: relative;
-      width: min(560px, 92vw);
-      height: 400px;
-      border-radius: 14px;
-      overflow: hidden;
-      padding: 0 46px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 26px;
-      transform: translateY(14px) scale(0.97);
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .cc-backdrop.open .cc-modal { transform: translateY(0) scale(1); }
-    /* .cc-modal.glass and .cc-backdrop surfaces live in /glass.css */
-    body.light .cc-choice { background: rgba(22, 24, 28, 0.05); }
-
-    .cc-close {
-      position: absolute;
-      top: 14px; right: 16px;
-      width: 24px; height: 24px;
-      background: none; border: none;
-      padding: 0;
-      cursor: pointer;
-      z-index: 6;
-      opacity: 0.65;
-      transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1);
-    }
-    .cc-close:hover { opacity: 1; transform: rotate(90deg) scale(1.1); }
-    .cc-close img { width: 100%; height: 100%; display: block; pointer-events: none; }
-
-    .cc-head { z-index: 2; }
-    .cc-eyebrow {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #f0a680;              /* lifted Claude tone — raw --claude is sub-AA on glass */
-      margin-bottom: 10px;
-    }
-    body.light .cc-eyebrow { color: #9c4527; }
-    .cc-me {
-      display: inline-block;
-      width: 1.7em;            /* ≈ matches the eyebrow text height */
-      height: 1.7em;
-      object-fit: cover;
-      border-radius: 50%;
-      vertical-align: middle;
-      margin-left: 9px;
-      position: relative;
-      top: -1px;
-      border: 1px solid var(--line);
-    }
-    .cc-title {
-      font-family: var(--display);
-      font-size: 41px;
-      font-weight: 400;
-      letter-spacing: -0.012em;
-      color: var(--fg);
-      line-height: 1;
-    }
-    .cc-title em { font-style: normal; color: var(--accent); font-weight: 400; }
-
-    .cc-choices {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      z-index: 2;
-    }
-    .cc-choice {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      padding: 20px 18px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.02);
-      text-decoration: none;
-      transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
-    }
-    .cc-choice:hover {
-      border-color: var(--claude);
-      background: rgba(204, 119, 87, 0.09);
-      transform: translateY(-2px);
-    }
-    .cc-choice-name {
-      font-family: var(--display);
-      font-style: normal;
-      font-weight: 400;
-      font-size: 21px;
-      color: var(--fg);
-      letter-spacing: -0.012em;
-    }
-    .cc-choice-desc {
-      font-size: 12.5px;
-      line-height: 1.45;
-      color: var(--dim);
-    }
-
-    /* ---- the three Claude sprites ---- */
-    .cc-sprite {
-      position: absolute;
-      width: 26px; height: 26px;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .cc-sprite img { width: 100%; height: 100%; display: block; }
-
-    /* sporty jumper — child of the backdrop (no transform); JS places it in screen coords */
-    .cc-jumper {
-      left: 0; top: 0;
-      z-index: 20;
-      will-change: transform;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .cc-jumper.live { opacity: 1; }
-
-    @media (max-width: 560px) {
-      .cc-modal { height: auto; padding: 60px 28px 40px; gap: 22px; }
-      .cc-choices { grid-template-columns: 1fr; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .cc-jumper { animation: none; }
-    }
-
-    /* ===== I BUILT ===== */
-    .built { margin-top: 16px; }
-    .built-head {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      color: var(--dim);
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-    .built-head .wip { color: var(--accent); }
-    .built ul { list-style: none; }
-    .built li {
-      border-top: 1px dashed var(--line);
-    }
-    .built li:last-child { border-bottom: 1px dashed var(--line); }
-    .built .proj-row {
-      display: grid;
-      grid-template-columns: 160px 1fr;
-      gap: 22px;
-      padding: 13px 0;
+      flex-wrap: wrap;
       align-items: baseline;
-      color: inherit;
+      gap: 4px 8px;
+      color: var(--dimmer);
+    }
+    .socials a {
+      color: var(--dimmer);
       text-decoration: none;
-      transition: padding-left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .built .proj-row:hover { padding-left: 8px; }
-    .built .name {
-      font-family: var(--display);
-      font-style: normal;
-      font-weight: 500;
-      font-size: 21px;
-      color: var(--fg);
-      letter-spacing: -0.036em;
       transition: color 0.2s ease;
     }
-    .built .proj-row:hover .name { color: var(--accent); }
-    /* brand accents, lifted for the glass pane — the pane's surface luminance is well above
-       the flat background these hexes were originally picked against */
-    .built .name .defex-dot { color: #FF7A45; }
-    .built .name .mf { color: #FF6B90; }
-    body.light .built .name .defex-dot { color: #C7400C; }
-    body.light .built .name .mf { color: #C41E4E; }
-    /* unified credential line — one system for all three projects */
-    .built .cred {
-      display: block;
-      margin-top: 7px;
-      font-family: var(--mono);
-      font-style: normal;
-      font-size: 9.5px;
-      letter-spacing: 0.04em;
-      line-height: 1.55;
-      color: var(--dim);
-    }
-    .built .cred b { color: var(--fg); font-weight: 500; }
-    .built .cred .zfz {
-      font-weight: 500;   /* 500 is a real self-hosted face; 700 was synthesised bold */
-      background: linear-gradient(135deg, #6EA8FF, #2F6BE5);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .built .cred .axx { font-weight: 500; color: #E86A6A; }
-    body.light .built .cred .axx { color: #9E1111; }
-    .built .cred .emb { height: 20px; width: auto; vertical-align: middle; margin: 0 4px; position: relative; top: -1px; }
-    .built .cred-uz { line-height: 1.2; }
-    .built .desc {
-      font-size: 14px;
-      line-height: 1.55;
-      color: var(--dim);
-      transition: color 0.2s ease;
-    }
-    .built .desc b { color: var(--fg); font-weight: 400; transition: color 0.2s ease; }
-    .built .proj-row:hover .desc,
-    .built .proj-row:hover .desc b { color: var(--fg); }
-    @media (max-width: 540px) {
-      .built .proj-row { grid-template-columns: 1fr; gap: 4px; padding: 12px 0; }
-      .built .proj-row:hover { padding-left: 4px; }
-    }
+    .socials a:hover { color: var(--fg); }
 
-    .why-line {
-      font-family: var(--display);
-      font-style: normal;
-      font-weight: 400;
-      font-size: clamp(17px, 1.9vw, 21px);
-      line-height: 1.38;
-      letter-spacing: -0.028em;
-      color: var(--fg);
-      opacity: 0.82;
-      max-width: 620px;
-      margin-top: 18px;
-    }
-
-    .links {
-      margin-top: 18px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px 18px;
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-    .links a {
-      color: var(--dim);
-      transition: color 0.2s ease;
-      padding-bottom: 2px;
-      border-bottom: 1px solid transparent;
-    }
-    .links a:hover {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-    }
-
-    @media (max-width: 540px) {
-      /* card keeps a gutter so it reads as glass floating on the photo, not a full-bleed panel */
-      .page { margin: 14px 12px 34px; padding: 26px 20px 28px; gap: 18px; border-radius: 14px; }
-      /* (the project rows are handled by the .built .proj-row rule above — the old
-         `.built li` copy of these declarations was dead and doubled the padding) */
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-      .claude-walker { animation: none; }
-    }
-
-    /* ===== PRIVATE STORIES ===== */
-    .st-backdrop {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 100vh;
-      height: 100dvh;
-      background: var(--bg);
-      z-index: 1000;
-      opacity: 0; visibility: hidden;
-      transition: opacity 0.35s ease, visibility 0.35s ease;
-    }
-    .st-backdrop.open { opacity: 1; visibility: visible; }
-
-    .st-scroll {
-      height: 100vh;
-      height: 100dvh;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      scroll-snap-type: y mandatory;
-      scroll-behavior: smooth;
-      scrollbar-width: none;
-    }
-    .st-scroll::-webkit-scrollbar { display: none; }
-
-    .st-slide {
-      min-height: 100vh;
-      min-height: 100svh;
-      scroll-snap-align: center;
-      scroll-snap-stop: always;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 22px;
-      padding: 80px 28px;
-      box-sizing: border-box;
-    }
-    .st-photo {
-      max-width: min(440px, 82vw);
-      max-height: 62vh;
-      width: auto;
-      height: auto;
-      object-fit: contain;   /* show the WHOLE photo — never crop faces out of group shots */
-      border-radius: 8px;
-      border: 1px solid var(--line-strong);
-      display: block;
-    }
-    .st-pair {
-      display: flex;
-      gap: 14px;
-      align-items: center;
-      justify-content: center;
-      max-width: 92vw;
-    }
-    .st-pair .st-photo {
-      flex: 0 1 auto;
-      width: auto;
-      height: auto;
-      max-width: 44vw;
-      max-height: 64vh;
-      object-fit: contain;
-    }
-    .st-vstack {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      width: min(520px, 86vw);
-    }
-    .st-vstack .st-photo {
-      width: 100%;
-      height: auto;
-      max-height: 40vh;
-      object-fit: contain;
-    }
-    .st-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      width: min(700px, 92vw);
-    }
-    .st-grid .st-photo {
-      flex: 0 1 auto;
-      width: auto;
-      height: auto;
-      max-width: 31%;
-      max-height: 30vh;
-      object-fit: contain;
-    }
-    .st-grid-lg {
-      width: min(880px, 95vw);
-      gap: 12px;
-    }
-    .st-grid-lg .st-photo {
-      max-width: 31.5%;
-      max-height: 34vh;
-    }
-    .st-feature {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      width: min(960px, calc(100vw - 300px));
-    }
-    .st-feature .st-feat-main {
-      flex: 0 1 auto;
-      width: auto;
-      height: auto;
-      max-width: 50%;
-      max-height: 44vh;
-      object-fit: contain;
-    }
-    .st-feature .st-feat-side {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      flex: 0 1 auto;
-    }
-    .st-feature .st-feat-side .st-photo {
-      width: auto;
-      height: auto;
-      max-width: 150px;
-      max-height: 18vh;
-      object-fit: contain;
-    }
-    @media (max-width: 900px) {
-      .st-feature {
-        flex-direction: column;
-        width: min(540px, 92vw);
-      }
-      .st-feature .st-feat-main {
-        max-width: 100%;
-        max-height: 48vh;
-        order: -1;
-      }
-      .st-feature .st-feat-side {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      .st-feature .st-feat-side .st-photo {
-        max-width: 44%;
-        max-height: 22vh;
-      }
-    }
-    .st-big .st-photo {
-      max-width: min(620px, 92vw);
-      max-height: 78vh;
-    }
-    .st-big .st-cap { margin-top: 16px; }
-    .st-photo.ph {
-      aspect-ratio: 4 / 5;
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--dim);
-      border-style: dashed;
-    }
-    .st-cap {
-      width: min(440px, 82vw);
-      font-family: var(--display);
-      font-size: 17px;
-      font-weight: 400;
-      line-height: 1.5;
-      letter-spacing: -0.02em;
-      color: var(--fg);
-      text-align: center;
-      text-transform: lowercase;
-    }
-    .st-cap a {
-      color: inherit;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-thickness: 1px;
-    }
-    .st-cap .meta {
-      display: block;
-      margin-top: 9px;
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--dim);
-    }
-    .st-end {
-      width: min(440px, 82vw);
-      margin-top: 46px;
-      font-family: var(--display);
-      font-size: 18px;
-      line-height: 1.55;
-      letter-spacing: 0.01em;
-      color: var(--dim);
-      text-align: center;
-    }
-
-    .st-nav {
-      position: fixed;
-      right: calc(22px + env(safe-area-inset-right)); top: 50%;
-      transform: translateY(-50%);
-      display: flex; flex-direction: column;
-      gap: 9px;
-      z-index: 1002;
-    }
-    .st-tick {
-      width: 16px; height: 2px;
-      padding: 0; border: none;
-      background: var(--dimmer);
+    a:focus-visible, .socials a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
       border-radius: 2px;
-      cursor: pointer;
-      transition: width 0.25s ease, background 0.25s ease;
     }
-    .st-tick:hover { background: var(--dim); }
-    .st-tick.active { width: 26px; background: var(--fg); }
-    .st-date {
-      position: absolute;
-      right: calc(100% + 14px);
-      transform: translateY(-50%);
-      white-space: nowrap;
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      color: var(--dim);
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s ease, top 0.28s cubic-bezier(0.16,1,0.3,1);
-    }
-    .st-backdrop.open .st-date { opacity: 1; }
 
-    .st-close {
-      position: fixed;
-      top: calc(20px + env(safe-area-inset-top));
-      right: calc(20px + env(safe-area-inset-right));
-      width: 30px; height: 30px;
-      background: none; border: none;
-      color: var(--dim);
-      cursor: pointer; z-index: 1002;
-      transition: color 0.2s ease, transform 0.3s ease;
+    @media (max-width: 700px) {
+      .page { margin: 14px auto 30px; padding: 26px 20px 24px; border-radius: 14px; }
     }
-    .st-close:hover { color: var(--fg); transform: rotate(90deg); }
-    .st-count {
-      position: fixed;
-      right: calc(20px + env(safe-area-inset-right));
-      bottom: calc(22px + env(safe-area-inset-bottom));
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.16em;
-      color: var(--dim);
-      z-index: 1002;
-      font-variant-numeric: tabular-nums;
-    }
-    .st-eyebrow {
-      position: fixed;
-      top: calc(22px + env(safe-area-inset-top));
-      left: calc(24px + env(safe-area-inset-left));
-      font-family: var(--mono); font-size: 10px;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--dim); z-index: 1002;
-    }
-    .st-player {
-      position: fixed;
-      top: calc(19px + env(safe-area-inset-top));
-      right: calc(62px + env(safe-area-inset-right));
-      display: flex; align-items: center; gap: 9px;
-      background: none; border: none; padding: 4px 0;
-      cursor: pointer; z-index: 1002;
-      font-family: var(--sans); font-size: 12px; font-weight: 400;
-      letter-spacing: 0.01em;
-      color: var(--dim);
-      transition: color 0.2s ease;
-    }
-    .st-player:hover { color: var(--fg); }
-    .st-by { color: var(--dimmer); }
-    .st-eq { display: flex; align-items: flex-end; gap: 2px; height: 12px; }
-    .st-eq i {
-      display: block; width: 2px; height: 100%;
-      background: var(--accent);
-      transform-origin: bottom;
-      animation: stEq 0.85s ease-in-out infinite;
-    }
-    .st-eq i:nth-child(2) { animation-delay: 0.28s; }
-    .st-eq i:nth-child(3) { animation-delay: 0.52s; }
-    @keyframes stEq {
-      0%, 100% { transform: scaleY(0.3); }
-      50%      { transform: scaleY(1); }
-    }
-    .st-player.paused { color: var(--dimmer); }
-    .st-player.paused .st-eq i {
-      animation-play-state: paused;
-      transform: scaleY(0.3);
-    }
-    @media (max-width: 560px) {
-      .st-nav { right: calc(12px + env(safe-area-inset-right)); }
-      .st-cap { width: 88vw; }
-      .st-photo { max-width: 88vw; }
-      .st-player { right: calc(56px + env(safe-area-inset-right)); }
-      .st-player .st-track { display: none; }
-      .st-date { display: none; }
+    @media (prefers-reduced-motion: reduce) {
+      html, body, h1, .meta-line a.powell, .socials a { transition: none; }
     }
   </style>
-  <!-- shared SF backdrop + glass material; loaded LAST so it wins over the inline styles -->
-  <link rel="stylesheet" href="/glass.css?v=5">
+  <!-- shared backdrop + ink tokens; loaded LAST so it wins over the inline styles -->
+  <link rel="stylesheet" href="/glass.css?v=6">
 </head>
 <body>
 <script>/* pre-paint: apply saved theme + skip the backdrop fade after the first load,
@@ -1127,9 +295,8 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
     Hi. If you're reading the source, you're the kind of person I want to build with.
     → husan@buildcored.com
   -->
-  <a href="#top" class="skip-link">Skip to content</a>
 
-  <!-- SF backdrop — decorative only, hence no alt text anywhere near it -->
+  <!-- backdrop — decorative only, hence no alt text anywhere near it -->
   <div class="bg-plate" aria-hidden="true"></div>
   <div class="bg-clouds" aria-hidden="true">
     <div class="cloud-p cp-1" data-depth="0.10"><img class="c-sky" src="/sky/cloud-1.webp" alt="" width="1240" height="780" decoding="sync"><img class="c-stitch" src="/sky/orca.webp" alt="" width="582" height="640" decoding="sync"></div>
@@ -1139,621 +306,49 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
   <script>/* pre-paint: clock-anchored drift phase - same drifter position on every page */
   try{document.querySelectorAll('.cloud-p img').forEach(function(g){var d=parseFloat(getComputedStyle(g).animationDuration)||160;g.style.animationDelay=(-(Date.now()/1e3%(2*d))).toFixed(1)+'s'})}catch(e){}</script>
   <div class="bg-scrim" aria-hidden="true"></div>
-
-  <header class="site-header glass" aria-label="primary">
-    <a href="index.html" class="hdr-link" aria-current="page" data-page="home">Home</a>
-    <a href="building.html" class="hdr-link" data-page="building">Building</a>
-    <div class="hdr-socials">
-      <span class="label">Socials</span>
-      <a href="mailto:husan@buildcored.com" rel="me" title="Email" aria-label="Email">
-        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-      </a>
-      <a href="https://t.me/husanmd" target="_blank" rel="me noopener" title="Telegram" aria-label="Telegram">
-        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg>
-      </a>
-      <a href="https://x.com/MavlonovHusan" target="_blank" rel="me noopener" title="X (Twitter)" aria-label="X">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      </a>
-      <a href="https://github.com/PeterVanPercson" target="_blank" rel="me noopener" title="GitHub" aria-label="GitHub">
-        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.3-3.2-.1-.4-.6-1.6.1-3.3 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.6 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.3.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.7-5.5 6 .5.4.9 1.1.9 2.3v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
-      </a>
-      <a href="https://www.linkedin.com/in/husan-mavlonov" target="_blank" rel="me noopener" title="LinkedIn" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 .02 5 2.5 2.5 0 0 1-.02-5zM2.5 9.5h5v12h-5v-12zM9.5 9.5h4.8v1.7h.07c.67-1.26 2.3-2.6 4.74-2.6 5.07 0 6 3.3 6 7.6V21.5h-5v-6.8c0-1.62-.04-3.7-2.25-3.7-2.25 0-2.6 1.76-2.6 3.58v6.92h-5v-12z"/></svg>
-      </a>
-      <a href="https://www.instagram.com/mavhusan/" target="_blank" rel="me noopener" title="Instagram" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.7" fill="currentColor" stroke="none"/></svg>
-      </a>
-    </div>
-    <button class="hdr-theme" id="themeToggle" aria-label="Toggle light or dark theme">
-      <span class="theme-label">Theme</span>
-      <span class="theme-switch" aria-hidden="true"></span>
-    </button>
-  </header>
-
-  <!-- Lives OUTSIDE .page on purpose: .page has a backdrop-filter, which makes it the
-       containing block for position:fixed descendants — the pill would get trapped in the card. -->
-  <aside aria-label="Memories">
-    <button class="st-cover" id="storiesCover" type="button" aria-haspopup="dialog" aria-label="Open memories [photo alert]">
-      <span class="st-label glass">&lt;&lt;memories [photo alert]</span>
-    </button>
-  </aside>
+  <script>/* SKY BACKDROP — reveal once the plate resolves (dark = aida tile, light = pure
+     gradient, so this fires immediately there). Without it the plate and the drifters
+     stay at opacity 0 on a first visit. */
+  (function () {
+    var plate = document.querySelector('.bg-plate');
+    if (!plate) return;
+    function ready() { document.body.classList.add('bg-ready'); }
+    var m = getComputedStyle(plate).backgroundImage.match(/url\(["']?([^"')]+)["']?\)/);
+    if (!m) { ready(); return; }
+    var img = new Image();
+    img.onload = img.onerror = ready;
+    img.src = m[1];
+    if (img.complete) ready();
+  })();</script>
 
   <main class="page glass" id="top">
 
     <h1>Husan Mavlonov<em>.</em></h1>
 
     <p class="meta-line">
-      <!-- one span per city so flex-wrap can break the chain: with four cities the single
-           nowrap span overflowed the card on 360–375px phones -->
-      <span>Tashkent <i class="arw">→</i></span>
-      <span>Istanbul <i class="arw">→</i></span>
-      <span>Shanghai <i class="arw">→</i></span>
-      <span><a class="powell" href="https://powell.st" target="_blank" rel="noopener">Powell.st</a>, San Francisco</span>
-      <span class="sep">·</span>
-      <span>Z Fellow</span>
-      <span class="sep">·</span>
-      <span>F.Inc Fellow</span>
-      <span class="sep">·</span>
-      <span>Silkroad Fellow</span>
-      <span class="sep">/</span>
-      <span>Dropout at UMich and SJTU</span>
+      <span>at <a class="powell" href="https://powell.st" target="_blank" rel="noopener">powell.st</a>, san francisco</span>
+      <span class="sep" aria-hidden="true">·</span>
+      <span>dropout at UMich and SJTU</span>
     </p>
 
-
-    <div class="claude-wrap">
-      <img class="claude-walker" src="claude.png" alt="" aria-hidden="true">
-      <button class="claude-cta" type="button" id="claudeCtaBtn" aria-haspopup="dialog">
-        Free Claude
-      </button>
-    </div>
-
-    <div class="built">
-      <p class="built-head">I built <span class="wip">[working on]</span></p>
-      <ul>
-        <li>
-          <a class="proj-row" href="https://buildcored.com" target="_blank" rel="noopener">
-            <span class="name">BuildCored.<span class="cred cred-uz">Funded by<img class="emb" src="uzb-emblem.png" alt="" onerror="this.remove()"><b>Youth Affairs Agency</b></span></span>
-            <span class="desc"><b>1,500+ builders.</b> Home of <b>Orcas</b>. I run challenges and push my limits with other people.</span>
-          </a>
-        </li>
-        <li>
-          <a class="proj-row" href="https://defex.app" target="_blank" rel="noopener">
-            <span class="name">defex<span class="defex-dot">.</span><span class="cred">Backed by <b>Silkroad Innovation Hub</b></span></span>
-            <span class="desc"><b>AI defect inspection.</b> We save factories ~$5K/mo on inspectors — $5K upfront, $350/mo.</span>
-          </a>
-        </li>
-        <li>
-          <a class="proj-row" href="https://mindform-ai.com" target="_blank" rel="noopener">
-            <span class="name">mind<span class="mf">form.</span><span class="cred">Co-founded · Endorsed for ar<span class="axx">X</span>iv · <b>Nuo Chen, NUS</b></span></span>
-            <span class="desc"><b>The personality layer for AI.</b> Memory, tone, and character that persists across sessions.</span>
-          </a>
-        </li>
-      </ul>
-    </div>
+    <nav class="socials" aria-label="Elsewhere">
+      <a href="mailto:husan@buildcored.com" rel="me">email</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="https://t.me/husanmd" target="_blank" rel="me noopener">telegram</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="https://x.com/MavlonovHusan" target="_blank" rel="me noopener">x</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="https://github.com/PeterVanPercson" target="_blank" rel="me noopener">github</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="https://www.linkedin.com/in/husan-mavlonov" target="_blank" rel="me noopener">linkedin</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="https://www.instagram.com/mavhusan/" target="_blank" rel="me noopener">instagram</a>
+    </nav>
 
   </main>
 
-  <!-- ===== CLAUDE CHOOSER MODAL ===== -->
-  <div class="cc-backdrop" id="ccBackdrop" aria-hidden="true">
-    <div class="cc-modal glass" role="dialog" aria-modal="true" aria-label="Pick Claude Code or Claude Cowork">
-
-      <button class="cc-close" id="ccClose" type="button" aria-label="Close">
-        <img src="claude-logo.png" alt="" aria-hidden="true">
-      </button>
-
-      <div class="cc-head">
-        <p class="cc-eyebrow">Free for a week · on me</p>
-        <h2 class="cc-title">Pick your Claude<em>.</em></h2>
-      </div>
-
-      <div class="cc-choices">
-        <a class="cc-choice" href="mailto:husan@buildcored.com?subject=Free%20Claude%20Code%20for%20a%20week&body=Hey%2C%20Husan%21%0A%0AI%27d%20love%20a%20free%20week%20of%20Claude%20Code.%20I%27m%20building%20">
-          <span class="cc-choice-name">Claude Code</span>
-          <span class="cc-choice-desc">Terminal-native. Agents that ship.</span>
-        </a>
-        <a class="cc-choice" href="mailto:husan@buildcored.com?subject=Free%20Claude%20Cowork%20for%20a%20week&body=Hey%2C%20Husan%21%0A%0AI%27d%20love%20a%20free%20week%20of%20Claude%20Cowork.%20I%27m%20building%20">
-          <span class="cc-choice-name">Claude Cowork</span>
-          <span class="cc-choice-desc">An agent that works alongside you.</span>
-        </a>
-      </div>
-
-    </div>
-
-    <!-- jumper lives on the backdrop (no transform) so screen-coord math is exact -->
-    <span class="cc-sprite cc-jumper" aria-hidden="true">
-      <img src="claude-sporty.png" alt="" aria-hidden="true">
-    </span>
-  </div>
-
-  <!-- ===== PRIVATE STORIES =====
-       To add a story: copy a .st-slide block, point <img> at stories/your-photo,
-       write the caption, and add one <button class="st-tick"> to .st-nav. -->
-  <div class="st-backdrop" id="stBackdrop" role="dialog" aria-modal="true" aria-label="Memories — personal photo stories" aria-hidden="true">
-    <audio id="stAudio" loop preload="none">
-      <source src="stories/sleeping.opus" type="audio/ogg; codecs=opus">
-      <source src="stories/sleeping.mp3" type="audio/mpeg">
-    </audio>
-    <span class="st-eyebrow">memories</span>
-    <button class="st-player" id="stPlayer" type="button" aria-label="Toggle background music">
-      <span class="st-eq" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span class="st-track">Sleeping <span class="st-by">&mdash; Gigi Perez</span></span>
-    </button>
-    <button class="st-close" id="stClose" type="button" aria-label="Close stories">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-    </button>
-
-    <div class="st-scroll" id="stScroll">
-      <section class="st-slide">
-        <img class="st-photo" src="stories/s1.webp" width="900" height="1200" alt="Husan Mavlonov as a baby with his mother, Tashkent, 2008" loading="lazy">
-        <p class="st-cap">Freshborn. On the left in my mom's hand, fearing the toy tiger under us. Indeed, my mom's hug is still the safest place for me.</p>
-      </section>
-      <section class="st-slide">
-        <img class="st-photo" src="stories/s2.webp" width="1075" height="1200" alt="Husan Mavlonov, Asian taekwondo champion, age 11, Uzbekistan, 2019" loading="lazy">
-        <p class="st-cap">Made my Dad cry for the first time, cuz I'm the Asian Champion now ;) I don't have so many pics, but I still remember how I bragged that I greeted the President (because he would make our family listen to his speech every new year).</p>
-      </section>
-      <section class="st-slide st-big">
-        <img class="st-photo" src="stories/s3.webp" width="1200" height="900" alt="Husan Mavlonov in school, Tashkent, 2021" loading="lazy">
-        <p class="st-cap">I don't like this guy. He was hitting on three bestie classmate girls, and ended up with only one (but not for long, because he didn't have a phone during the summer(never, actually, until he turned 19), and had to transfer to another school) [studied at 5 schools].</p>
-      </section>
-      <section class="st-slide">
-        <img class="st-photo" src="stories/s4.webp" width="900" height="1200" alt="Husan Mavlonov at 15, Tashkent, July 2021" loading="lazy">
-        <p class="st-cap">15 years old. Many things happened. I got a leg trauma, and decided to stop with sports. Got into ITHub Lyceum in Russia with a full scholarship, but my parents went against letting me go.</p>
-      </section>
-      <section class="st-slide st-big">
-        <img class="st-photo" src="stories/s5.webp" width="1200" height="900" alt="Husan Mavlonov at 15, starting his first business in Tashkent with his twin brother Hasan, September 2021" loading="lazy">
-        <p class="st-cap">15, big shift again. I moved out of my parents' to Tashkent and decided to open a retail business with my twin(4 hrs of sleep/day was a blessing for us now). tho my Dad had a couple of hotels and factories, I learned that life should always start with "I did", and the earlier the better. [and I was not close with my dad].</p>
-      </section>
-      <section class="st-slide">
-        <div class="st-pair">
-          <img class="st-photo" src="stories/s6.webp" width="900" height="1200" alt="Husan Mavlonov with his younger brother, Uzbekistan, summer 2022" loading="lazy">
-          <img class="st-photo" src="stories/s6b.webp" width="900" height="1200" alt="Husan Mavlonov playing with his younger brother, Uzbekistan, 2022" loading="lazy">
-        </div>
-        <p class="st-cap">my brother was born [on the same day as my dad's birthday]. I love him the most, and most of his childhood, it was us playing together (sometimes it stole my 5 hours per day, just to play). I understood then how childcare is mentally exhausting.</p>
-      </section>
-      <section class="st-slide">
-        <div class="st-pair">
-          <img class="st-photo" src="stories/s7a.webp" width="900" height="1200" alt="Husan Mavlonov and his twin brother in their first house in Tashkent, winter 2022" loading="lazy">
-          <img class="st-photo" src="stories/s7b.webp" width="900" height="1200" alt="Husan Mavlonov in Tashkent with his twin brother, 2022" loading="lazy">
-        </div>
-        <p class="st-cap">big shift. we bought a house (tho with a mortgage) with my twin. We're treating it as a basement for clothes and a place to live for workers (we became a family). I started feeling more rightfully confident in my choices, [but also learned that it's not what I loved doing, and sacrificing my studies for that was not worth it]</p>
-      </section>
-      <section class="st-slide">
-        <img class="st-photo" src="stories/s8.webp" width="1200" height="1200" alt="Husan Mavlonov, Tashkent, April 2023" loading="lazy">
-        <p class="st-cap">two years passed, I grew up a lot. Started making big money(but learned that money is not even 10% of what we need to have a fulfilling life), family moved in, and I started focusing on my education much more. I was humbled more than I thought I would.</p>
-      </section>
-      <section class="st-slide">
-        <div class="st-vstack">
-          <img class="st-photo" src="stories/s9a.webp" width="1200" height="666" alt="Husan Mavlonov with his TKS classroom — first international friends, May 2023" loading="lazy">
-          <img class="st-photo" src="stories/s9b.webp" width="1200" height="509" alt="Husan Mavlonov at TKS with friends, Tashkent, May 2023" loading="lazy">
-        </div>
-        <p class="st-cap">first time having international friends [at <a href="https://www.tks.world/" target="_blank" rel="noopener">TKS</a>]. I spent my year in this classroom (and ofc my bestie Lera). She was the one who could call me at 1 am, wishing me a happy birthday, and remind me how amazing I am, haha. We also planned to live together once we get into Stanford [she got the interview, but we both got rejected]. I also started loving physics and visiting the Arifov Institute Laboratory.</p>
-      </section>
-      <section class="st-slide">
-        <img class="st-photo" src="stories/s10.webp" width="1200" height="900" alt="Husan Mavlonov before leaving Uzbekistan for Turkey on a Türkiye Bursları scholarship, August 2024" loading="lazy">
-        <p class="st-cap">I invested in admissions over $2k, and was rejected from all of my dream unis [was brutal]. Turkiye Burslari, Stipendium Hungaricum, and UW-Madison were the left choices. I chose to go with Turkiye, since that was the only place I applied for a renewable energy major. I still remember how my dad offered me 50% of his business if I decided to stay [they were worried]. I also found the love of my life. [was mistaken], but spent my two years together in a halal way (she made the journey more meaningful)</p>
-      </section>
-      <section class="st-slide">
-        <div class="st-grid st-grid-lg">
-          <img class="st-photo" src="stories/s11a.webp" width="900" height="1200" alt="Husan Mavlonov in Turkey on a Türkiye Bursları scholarship, 2024" loading="lazy">
-          <img class="st-photo" src="stories/s11b.webp" width="1200" height="900" alt="Husan Mavlonov travelling in Turkey, 2024" loading="lazy">
-          <img class="st-photo" src="stories/s11c.webp" width="1200" height="900" alt="Husan Mavlonov with international friends in Turkey, 2024" loading="lazy">
-          <img class="st-photo" src="stories/s11d.webp" width="1200" height="900" alt="Husan Mavlonov in Istanbul, Turkey, 2024" loading="lazy">
-          <img class="st-photo" src="stories/s11e.webp" width="1200" height="900" alt="Husan Mavlonov in Turkey before leaving for Shanghai, 2024" loading="lazy">
-        </div>
-        <p class="st-cap">We're in Turkiye now. I've found international friends, got to travel alone, was chased by dogs, and gained broader perspectives. I also fought with an Algerian who was against women being educated, and I still think everyone has the right to study. I also believe I was in the wrong room (I couldn't find the same passion I searched for), so I decided to try admissions again and was scammed for $2k from Zuck Academy. Tho this time I got into the University of Michigan and Shanghai Jiaotong (top 3 for engineering)</p>
-      </section>
-      <section class="st-slide">
-        <img class="st-photo" src="stories/s12.webp" width="1200" height="900" alt="Husan Mavlonov four days before leaving Turkey for Shanghai, May 2025" loading="lazy">
-        <p class="st-cap">4 days left, i'm leaving Turkiye. my first ever time being stalked by a girl that I just met(Elif), and when she gifted me the album that she did with my 15 photos collected [she was a good stalker photograph], we cried just two hours before my departure [I didn't know how to react, I was a selfish coward there, who prioritized studies, i could've stayed]. It felt like eating pineapple pizza with a durian. [I hate durian, but I can't stand without pineapple] But we promised to meet once I arrive in Istanbul again.</p>
-      </section>
-      <section class="st-slide">
-        <div class="st-feature">
-          <div class="st-feat-side">
-            <img class="st-photo" src="stories/s13b.webp" width="801" height="1200" alt="Husan Mavlonov with friends visiting from California, Uzbekistan, summer 2025" loading="lazy">
-            <img class="st-photo" src="stories/s13c.webp" width="900" height="1200" alt="Husan Mavlonov, summer 2025" loading="lazy">
-          </div>
-          <img class="st-photo st-feat-main" src="stories/s13a.webp" width="1200" height="900" alt="Husan Mavlonov in summer 2025 — his best summer, with two new medals" loading="lazy">
-          <div class="st-feat-side">
-            <img class="st-photo" src="stories/s13d.webp" width="1200" height="900" alt="Husan Mavlonov, summer 2025" loading="lazy">
-            <img class="st-photo" src="stories/s13e.webp" width="1200" height="1006" alt="Husan Mavlonov, summer 2025" loading="lazy">
-          </div>
-        </div>
-        <p class="st-cap">my best summer. [Sorry for photo spam] I've achieved a lot this summer, CA friends visited Uzbekistan :), made indescribable friends, added two medals to my collection [yes please!], was called two-faced/flirty in a wrong way (they were right, sometimes I would be more kind than I should (but who can measure it?, who can define?) It's us who should be defining it)</p>
-      </section>
-      <section class="st-slide st-big">
-        <img class="st-photo" src="stories/s14.webp" width="1200" height="900" alt="Husan Mavlonov, fall 2025 — visa delay, NEWUU research assistantship offer" loading="lazy">
-        <p class="st-cap">worst fall; my visa got delayed three months, my studies got deferred, and sadly, that's the only picture I could find of me smiling. The rest were full of disbelief, contemplation, reflection, and heavy disappointment. I understood then that life can turn its back [no matter how hard you try to fix it]. But I also learned to seize opportunities in unexpected ways. Got an offer from NEWUU as a research assistant at 4x the median Uzb salary, started following my passion and depending less on the institution. So much to write, but another big lesson was learning to adapt.</p>
-      </section>
-      <section class="st-slide">
-        <img class="st-photo" src="stories/s15.webp" width="900" height="1200" alt="Husan Mavlonov in Shanghai, founded BuildCored, Fudan Chinese course, 2025" loading="lazy">
-        <p class="st-cap">we're good. We finally started the studies, got a lab research assistantship, and started making $2k in just a month, while being a student (with a brain now). Then treated myself to a MacBook Pro[latest model], a Chinese course at Fudan [$1,5k😭], and started investing in my future house for my future family.  But it sucked on the relationship side now. Founded buildcored.com. Met with higgsfield.ai's main manager, multiple employees at FAANG [started interviewing them too, because the chance to get the answer as an interviewer to your questions is much higher than a usual student]</p>
-      </section>
-      <section class="st-slide">
-        <img class="st-photo" src="stories/s16.webp" width="900" height="1200" alt="Husan Mavlonov in Shanghai — signed first defex customer and accepted into Z Fellows, 2026" loading="lazy">
-        <p class="st-cap">signed my first customer at defex.app and got into Z Fellows. BuildCored is now collaborating with NazarX Uzbekistan (and being funded by the Youth Affairs Agency). It's also my first time getting rejected by a girl [she called the police] [the same girl who confessed first, and kissed me at 1 am under the birch tree]</p>
-        <p class="st-end">i'm present now, come again sometime :)</p>
-      </section>
-    </div>
-
-    <div class="st-nav" id="stNav" role="tablist" aria-label="Stories">
-      <span class="st-date" id="stDate" aria-hidden="true"></span>
-      <button class="st-tick active" type="button" data-date="June 14, 2008" aria-label="Story 1 — June 14, 2008"></button>
-      <button class="st-tick" type="button" data-date="March 23, 2019" aria-label="Story 2 — March 23, 2019"></button>
-      <button class="st-tick" type="button" data-date="May 25, 2021" aria-label="Story 3 — May 25, 2021"></button>
-      <button class="st-tick" type="button" data-date="July 23, 2021" aria-label="Story 4 — July 23, 2021"></button>
-      <button class="st-tick" type="button" data-date="September 28, 2021" aria-label="Story 5 — September 28, 2021"></button>
-      <button class="st-tick" type="button" data-date="Summer, 2022" aria-label="Story 6 — Summer, 2022"></button>
-      <button class="st-tick" type="button" data-date="Winter, 2022" aria-label="Story 7 — Winter, 2022"></button>
-      <button class="st-tick" type="button" data-date="April 1, 2023" aria-label="Story 8 — April 1, 2023"></button>
-      <button class="st-tick" type="button" data-date="May 10, 2023" aria-label="Story 9 — May 10, 2023"></button>
-      <button class="st-tick" type="button" data-date="August 19, 2024" aria-label="Story 10 — August 19, 2024"></button>
-      <button class="st-tick" type="button" data-date="Turkiye, 2024" aria-label="Story 11 — Turkiye, 2024"></button>
-      <button class="st-tick" type="button" data-date="May 12, 2025" aria-label="Story 12 — May 12, 2025"></button>
-      <button class="st-tick" type="button" data-date="Summer 2025" aria-label="Story 13 — Summer 2025"></button>
-      <button class="st-tick" type="button" data-date="fall 2025" aria-label="Story 14 — fall 2025"></button>
-      <button class="st-tick" type="button" data-date="Shanghai, 2025" aria-label="Story 15 — Shanghai, 2025"></button>
-      <button class="st-tick" type="button" data-date="Shanghai, 2026" aria-label="Story 16 — Shanghai, 2026"></button>
-    </div>
-    <span class="st-count" id="stCount" aria-hidden="true">01 / 16</span>
-  </div>
-
-  <script>
-    // ============================================
-    // SKY BACKDROP — fade in once the plate resolves (pure gradient: instantly)
-    // mid-read (same discipline as font-display:optional above)
-    // ============================================
-    (function () {
-      const plate = document.querySelector('.bg-plate');
-      if (!plate) return;
-      const ready = () => document.body.classList.add('bg-ready');
-      // read whichever variant the media queries actually resolved to
-      const src = getComputedStyle(plate).backgroundImage.match(/url\(["']?([^"')]+)["']?\)/);
-      if (!src) { ready(); return; }
-      const img = new Image();
-      img.onload = img.onerror = ready;
-      img.src = src[1];
-      if (img.complete) ready();
-    })();
-
-    // ============================================
-    // THEME TOGGLE — persists to localStorage, respects system pref on first visit
-    // ============================================
-    (function () {
-      const btn = document.getElementById('themeToggle');
-      if (!btn) return;
-      const STORAGE = 'hm-theme';
-      function apply(theme) {
-        if (theme === 'light') document.body.classList.add('light');
-        else document.body.classList.remove('light');
-        const meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.setAttribute('content', theme === 'light' ? '#a8aeb4' : '#16181c');
-      }
-      const saved = localStorage.getItem(STORAGE);
-      if (saved) apply(saved);
-      else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) apply('light');
-      btn.addEventListener('click', () => {
-        const isLight = document.body.classList.toggle('light');
-        const theme = isLight ? 'light' : 'dark';
-        localStorage.setItem(STORAGE, theme);
-        apply(theme);
-      });
-    })();
-
-    // ============================================
-    // CLAUDE CHOOSER MODAL — open/close
-    // ============================================
-    (function () {
-      const trigger  = document.getElementById('claudeCtaBtn');
-      const backdrop = document.getElementById('ccBackdrop');
-      const closeBtn = document.getElementById('ccClose');
-      const modal    = backdrop ? backdrop.querySelector('.cc-modal') : null;
-      const jumper   = backdrop ? backdrop.querySelector('.cc-jumper') : null;
-      if (!trigger || !backdrop) return;
-      let lastFocus = null;
-
-      // ---------- the jumper: real physics onto real text boxes ----------
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const SPRITE = 26;
-      const AIR    = 1;    // hair of space between the sprite's feet and the cap line
-      let raf = 0, pts = [], idx = 0, mode = 'rest', phaseT = 0, landY = 1;
-
-      function measure() {
-        if (!modal || !jumper) return [];
-        // Screen-space rects. Jumper is a child of the backdrop (no transform),
-        // so backdrop-relative screen coords place the sprite exactly on the text.
-        const bd = backdrop.getBoundingClientRect();
-        // Target the actual word-level elements, not the full-width blocks
-        const els = [
-          modal.querySelector('.cc-eyebrow'),
-          modal.querySelector('.cc-title'),
-          modal.querySelectorAll('.cc-choice-name')[0],
-          modal.querySelectorAll('.cc-choice-name')[1]
-        ].filter(Boolean);
-        return els.map(el => {
-          const r  = el.getBoundingClientRect();
-          const cs = getComputedStyle(el);
-          const fs = parseFloat(cs.fontSize);
-          const lh = cs.lineHeight === 'normal' ? fs * 1.2 : parseFloat(cs.lineHeight);
-          // real cap-top of THIS element's glyphs: half-leading + the font's
-          // ascender gap above caps (~0.18em). self-corrects per font size.
-          const capTop = r.top + (lh - fs) / 2 + fs * 0.18;
-          return {
-            x: (r.left  - bd.left) + 4,             // LEFT start of the text
-            y: (capTop - bd.top) - SPRITE - AIR     // feet rest right on the cap line
-          };
-        });
-      }
-      function put(x, y, sx, sy) {
-        jumper.style.transform =
-          'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) scale(' + sx + ',' + sy + ')';
-      }
-      const REST = 2400;   // ms sitting on each text
-      const HOP  = 560;    // ms of one jump
-      const ARC  = 38;     // px apex height — ~60% of the old hop, low & real (was 64)
-
-      function step(now) {
-        if (!backdrop.classList.contains('open') || pts.length < 2) { raf = 0; return; }
-        if (!phaseT) phaseT = now;
-        const t = now - phaseT;
-        const a = pts[idx];
-        const b = pts[(idx + 1) % pts.length];
-
-        if (mode === 'rest') {
-          // gentle landing recovery in the first 180ms, then hold still
-          let sy = 1, sx = 1;
-          if (t < 180) { const k = t / 180; sy = 0.9 + 0.1 * k; sx = 1.08 - 0.08 * k; }
-          put(a.x, a.y, sx, sy);
-          if (t >= REST) { mode = 'hop'; phaseT = now; }
-        } else {
-          let p = Math.min(1, t / HOP);
-          const x = a.x + (b.x - a.x) * p;
-          const baseY = a.y + (b.y - a.y) * p;
-          const y = baseY - ARC * Math.sin(Math.PI * p);   // true parabolic hop
-          // minimal squash: tiny crouch at takeoff, neutral in air
-          let sx = 1, sy = 1;
-          if (p < 0.10) { sy = 0.94; sx = 1.05; }
-          put(x, y, sx, sy);
-          if (p >= 1) { idx = (idx + 1) % pts.length; mode = 'rest'; phaseT = now; }
-        }
-        raf = requestAnimationFrame(step);
-      }
-      function startJumper() {
-        if (reduce || !jumper) return;
-        pts = measure();
-        if (pts.length < 2) return;
-        idx = 0; mode = 'rest'; phaseT = 0;
-        put(pts[0].x, pts[0].y, 1, 1);
-        jumper.classList.add('live');
-        if (!raf) raf = requestAnimationFrame(step);
-      }
-      function stopJumper() {
-        if (raf) cancelAnimationFrame(raf);
-        raf = 0;
-        if (jumper) jumper.classList.remove('live');
-      }
-
-      // ---------- focus management ----------
-      function bgEls() {
-        return Array.prototype.filter.call(
-          document.body.children,
-          (el) => el !== backdrop && el.id !== 'stBackdrop'
-        );
-      }
-      function setInert(on) {
-        bgEls().forEach((el) => {
-          if (on) {
-            el.setAttribute('inert', '');
-            // remember whether the author already hid this from AT (the backdrop plates are
-            // permanently aria-hidden) so closing doesn't un-hide it
-            if (el.hasAttribute('aria-hidden')) el.dataset.keepAriaHidden = '1';
-            el.setAttribute('aria-hidden', 'true');
-          } else {
-            el.removeAttribute('inert');
-            if (el.dataset.keepAriaHidden) delete el.dataset.keepAriaHidden;
-            else el.removeAttribute('aria-hidden');
-          }
-        });
-      }
-      function trapTab(e) {
-        if (e.key !== 'Tab') return;
-        const f = backdrop.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
-        if (!f.length) return;
-        const first = f[0], last = f[f.length - 1];
-        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-      }
-
-      // ---------- open / close ----------
-      function open() {
-        lastFocus = document.activeElement;
-        backdrop.classList.add('open');
-        backdrop.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-        setInert(true);
-        backdrop.addEventListener('keydown', trapTab);
-        if (closeBtn) closeBtn.focus();
-        // measure AFTER the open transition settles (modal scale back to 1)
-        setTimeout(startJumper, 380);
-      }
-      function close() {
-        backdrop.classList.remove('open');
-        backdrop.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        setInert(false);
-        backdrop.removeEventListener('keydown', trapTab);
-        stopJumper();
-        if (lastFocus && lastFocus.focus) lastFocus.focus();
-      }
-
-      trigger.addEventListener('click', open);
-      if (closeBtn) closeBtn.addEventListener('click', close);
-      backdrop.addEventListener('click', (e) => { if (e.target === backdrop) close(); });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && backdrop.classList.contains('open')) close();
-      });
-      backdrop.querySelectorAll('.cc-choice').forEach((c) => {
-        c.addEventListener('click', (e) => {
-          const m = c.getAttribute('href') || '';
-          if (m.slice(0, 7) === 'mailto:') {
-            const to = m.slice(7).split('?')[0];
-            const q  = m.indexOf('?') > -1 ? m.slice(m.indexOf('?') + 1) : '';
-            const p  = new URLSearchParams(q);
-            const g  = 'https://mail.google.com/mail/?view=cm&fs=1'
-                     + '&to='   + encodeURIComponent(to)
-                     + '&su='   + encodeURIComponent(p.get('subject') || '')
-                     + '&body=' + encodeURIComponent(p.get('body') || '');
-            // Gmail web compose covers the no-desktop-client case;
-            // the mailto href stays as the fallback if the popup is blocked.
-            const w = window.open(g, '_blank', 'noopener');
-            if (w) e.preventDefault();
-          }
-          setTimeout(close, 250);
-        });
-      });
-      window.addEventListener('resize', () => {
-        if (backdrop.classList.contains('open')) { pts = measure(); }
-      });
-    })();
-
-    // ============================================
-    // PRIVATE STORIES — scroll-snap viewer + tick nav
-    // ============================================
-    (function () {
-      const link    = document.getElementById('storiesCover');
-      const backdrop= document.getElementById('stBackdrop');
-      const scroll  = document.getElementById('stScroll');
-      const closeB  = document.getElementById('stClose');
-      const audio   = document.getElementById('stAudio');
-      const player  = document.getElementById('stPlayer');
-      const countEl = document.getElementById('stCount');
-      if (!link || !backdrop || !scroll) return;
-      function syncPlayer() { if (player && audio) player.classList.toggle('paused', audio.paused); }
-      if (player && audio) {
-        player.addEventListener('click', () => {
-          if (audio.paused) audio.play().catch(() => {}); else audio.pause();
-        });
-        audio.addEventListener('play', syncPlayer);
-        audio.addEventListener('pause', syncPlayer);
-      }
-      const slides  = Array.from(scroll.querySelectorAll('.st-slide'));
-      const ticks   = Array.from(document.querySelectorAll('#stNav .st-tick'));
-      const dateEl  = document.getElementById('stDate');
-      let lastFocus = null;
-
-      let current = 0;
-      function setActive(i) {
-        current = i;
-        ticks.forEach((t, n) => t.classList.toggle('active', n === i));
-        if (countEl) {
-          countEl.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
-          countEl.style.visibility = (i === slides.length - 1) ? 'hidden' : 'visible';
-        }
-        if (dateEl && ticks[i]) {
-          dateEl.textContent = ticks[i].dataset.date || '';
-          dateEl.style.top = (ticks[i].offsetTop + ticks[i].offsetHeight / 2) + 'px';
-        }
-      }
-      function goTo(i) {
-        i = Math.max(0, Math.min(slides.length - 1, i));
-        slides[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActive(slides.indexOf(e.target));
-        });
-      }, { root: scroll, threshold: 0.6 });
-      slides.forEach((s) => io.observe(s));
-
-      ticks.forEach((t, i) => t.addEventListener('click', () => {
-        slides[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }));
-
-      function setInert(on) {
-        Array.prototype.forEach.call(document.body.children, (el) => {
-          if (el === backdrop) return;
-          if (on) {
-            el.setAttribute('inert', '');
-            // see the Claude picker's setInert: preserve author-set aria-hidden
-            if (el.hasAttribute('aria-hidden')) el.dataset.keepAriaHidden = '1';
-            el.setAttribute('aria-hidden', 'true');
-          } else {
-            el.removeAttribute('inert');
-            if (el.dataset.keepAriaHidden) delete el.dataset.keepAriaHidden;
-            else el.removeAttribute('aria-hidden');
-          }
-        });
-      }
-      function trapTab(e) {
-        if (e.key !== 'Tab') return;
-        const f = backdrop.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
-        if (!f.length) return;
-        const first = f[0], last = f[f.length - 1];
-        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-      }
-      function open(e) {
-        if (e) e.preventDefault();
-        lastFocus = document.activeElement;
-        backdrop.classList.add('open');
-        backdrop.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-        setInert(true);
-        document.addEventListener('keydown', trapTab, true);
-        scroll.scrollTop = 0;
-        setActive(0);
-        if (audio) { try { audio.volume = 0.65; audio.currentTime = 0; audio.play().catch(() => {}); } catch (_) {} }
-        syncPlayer();
-        (function trackMem(tries) {
-          if (window.goatcounter && window.goatcounter.count) {
-            try { window.goatcounter.count({ path: 'memories-opened', title: 'Memories opened', event: true }); } catch (_) {}
-          } else if (tries < 5) {
-            setTimeout(function () { trackMem(tries + 1); }, 600);
-          }
-        })(0);
-        if (closeB) closeB.focus();
-      }
-      function close() {
-        backdrop.classList.remove('open');
-        backdrop.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        setInert(false);
-        document.removeEventListener('keydown', trapTab, true);
-        if (audio) { try { audio.pause(); } catch (_) {} }
-        if (lastFocus && lastFocus.focus) lastFocus.focus();
-      }
-      link.addEventListener('click', open);
-      if (closeB) closeB.addEventListener('click', close);
-      document.addEventListener('keydown', (e) => {
-        if (!backdrop.classList.contains('open')) return;
-        if (e.key === 'Escape') { close(); return; }
-        if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); goTo(current + 1); }
-        else if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); goTo(current - 1); }
-      });
-    })();
-
-    // ============================================
-    // mailto -> Gmail web compose for all other mail links
-    // (socials icon etc.) — the .cc-choice modal links handle themselves.
-    // ============================================
-    (function () {
-      document.querySelectorAll('a[href^="mailto:"]:not(.cc-choice)').forEach((a) => {
-        a.addEventListener('click', (e) => {
-          const m = a.getAttribute('href') || '';
-          const to = m.slice(7).split('?')[0];
-          const q  = m.indexOf('?') > -1 ? m.slice(m.indexOf('?') + 1) : '';
-          const p  = new URLSearchParams(q);
-          const g  = 'https://mail.google.com/mail/?view=cm&fs=1'
-                   + '&to='   + encodeURIComponent(to)
-                   + '&su='   + encodeURIComponent(p.get('subject') || '')
-                   + '&body=' + encodeURIComponent(p.get('body') || '');
-          const w = window.open(g, '_blank', 'noopener');
-          if (w) e.preventDefault();
-        });
-      });
-    })();
-  </script>
   <script data-goatcounter="https://analyze.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
-<script src="/sky.js?v=5" defer></script>
+<script src="/sky.js?v=6" defer></script>
 </body>
 </html>
