@@ -7,7 +7,7 @@
   <meta name="description" content="Husan Mavlonov — builder, founder of defex and BuildCored. At powell.st, San Francisco. Dropout at UMich and SJTU." />
   <link rel="canonical" href="https://husanmavlonov.com/" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
-  <meta name="theme-color" content="#16181c" />
+  <meta name="theme-color" content="#3c4c30" />
   <meta name="color-scheme" content="dark light" />
   <meta name="author" content="Husan Mavlonov" />
   <meta property="og:title" content="Husan Mavlonov — Builder" />
@@ -37,7 +37,7 @@
   <link rel="me" href="https://www.linkedin.com/in/husan-mavlonov" />
   <link rel="me" href="https://www.instagram.com/mavhusan/" />
   <link rel="me" href="https://t.me/husanmd" />
-  <link rel="me" href="mailto:husan@buildcored.com" />
+  <link rel="me" href="mailto:husanmavlonov79@gmail.com" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
@@ -78,7 +78,7 @@
         "url": "https://husanmavlonov.com/",
         "mainEntityOfPage": "https://husanmavlonov.com/",
         "image": "https://husanmavlonov.com/og.png",
-        "email": "husan@buildcored.com",
+        "email": "husanmavlonov79@gmail.com",
         "jobTitle": "Builder",
         "description": "Builder. Founder of defex and BuildCored. Z Fellow, F.Inc Fellow, Silkroad Fellow. Tashkent → Istanbul → Shanghai → San Francisco. University of Michigan–Shanghai Jiao Tong dropout.",
         "nationality": { "@type": "Country", "name": "Uzbekistan" },
@@ -270,6 +270,40 @@
       transition: color 0.2s ease;
     }
     .socials a:hover { color: var(--fg); }
+    /* the telegram caveat rides along at the same size, one step quieter */
+    .socials .note { opacity: 0.72; }
+
+    /* wallpaper switch — the two versions, named the way he names them */
+    .wallpaper {
+      margin-top: 10px;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.6;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      color: var(--dimmer);
+    }
+    .wallpaper button {
+      font: inherit;
+      background: none;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      color: var(--dimmer);
+      transition: color 0.2s ease;
+    }
+    .wallpaper button:hover { color: var(--fg); }
+    .wallpaper button.on {
+      color: var(--fg);
+      border-bottom: 1px solid var(--dimmer);
+      padding-bottom: 1px;
+    }
+    .wallpaper button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
 
     a:focus-visible, .socials a:focus-visible {
       outline: 2px solid var(--accent);
@@ -293,7 +327,7 @@
 try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(prefers-color-scheme: light)').matches))document.body.classList.add('light');if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('bg-instant');else sessionStorage.setItem('hm-bg','1')}catch(e){}</script>
   <!--
     Hi. If you're reading the source, you're the kind of person I want to build with.
-    → husan@buildcored.com
+    → husanmavlonov79@gmail.com
   -->
 
   <!-- backdrop — decorative only, hence no alt text anywhere near it -->
@@ -332,11 +366,9 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
     </p>
 
     <nav class="socials" aria-label="Elsewhere">
-      <a href="mailto:husan@buildcored.com" rel="me">email</a>
+      <a href="mailto:husanmavlonov79@gmail.com" rel="me">email</a>
       <span class="sep" aria-hidden="true">·</span>
-      <a href="https://t.me/husanmd" target="_blank" rel="me noopener">telegram</a>
-      <span class="sep" aria-hidden="true">·</span>
-      <a href="https://x.com/MavlonovHusan" target="_blank" rel="me noopener">x</a>
+      <a id="tgRequest" href="mailto:husanmavlonov79@gmail.com?subject=request%20to%20join%20channel&amp;body=request to join channel%0A%0Awho you are:%0Awhat you're building:%0A">telegram <span class="note">(request needed)</span></a>
       <span class="sep" aria-hidden="true">·</span>
       <a href="https://github.com/PeterVanPercson" target="_blank" rel="me noopener">github</a>
       <span class="sep" aria-hidden="true">·</span>
@@ -345,8 +377,54 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
       <a href="https://www.instagram.com/mavhusan/" target="_blank" rel="me noopener">instagram</a>
     </nav>
 
+    <p class="wallpaper" aria-label="Wallpaper">
+      <button type="button" data-theme="orca" aria-pressed="true">orca</button>
+      <span class="sep" aria-hidden="true">·</span>
+      <button type="button" data-theme="sky" aria-pressed="false">sky</button>
+    </p>
+
   </main>
 
+  <script>
+  /* WALLPAPER SWITCH — same storage key the pre-paint script reads, so the
+     choice survives a reload and there is no flash of the other version. */
+  (function () {
+    var KEY = 'hm-theme';
+    var btns = [].slice.call(document.querySelectorAll('.wallpaper button'));
+    if (!btns.length) return;
+    var meta = document.querySelector('meta[name="theme-color"]');
+    function paint(sky, store) {
+      document.body.classList.toggle('light', sky);
+      if (meta) meta.setAttribute('content', sky ? '#1266c4' : '#3c4c30');
+      if (store) { try { localStorage.setItem(KEY, sky ? 'light' : 'dark'); } catch (e) {} }
+      btns.forEach(function (b) {
+        var on = (b.getAttribute('data-theme') === 'sky') === sky;
+        b.classList.toggle('on', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+    paint(document.body.classList.contains('light'), false);
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        paint(b.getAttribute('data-theme') === 'sky', true);
+      });
+    });
+  })();
+
+  /* TELEGRAM REQUEST — the mailto opens a pre-filled request; this also drops a
+     counted event so the ping shows up in analytics even if they never hit send. */
+  (function () {
+    var a = document.getElementById('tgRequest');
+    if (!a) return;
+    a.addEventListener('click', function () {
+      if (window.goatcounter && window.goatcounter.count) {
+        try {
+          window.goatcounter.count({ path: 'telegram-request', title: 'Telegram join request', event: true });
+        } catch (e) {}
+      }
+    });
+  })();
+  </script>
   <script data-goatcounter="https://analyze.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 <script src="/sky.js?v=6" defer></script>
