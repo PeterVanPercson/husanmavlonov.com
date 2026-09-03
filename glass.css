@@ -5,12 +5,12 @@
    on index / building / 404 and does NOT change when you navigate or open an
    overlay. Load it AFTER each page's inline <style> so these rules win.
 
-   One sky, one idea: the painted harbor panorama is pinned to the bottom of the
-   viewport; a plate gradient extends the painting's own sky upward (flat at its
-   top-edge blue, #488bc0, so the masked seam lands invisibly), and three clouds
-   LIFTED FROM THE PAINTING ITSELF drift in the open blue above — slow CSS loop
-   plus the scroll parallax from /sky.js. There are NO panes: type sits straight
-   on the sky with a soft navy halo. The Claude modal is the one flat surface.
+   One sky, one image: sky/wallpaper.webp is the harbor painting with its own
+   sky extended upward IN THE IMAGE (matched grain, seam blended, the painting's
+   clouds composited into the upper blue). It cover-fills the viewport, anchored
+   62% bottom, and NOTHING moves — no drift, no parallax, like a real wallpaper.
+   There are NO panes: type sits straight on the sky with a soft navy halo.
+   The Claude modal is the one flat surface.
    ========================================================================== */
 
 /* the page's own ground colour matches the sky, so any frame the browser paints
@@ -19,7 +19,6 @@ body { background-color: #3d7cb4; }
 
 /* ---- the backdrop: sky extension + drifting painted clouds + panorama ---- */
 .bg-plate,
-.bg-clouds,
 .bg-scrim {
   position: fixed;
   inset: 0;
@@ -35,65 +34,27 @@ body { background-color: #3d7cb4; }
 }
 body.bg-ready .bg-plate { opacity: 1; }
 
-/* the harbor panorama: pinned to the bottom, its cloudy top edge fading upward
-   into the plate via a mask — the picture owns the ground floor */
+/* the wallpaper: one baked image, cover-fit, anchored to the harbor (62% bottom).
+   Static by design — the user wants a wallpaper, not weather. */
 .bg-pan {
   position: fixed;
-  left: 0; right: 0; bottom: 0;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
 }
 .bg-pan img {
   display: block;
   width: 100%;
-  height: auto;
-  min-height: 30vh;
+  height: 100%;
   object-fit: cover;
   object-position: 62% bottom;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 26%);
-  mask-image: linear-gradient(to bottom, transparent 0, #000 26%);
   opacity: 0;
   transition: opacity 1.2s ease;
 }
 body.bg-ready .bg-pan img { opacity: 1; }
-
-/* drifters — clouds cut from the panorama, so the upper sky is the same art.
-   The wrapper takes the JS parallax translate, the img takes the slow CSS
-   drift, so the transforms never fight */
-.bg-clouds { overflow: hidden; }
-.cloud-p {
-  position: absolute;
-  will-change: transform;
-}
-.cloud-p img {
-  display: block;
-  width: 100%;
-  height: auto;
-  opacity: 0;
-  transition: opacity 1.2s ease;
-  animation: cloud-drift var(--dur, 160s) ease-in-out infinite alternate;
-}
-body.bg-ready .cloud-p img { opacity: 1; }
-
-/* repeat navigations (html.bg-instant, set pre-paint from sessionStorage):
-   the backdrop is identical page-to-page, so skip the fade entirely */
 html.bg-instant .bg-plate,
-html.bg-instant .cloud-p img,
 html.bg-instant .bg-pan img { opacity: 1; transition: none; }
 
-.cp-1 { width: min(24vw, 380px); right: 2vw;  top: 5vh;  --drift:  46px; --dur: 170s; }
-.cp-2 { width: min(22vw, 320px); left: -4vw;  top: 40vh; --drift: -38px; --dur: 210s; }
-.cp-3 { width: min(15vw, 220px); right: 32vw; top: 33vh; --drift:  60px; --dur: 130s; }
-
-@keyframes cloud-drift {
-  from { transform: translateX(calc(var(--drift) * -1)); }
-  to   { transform: translateX(var(--drift)); }
-}
-
-@media (max-width: 700px) {
-  /* two clouds are plenty on a phone, both kept below the text block */
-  .cp-1 { width: 56vw; right: -10vw; top: 36vh; }
-  .cp-2 { width: 44vw; left: -8vw;   top: 54vh; }
   .cp-3 { display: none; }
 }
 
@@ -101,7 +62,7 @@ html.bg-instant .bg-pan img { opacity: 1; transition: none; }
 .bg-scrim {
   background:
     radial-gradient(122% 88% at 70% 16%, rgba(6,46,92,0) 0%, rgba(6,46,92,0.05) 58%, rgba(6,46,92,0.18) 100%),
-    linear-gradient(180deg, rgba(6,46,92,0.16) 0%, rgba(6,46,92,0.03) 26%, rgba(6,46,92,0.05) 62%, rgba(6,46,92,0.22) 100%);
+    linear-gradient(180deg, rgba(6,46,92,0.28) 0%, rgba(6,46,92,0.04) 30%, rgba(6,46,92,0.05) 62%, rgba(6,46,92,0.22) 100%);
 }
 
 /* real content rides above the backdrop */
@@ -117,11 +78,9 @@ html.bg-instant .bg-pan img { opacity: 1; transition: none; }
 }
 
 /* backdrop fade AND cloud drift must respect a reduced-motion preference on EVERY
-   page, including 404 which has no global motion guard of its own (sky.js checks
-   the same query before attaching its scroll parallax) */
+   page, including 404 which has no global motion guard of its own */
 @media (prefers-reduced-motion: reduce) {
-  .bg-plate, .bg-clouds, .bg-scrim, .glass, .cloud-p img, .bg-pan img { transition: none; }
-  .cloud-p img { animation: none; }
+  .bg-plate, .bg-scrim, .glass, .bg-pan img { transition: none; }
 }
 
 /* ---- no material: ink straight on the sky ----
@@ -142,9 +101,12 @@ html.bg-instant .bg-pan img { opacity: 1; transition: none; }
   background: none;
   border: 0;
   box-shadow: none;
+  /* three layers: contact shadow, tight bloom (carries small mono type across
+     the painting's white clouds), and a wide soft seat */
   text-shadow:
-    0 1px 2px rgba(10, 35, 66, 0.52),
-    0 2px 18px rgba(10, 35, 66, 0.42);
+    0 1px 2px rgba(10, 35, 66, 0.55),
+    0 0 7px rgba(10, 35, 66, 0.60),
+    0 2px 20px rgba(10, 35, 66, 0.45);
 }
 
 /* ---- per-surface ---- */

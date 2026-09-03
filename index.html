@@ -49,10 +49,7 @@
   <link rel="preload" href="/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/jetbrainsmono-400.woff2" as="font" type="font/woff2" crossorigin>
   <!-- SF backdrop: preload only the one variant this viewport will actually paint -->
-  <link rel="preload" as="image" type="image/webp" href="/sky/harbor.webp">
-  <link rel="preload" as="image" type="image/webp" href="/sky/hcloud-1.webp">
-  <link rel="preload" as="image" type="image/webp" href="/sky/hcloud-2.webp">
-  <link rel="preload" as="image" type="image/webp" href="/sky/hcloud-3.webp" media="(min-width: 700.01px)">
+  <link rel="preload" as="image" type="image/webp" href="/sky/wallpaper.webp">
   <style>
     /* real faces (font-display:optional = paints real font at first paint or never swaps mid-view) */
     @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/inter-400.woff2) format('woff2')}
@@ -380,7 +377,7 @@
     }
   </style>
   <!-- shared backdrop + ink tokens; loaded LAST so it wins over the inline styles -->
-  <link rel="stylesheet" href="/glass.css?v=8">
+  <link rel="stylesheet" href="/glass.css?v=9">
 </head>
 <body>
 <script>/* pre-paint: apply saved theme + skip the backdrop fade after the first load,
@@ -393,14 +390,7 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
 
   <!-- backdrop — decorative only, hence no alt text anywhere near it -->
   <div class="bg-plate" aria-hidden="true"></div>
-  <div class="bg-clouds" aria-hidden="true">
-    <div class="cloud-p cp-1" data-depth="0.10"><img src="/sky/hcloud-1.webp" alt="" width="348" height="200" decoding="sync"></div>
-    <div class="cloud-p cp-2" data-depth="0.05"><img src="/sky/hcloud-2.webp" alt="" width="262" height="114" decoding="sync"></div>
-    <div class="cloud-p cp-3" data-depth="0.16"><img src="/sky/hcloud-3.webp" alt="" width="223" height="110" decoding="sync"></div>
-  </div>
-  <script>/* pre-paint: clock-anchored drift phase - same drifter position on every page */
-  try{document.querySelectorAll('.cloud-p img').forEach(function(g){var d=parseFloat(getComputedStyle(g).animationDuration)||160;g.style.animationDelay=(-(Date.now()/1e3%(2*d))).toFixed(1)+'s'})}catch(e){}</script>
-  <div class="bg-pan" aria-hidden="true"><img src="/sky/harbor.webp" alt="" width="1500" height="500" decoding="sync"></div>
+  <div class="bg-pan" aria-hidden="true"><img src="/sky/wallpaper.webp" alt="" width="1672" height="941" decoding="sync"></div>
   <div class="bg-scrim" aria-hidden="true"></div>
   <script>/* SKY BACKDROP — reveal on load. The plate is a pure gradient, so the probe
      resolves immediately; without this the plate and the drifters stay at opacity 0. */
@@ -534,6 +524,5 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
 
   <script data-goatcounter="https://analyze.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
-<script src="/sky.js?v=8" defer></script>
 </body>
 </html>
