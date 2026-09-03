@@ -205,6 +205,9 @@
     }
     ::selection { background: var(--accent); color: var(--bg); }
 
+    /* every underline on this page is a border-bottom we draw ourselves */
+    a { color: inherit; text-decoration: none; }
+
     .page {
       max-width: 720px;
       margin: 26px auto 46px;
@@ -275,22 +278,23 @@
 
     /* telegram request — a two-field form, same mono voice as everything else */
     .tg-form {
-      margin-top: 10px;
+      margin-top: 14px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 8px 10px;
+      gap: 10px 14px;
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: 12.5px;
     }
-    .tg-form input {
+    .tg-form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+    .tg-form input:not(.hp) {
       font: inherit;
       color: var(--fg);
       background: none;
       border: 0;
       border-bottom: 1px solid var(--dimmer);
-      padding: 3px 2px;
-      width: 148px;
+      padding: 4px 2px;
+      width: 170px;
       border-radius: 0;
     }
     .tg-form input::placeholder { color: var(--dimmer); }
@@ -318,14 +322,19 @@
 
     /* wallpaper switch — the two versions, named the way he names them */
     .wallpaper {
-      margin-top: 10px;
+      position: fixed;
+      top: 16px;
+      right: 20px;
+      z-index: 3;
+      margin: 0;
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: 11.5px;
       line-height: 1.6;
       display: flex;
       align-items: baseline;
-      gap: 8px;
+      gap: 7px;
       color: var(--dimmer);
+      text-shadow: 0 1px 2px rgba(12, 20, 8, 0.5);
     }
     .wallpaper button {
       font: inherit;
@@ -421,6 +430,7 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
     <form class="tg-form" id="tgForm" hidden>
       <input id="tgName" name="name" type="text" placeholder="name" required autocomplete="name" maxlength="80">
       <input id="tgEmail" name="email" type="email" placeholder="email" required autocomplete="email" maxlength="120">
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       <button type="submit">send request</button>
       <span class="tg-msg" id="tgMsg" role="status" aria-live="polite"></span>
     </form>
@@ -459,14 +469,12 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
     });
   })();
 
-  /* TELEGRAM REQUEST — name + email, then ping Husan.
-     ENDPOINT: paste a form endpoint (Web3Forms / Formspree) to get a real
-     silent email with the name and address in it. Until then the submit falls
-     back to opening a pre-filled mail, which still delivers both fields.
-     Either way an anonymous counted event lands in analytics. */
+  /* TELEGRAM REQUEST — name + email, then a real ping.
+     This page is static, so it borrows one endpoint from Husan's own defex
+     backend (/ping/, locked to this origin) which emails him via Resend.
+     If that ever fails, the same two fields fall back to a pre-filled mail. */
   (function () {
-    var ENDPOINT = '';                    // e.g. 'https://api.web3forms.com/submit'
-    var ACCESS_KEY = '';                  // Web3Forms access key (public by design)
+    var ENDPOINT = 'https://defex.app/ping/';
     var TO = 'husanmavlonov79@gmail.com';
 
     var link = document.getElementById('tgRequest');
@@ -474,20 +482,24 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
     var msg  = document.getElementById('tgMsg');
     if (!link || !form) return;
 
-    function ping() {
-      if (window.goatcounter && window.goatcounter.count) {
-        try {
-          window.goatcounter.count({ path: 'telegram-request', title: 'Telegram join request', event: true });
-        } catch (e) {}
-      }
+    function say(text, ok) {
+      msg.textContent = text;
+      msg.className = 'tg-msg' + (ok ? ' ok' : '');
+    }
+
+    function mailFallback(name, email) {
+      window.location.href = 'mailto:' + TO +
+        '?subject=' + encodeURIComponent('request to join channel') +
+        '&body=' + encodeURIComponent('request to join channel\n\nname: ' + name + '\nemail: ' + email + '\n');
+      say('opening your mail…', true);
     }
 
     link.addEventListener('click', function (e) {
       e.preventDefault();
-      var open = form.hidden;
-      form.hidden = !open;
-      link.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (open) document.getElementById('tgName').focus();
+      var opening = form.hidden;
+      form.hidden = !opening;
+      link.setAttribute('aria-expanded', opening ? 'true' : 'false');
+      if (opening) document.getElementById('tgName').focus();
     });
 
     form.addEventListener('submit', function (e) {
@@ -495,38 +507,23 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
       var name  = form.name.value.trim();
       var email = form.email.value.trim();
       if (!name || !email) return;
-      ping();
 
-      if (ENDPOINT && ACCESS_KEY) {
-        msg.textContent = 'sending…';
-        fetch(ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({
-            access_key: ACCESS_KEY,
-            subject: 'request to join telegram channel',
-            from_name: name,
-            name: name,
-            email: email
-          })
-        }).then(function (r) {
-          msg.textContent = r.ok ? 'sent — he\'ll add you.' : 'did not send, try email instead.';
-          msg.className = 'tg-msg' + (r.ok ? ' ok' : '');
-          if (r.ok) form.reset();
-        }).catch(function () {
-          msg.textContent = 'did not send, try email instead.';
-          msg.className = 'tg-msg';
-        });
-        return;
+      if (window.goatcounter && window.goatcounter.count) {
+        try { window.goatcounter.count({ path: 'telegram-request', title: 'Telegram join request', event: true }); } catch (e2) {}
       }
 
-      // no endpoint configured: hand the same two fields to their mail client
-      var body = 'request to join channel%0A%0Aname: ' + encodeURIComponent(name) +
-                 '%0Aemail: ' + encodeURIComponent(email) + '%0A';
-      window.location.href = 'mailto:' + TO + '?subject=' +
-        encodeURIComponent('request to join channel') + '&body=' + body;
-      msg.textContent = 'opening your mail…';
-      msg.className = 'tg-msg ok';
+      say('sending…', false);
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, email: email, website: form.website.value })
+      }).then(function (r) {
+        return r.ok ? r.json() : null;
+      }).then(function (d) {
+        // `sent` is the mail actually leaving, not just the request being accepted
+        if (d && d.sent) { form.reset(); say('sent — he\'ll add you.', true); }
+        else mailFallback(name, email);
+      }).catch(function () { mailFallback(name, email); });
     });
   })();
   </script>
