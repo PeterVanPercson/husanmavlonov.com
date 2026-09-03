@@ -7,11 +7,11 @@
 
    Two ideas hold the whole thing together:
 
-   1. Two skies, one per theme. LIGHT is the painted azure with halftone-dither
-      clouds (pear.no print texture). DARK is the family cross-stitch: green
-      aida cloth (generated tile) with small stitched orcas — extracted from
-      the real embroidery photo — drifting where the clouds would be. Both
-      layers share the same drift loop + scroll parallax from /sky.js.
+   1. Two skies, one per theme. LIGHT is the harbor panorama pinned to the
+      viewport bottom, its painted sky extended upward by a matched gradient.
+      DARK is the family cross-stitch: green aida cloth (generated tile) with
+      small stitched orcas — extracted from the real embroidery photo —
+      drifting on the slow loop + scroll parallax from /sky.js.
 
    2. There are NO panes. Type sits straight on the sky (pear.no discipline) with
       a soft navy halo for legibility; the .glass class survives in the markup
@@ -23,7 +23,7 @@
    browser paints before the plate (navigation, slow decode) is the right
    colour instead of the old slate — no flash between sections */
 body       { background-color: #3c4c30; }
-body.light { background-color: #1266c4; }
+body.light { background-color: #3d7cb4; }
 
 /* ---- the backdrop: painted sky + drifting halftone clouds + a navy scrim ---- */
 .bg-plate,
@@ -44,8 +44,36 @@ body.light { background-color: #1266c4; }
 }
 body.bg-ready .bg-plate       { opacity: 1; }
 body.light .bg-plate {
-  background: linear-gradient(180deg, #0d55ad 0%, #1266c4 36%, #1b74d6 62%, #0e59b0 100%);
+  /* extends the harbor panorama's own sky upward: deeper zenith up top, then flat
+     at the painting's top-edge blue (#488bc0) so the masked seam lands invisibly */
+  background: linear-gradient(180deg, #2e6da9 0%, #3f80b7 35%, #488bc0 65%, #488bc0 100%);
 }
+
+/* the harbor panorama (light theme): pinned to the bottom of the viewport, its
+   painted sky fading upward into the plate gradient via a mask — the picture owns
+   the ground floor, its clouds hand over to the extension above */
+.bg-pan { display: none; }
+body.light .bg-pan {
+  display: block;
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.bg-pan img {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 30vh;
+  object-fit: cover;
+  object-position: 62% bottom;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 26%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 26%);
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+body.bg-ready .bg-pan img { opacity: 1; }
+html.bg-instant .bg-pan img { opacity: 1; transition: none; }
 
 /* drifters: each slot holds a cloud (.c-sky, light theme) AND a stitched orca
    (.c-stitch, dark theme) — CSS shows one per theme. The wrapper takes the JS
@@ -71,7 +99,6 @@ html.bg-instant .bg-plate,
 html.bg-instant .cloud-p img { opacity: 1; transition: none; }
 
 .cloud-p .c-sky            { display: none; }
-body.light .cloud-p .c-sky { display: block; }
 body.light .cloud-p .c-stitch { display: none; }
 
 /* dark (default): small orcas, fully in frame, left and right — cp-2 swims the other way */
@@ -130,7 +157,7 @@ body.light .bg-scrim {
    page, including 404 which has no global motion guard of its own (sky.js checks
    the same query before attaching its scroll parallax) */
 @media (prefers-reduced-motion: reduce) {
-  .bg-plate, .bg-clouds, .bg-scrim, .glass, .cloud-p img { transition: none; }
+  .bg-plate, .bg-clouds, .bg-scrim, .glass, .cloud-p img, .bg-pan img { transition: none; }
   .cloud-p img { animation: none; }
 }
 
@@ -170,8 +197,8 @@ body.light .glass {
   border: 0;
   box-shadow: none;
   text-shadow:
-    0 1px 2px rgba(5, 28, 58, 0.40),
-    0 2px 18px rgba(5, 28, 58, 0.32);
+    0 1px 2px rgba(10, 35, 66, 0.52),
+    0 2px 18px rgba(10, 35, 66, 0.42);
 }
 
 /* ---- per-surface ---- */

@@ -13,9 +13,7 @@
   <link rel="shortcut icon" href="/favicon.ico" />
   <link rel="preload" as="image" href="/sky/aida.png">
   <link rel="preload" as="image" type="image/webp" href="/sky/orca.webp">
-  <link rel="preload" as="image" type="image/webp" href="/sky/cloud-1.webp">
-  <link rel="preload" as="image" type="image/webp" href="/sky/cloud-2.webp">
-  <link rel="preload" as="image" type="image/webp" href="/sky/cloud-3.webp" media="(min-width: 700.01px)">
+  <link rel="preload" as="image" type="image/webp" href="/sky/harbor.webp">
   <link rel="preload" href="/fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -92,7 +90,7 @@
     a.home:hover { color: var(--fg); }
   </style>
   <!-- shared SF backdrop + glass material; loaded LAST so it wins over the inline styles -->
-  <link rel="stylesheet" href="/glass.css?v=6">
+  <link rel="stylesheet" href="/glass.css?v=7">
 </head>
 <body>
 <script>/* pre-paint: apply saved theme + skip the backdrop fade after the first load,
@@ -107,6 +105,7 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
   </div>
   <script>/* pre-paint: clock-anchored drift phase - same drifter position on every page */
   try{document.querySelectorAll('.cloud-p img').forEach(function(g){var d=parseFloat(getComputedStyle(g).animationDuration)||160;g.style.animationDelay=(-(Date.now()/1e3%(2*d))).toFixed(1)+'s'})}catch(e){}</script>
+  <div class="bg-pan" aria-hidden="true"><img src="/sky/harbor.webp" alt="" width="1500" height="500" decoding="sync"></div>
   <div class="bg-scrim" aria-hidden="true"></div>
   <main>
     <div class="n4-card glass">
@@ -143,6 +142,6 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
       if (img.complete) ready();
     })();
   </script>
-<script src="/sky.js?v=6" defer></script>
+<script src="/sky.js?v=7" defer></script>
 </body>
 </html>

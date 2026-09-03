@@ -51,9 +51,7 @@
   <!-- SF backdrop: preload only the one variant this viewport will actually paint -->
   <link rel="preload" as="image" href="/sky/aida.png">
   <link rel="preload" as="image" type="image/webp" href="/sky/orca.webp">
-  <link rel="preload" as="image" type="image/webp" href="/sky/cloud-1.webp">
-  <link rel="preload" as="image" type="image/webp" href="/sky/cloud-2.webp">
-  <link rel="preload" as="image" type="image/webp" href="/sky/cloud-3.webp" media="(min-width: 700.01px)">
+  <link rel="preload" as="image" type="image/webp" href="/sky/harbor.webp">
   <style>
     /* real faces (font-display:optional = paints real font at first paint or never swaps mid-view) */
     @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/inter-400.woff2) format('woff2')}
@@ -420,7 +418,7 @@
     }
   </style>
   <!-- shared backdrop + ink tokens; loaded LAST so it wins over the inline styles -->
-  <link rel="stylesheet" href="/glass.css?v=6">
+  <link rel="stylesheet" href="/glass.css?v=7">
 </head>
 <body>
 <script>/* pre-paint: apply saved theme + skip the backdrop fade after the first load,
@@ -440,6 +438,7 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
   </div>
   <script>/* pre-paint: clock-anchored drift phase - same drifter position on every page */
   try{document.querySelectorAll('.cloud-p img').forEach(function(g){var d=parseFloat(getComputedStyle(g).animationDuration)||160;g.style.animationDelay=(-(Date.now()/1e3%(2*d))).toFixed(1)+'s'})}catch(e){}</script>
+  <div class="bg-pan" aria-hidden="true"><img src="/sky/harbor.webp" alt="" width="1500" height="500" decoding="sync"></div>
   <div class="bg-scrim" aria-hidden="true"></div>
   <script>/* SKY BACKDROP — reveal once the plate resolves (dark = aida tile, light = pure
      gradient, so this fires immediately there). Without it the plate and the drifters
@@ -605,6 +604,6 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
 
   <script data-goatcounter="https://analyze.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
-<script src="/sky.js?v=6" defer></script>
+<script src="/sky.js?v=7" defer></script>
 </body>
 </html>
