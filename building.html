@@ -8,7 +8,7 @@
   <link rel="canonical" href="https://husanmavlonov.com/building.html" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <meta name="author" content="Husan Mavlonov" />
-  <meta name="theme-color" content="#16181c" />
+  <meta name="theme-color" content="#3d7cb4" />
   <meta name="color-scheme" content="dark light" />
   <meta property="og:site_name" content="Husan Mavlonov" />
   <meta property="og:title" content="Building · Husan Mavlonov" />
@@ -70,9 +70,10 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="shortcut icon" href="/favicon.ico" />
   <!-- Self-hosted fonts: preload the 3 above-the-fold faces, inline @font-face below. font-display:optional = no flash/swap. -->
-  <link rel="preload" as="image" href="/sky/aida.png">
-  <link rel="preload" as="image" type="image/webp" href="/sky/orca.webp">
   <link rel="preload" as="image" type="image/webp" href="/sky/harbor.webp">
+  <link rel="preload" as="image" type="image/webp" href="/sky/hcloud-1.webp">
+  <link rel="preload" as="image" type="image/webp" href="/sky/hcloud-2.webp">
+  <link rel="preload" as="image" type="image/webp" href="/sky/hcloud-3.webp" media="(min-width: 700.01px)">
   <link rel="preload" href="/fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -363,20 +364,20 @@
     }
   </style>
   <!-- shared SF backdrop + glass material; loaded LAST so it wins over the inline styles -->
-  <link rel="stylesheet" href="/glass.css?v=7">
+  <link rel="stylesheet" href="/glass.css?v=8">
 </head>
 <body>
 <script>/* pre-paint: apply saved theme + skip the backdrop fade after the first load,
    so navigating between pages never re-flashes the (identical) backdrop */
-try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(prefers-color-scheme: light)').matches))document.body.classList.add('light');if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('bg-instant');else sessionStorage.setItem('hm-bg','1')}catch(e){}</script>
+try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('bg-instant');else sessionStorage.setItem('hm-bg','1')}catch(e){}</script>
   <a href="#top" class="skip-link">Skip to content</a>
 
   <!-- shared SF backdrop — decorative; identical markup on every page -->
   <div class="bg-plate" aria-hidden="true"></div>
   <div class="bg-clouds" aria-hidden="true">
-    <div class="cloud-p cp-1" data-depth="0.10"><img class="c-sky" src="/sky/cloud-1.webp" alt="" width="1240" height="780" decoding="sync"><img class="c-stitch" src="/sky/orca.webp" alt="" width="582" height="640" decoding="sync"></div>
-    <div class="cloud-p cp-2" data-depth="0.05"><img class="c-sky" src="/sky/cloud-2.webp" alt="" width="1180" height="720" decoding="sync"><img class="c-stitch" src="/sky/orca.webp" alt="" width="582" height="640" decoding="sync"></div>
-    <div class="cloud-p cp-3" data-depth="0.16"><img class="c-sky" src="/sky/cloud-3.webp" alt="" width="820" height="520" decoding="sync"><img class="c-stitch" src="/sky/orca.webp" alt="" width="582" height="640" decoding="sync"></div>
+    <div class="cloud-p cp-1" data-depth="0.10"><img src="/sky/hcloud-1.webp" alt="" width="348" height="200" decoding="sync"></div>
+    <div class="cloud-p cp-2" data-depth="0.05"><img src="/sky/hcloud-2.webp" alt="" width="262" height="114" decoding="sync"></div>
+    <div class="cloud-p cp-3" data-depth="0.16"><img src="/sky/hcloud-3.webp" alt="" width="223" height="110" decoding="sync"></div>
   </div>
   <script>/* pre-paint: clock-anchored drift phase - same drifter position on every page */
   try{document.querySelectorAll('.cloud-p img').forEach(function(g){var d=parseFloat(getComputedStyle(g).animationDuration)||160;g.style.animationDelay=(-(Date.now()/1e3%(2*d))).toFixed(1)+'s'})}catch(e){}</script>
@@ -407,10 +408,6 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
         <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.7" fill="currentColor" stroke="none"/></svg>
       </a>
     </div>
-    <button class="hdr-theme" id="themeToggle" aria-label="Toggle light or dark theme">
-      <span class="theme-label">Theme</span>
-      <span class="theme-switch" aria-hidden="true"></span>
-    </button>
   </header>
 
   <main class="page glass" id="top">
@@ -502,7 +499,7 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
   </script>
   <script data-goatcounter="https://analyze.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
-<script src="/sky.js?v=7" defer></script>
+<script src="/sky.js?v=8" defer></script>
 </body>
 </html>
 

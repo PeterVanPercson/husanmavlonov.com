@@ -7,7 +7,7 @@
   <meta name="description" content="Husan Mavlonov — builder, founder of defex and BuildCored. At powell.st, San Francisco. Dropout at UMich and SJTU." />
   <link rel="canonical" href="https://husanmavlonov.com/" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
-  <meta name="theme-color" content="#3c4c30" />
+  <meta name="theme-color" content="#3d7cb4" />
   <meta name="color-scheme" content="dark light" />
   <meta name="author" content="Husan Mavlonov" />
   <meta property="og:title" content="Husan Mavlonov — Builder" />
@@ -49,9 +49,10 @@
   <link rel="preload" href="/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/jetbrainsmono-400.woff2" as="font" type="font/woff2" crossorigin>
   <!-- SF backdrop: preload only the one variant this viewport will actually paint -->
-  <link rel="preload" as="image" href="/sky/aida.png">
-  <link rel="preload" as="image" type="image/webp" href="/sky/orca.webp">
   <link rel="preload" as="image" type="image/webp" href="/sky/harbor.webp">
+  <link rel="preload" as="image" type="image/webp" href="/sky/hcloud-1.webp">
+  <link rel="preload" as="image" type="image/webp" href="/sky/hcloud-2.webp">
+  <link rel="preload" as="image" type="image/webp" href="/sky/hcloud-3.webp" media="(min-width: 700.01px)">
   <style>
     /* real faces (font-display:optional = paints real font at first paint or never swaps mid-view) */
     @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/inter-400.woff2) format('woff2')}
@@ -178,7 +179,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #16181c;
+      --bg: #3d7cb4;
       --fg: #e8e6df;
       --dim: #908b83;
       --dimmer: #3a3835;
@@ -186,9 +187,6 @@
       --mono: 'JetBrains Mono', 'Mono Fallback', ui-monospace, SFMono-Regular, Menlo, monospace;
       --sans: 'Inter', 'Sans Fallback', system-ui, -apple-system, sans-serif;
       --display: 'Newsreader', 'Serif Fallback', 'Iowan Old Style', Georgia, serif;
-    }
-    body.light {
-      --bg: #a8aeb4; --fg: #16181c; --dim: #383a3e; --dimmer: #6a6c70; --accent: #2a2f36;
     }
 
     html, body {
@@ -367,42 +365,6 @@
     .tg-send:focus-visible,
     .tg-x:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-    /* wallpaper switch — the two versions, named the way he names them */
-    .wallpaper {
-      position: fixed;
-      top: 16px;
-      right: 20px;
-      z-index: 3;
-      margin: 0;
-      font-family: var(--mono);
-      font-size: 11.5px;
-      line-height: 1.6;
-      display: flex;
-      align-items: baseline;
-      gap: 7px;
-      color: var(--dimmer);
-      text-shadow: 0 1px 2px rgba(12, 20, 8, 0.5);
-    }
-    .wallpaper button {
-      font: inherit;
-      background: none;
-      border: 0;
-      padding: 0;
-      cursor: pointer;
-      color: var(--dimmer);
-      transition: color 0.2s ease;
-    }
-    .wallpaper button:hover { color: var(--fg); }
-    .wallpaper button.on {
-      color: var(--fg);
-      border-bottom: 1px solid var(--dimmer);
-      padding-bottom: 1px;
-    }
-    .wallpaper button:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-      border-radius: 2px;
-    }
 
     a:focus-visible, .socials a:focus-visible {
       outline: 2px solid var(--accent);
@@ -418,12 +380,12 @@
     }
   </style>
   <!-- shared backdrop + ink tokens; loaded LAST so it wins over the inline styles -->
-  <link rel="stylesheet" href="/glass.css?v=7">
+  <link rel="stylesheet" href="/glass.css?v=8">
 </head>
 <body>
 <script>/* pre-paint: apply saved theme + skip the backdrop fade after the first load,
    so navigating between pages never re-flashes the (identical) backdrop */
-try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(prefers-color-scheme: light)').matches))document.body.classList.add('light');if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('bg-instant');else sessionStorage.setItem('hm-bg','1')}catch(e){}</script>
+try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('bg-instant');else sessionStorage.setItem('hm-bg','1')}catch(e){}</script>
   <!--
     Hi. If you're reading the source, you're the kind of person I want to build with.
     → husanmavlonov79@gmail.com
@@ -432,17 +394,16 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
   <!-- backdrop — decorative only, hence no alt text anywhere near it -->
   <div class="bg-plate" aria-hidden="true"></div>
   <div class="bg-clouds" aria-hidden="true">
-    <div class="cloud-p cp-1" data-depth="0.10"><img class="c-sky" src="/sky/cloud-1.webp" alt="" width="1240" height="780" decoding="sync"><img class="c-stitch" src="/sky/orca.webp" alt="" width="582" height="640" decoding="sync"></div>
-    <div class="cloud-p cp-2" data-depth="0.05"><img class="c-sky" src="/sky/cloud-2.webp" alt="" width="1180" height="720" decoding="sync"><img class="c-stitch" src="/sky/orca.webp" alt="" width="582" height="640" decoding="sync"></div>
-    <div class="cloud-p cp-3" data-depth="0.16"><img class="c-sky" src="/sky/cloud-3.webp" alt="" width="820" height="520" decoding="sync"><img class="c-stitch" src="/sky/orca.webp" alt="" width="582" height="640" decoding="sync"></div>
+    <div class="cloud-p cp-1" data-depth="0.10"><img src="/sky/hcloud-1.webp" alt="" width="348" height="200" decoding="sync"></div>
+    <div class="cloud-p cp-2" data-depth="0.05"><img src="/sky/hcloud-2.webp" alt="" width="262" height="114" decoding="sync"></div>
+    <div class="cloud-p cp-3" data-depth="0.16"><img src="/sky/hcloud-3.webp" alt="" width="223" height="110" decoding="sync"></div>
   </div>
   <script>/* pre-paint: clock-anchored drift phase - same drifter position on every page */
   try{document.querySelectorAll('.cloud-p img').forEach(function(g){var d=parseFloat(getComputedStyle(g).animationDuration)||160;g.style.animationDelay=(-(Date.now()/1e3%(2*d))).toFixed(1)+'s'})}catch(e){}</script>
   <div class="bg-pan" aria-hidden="true"><img src="/sky/harbor.webp" alt="" width="1500" height="500" decoding="sync"></div>
   <div class="bg-scrim" aria-hidden="true"></div>
-  <script>/* SKY BACKDROP — reveal once the plate resolves (dark = aida tile, light = pure
-     gradient, so this fires immediately there). Without it the plate and the drifters
-     stay at opacity 0 on a first visit. */
+  <script>/* SKY BACKDROP — reveal on load. The plate is a pure gradient, so the probe
+     resolves immediately; without this the plate and the drifters stay at opacity 0. */
   (function () {
     var plate = document.querySelector('.bg-plate');
     if (!plate) return;
@@ -475,12 +436,6 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
       <a href="https://www.linkedin.com/in/husan-mavlonov" target="_blank" rel="me noopener">linkedin</a>
     </nav>
 
-    <p class="wallpaper" aria-label="Wallpaper">
-      <button type="button" data-theme="orca" aria-pressed="true">orca</button>
-      <span class="sep" aria-hidden="true">·</span>
-      <button type="button" data-theme="sky" aria-pressed="false">sky</button>
-    </p>
-
   </main>
 
   <!-- telegram request — a small transparent panel, opened from the socials row -->
@@ -499,31 +454,6 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
   </div>
 
   <script>
-  /* WALLPAPER SWITCH — same storage key the pre-paint script reads, so the
-     choice survives a reload and there is no flash of the other version. */
-  (function () {
-    var KEY = 'hm-theme';
-    var btns = [].slice.call(document.querySelectorAll('.wallpaper button'));
-    if (!btns.length) return;
-    var meta = document.querySelector('meta[name="theme-color"]');
-    function paint(sky, store) {
-      document.body.classList.toggle('light', sky);
-      if (meta) meta.setAttribute('content', sky ? '#1266c4' : '#3c4c30');
-      if (store) { try { localStorage.setItem(KEY, sky ? 'light' : 'dark'); } catch (e) {} }
-      btns.forEach(function (b) {
-        var on = (b.getAttribute('data-theme') === 'sky') === sky;
-        b.classList.toggle('on', on);
-        b.setAttribute('aria-pressed', on ? 'true' : 'false');
-      });
-    }
-    paint(document.body.classList.contains('light'), false);
-    btns.forEach(function (b) {
-      b.addEventListener('click', function () {
-        paint(b.getAttribute('data-theme') === 'sky', true);
-      });
-    });
-  })();
-
   /* TELEGRAM REQUEST — the link opens a small transparent panel; submitting it
      POSTs to Husan's own defex backend (/ping/, locked to this origin), which
      emails him through Resend. Only a real send reports success; anything else
@@ -604,6 +534,6 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
 
   <script data-goatcounter="https://analyze.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
-<script src="/sky.js?v=7" defer></script>
+<script src="/sky.js?v=8" defer></script>
 </body>
 </html>

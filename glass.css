@@ -1,31 +1,23 @@
 /* =============================================================================
-   glass.css — the blue-sky backdrop + the ink that sits on it.
+   glass.css — the harbor-sky backdrop + the ink that sits on it.
 
    SINGLE SOURCE OF TRUTH. Every page links this, so the backdrop is byte-identical
    on index / building / 404 and does NOT change when you navigate or open an
    overlay. Load it AFTER each page's inline <style> so these rules win.
 
-   Two ideas hold the whole thing together:
-
-   1. Two skies, one per theme. LIGHT is the harbor panorama pinned to the
-      viewport bottom, its painted sky extended upward by a matched gradient.
-      DARK is the family cross-stitch: green aida cloth (generated tile) with
-      small stitched orcas — extracted from the real embroidery photo —
-      drifting on the slow loop + scroll parallax from /sky.js.
-
-   2. There are NO panes. Type sits straight on the sky (pear.no discipline) with
-      a soft navy halo for legibility; the .glass class survives in the markup
-      purely as the ink scope that re-tunes the type tokens for the blue ground.
-      The Claude modal is the one flat surface left.
+   One sky, one idea: the painted harbor panorama is pinned to the bottom of the
+   viewport; a plate gradient extends the painting's own sky upward (flat at its
+   top-edge blue, #488bc0, so the masked seam lands invisibly), and three clouds
+   LIFTED FROM THE PAINTING ITSELF drift in the open blue above — slow CSS loop
+   plus the scroll parallax from /sky.js. There are NO panes: type sits straight
+   on the sky with a soft navy halo. The Claude modal is the one flat surface.
    ========================================================================== */
 
-/* the page's own ground colour matches the backdrop base, so any frame the
-   browser paints before the plate (navigation, slow decode) is the right
-   colour instead of the old slate — no flash between sections */
-body       { background-color: #3c4c30; }
-body.light { background-color: #3d7cb4; }
+/* the page's own ground colour matches the sky, so any frame the browser paints
+   before the plate (navigation, slow decode) is the right colour — no flash */
+body { background-color: #3d7cb4; }
 
-/* ---- the backdrop: painted sky + drifting halftone clouds + a navy scrim ---- */
+/* ---- the backdrop: sky extension + drifting painted clouds + panorama ---- */
 .bg-plate,
 .bg-clouds,
 .bg-scrim {
@@ -36,25 +28,16 @@ body.light { background-color: #3d7cb4; }
 }
 
 .bg-plate {
-  /* dark (default): the aida weave, colour baked into the tile (#3c4c30 family) */
-  background: #3c4c30 url(/sky/aida.png) repeat;
-  background-size: 44px 44px;
-  opacity: 0;                       /* faded in on load — see the page script */
-  transition: opacity 1s ease, background 0.4s ease;
-}
-body.bg-ready .bg-plate       { opacity: 1; }
-body.light .bg-plate {
-  /* extends the harbor panorama's own sky upward: deeper zenith up top, then flat
-     at the painting's top-edge blue (#488bc0) so the masked seam lands invisibly */
+  /* deeper zenith up top, then flat at the painting's top-edge blue */
   background: linear-gradient(180deg, #2e6da9 0%, #3f80b7 35%, #488bc0 65%, #488bc0 100%);
+  opacity: 0;                       /* faded in on load — see the page script */
+  transition: opacity 1s ease;
 }
+body.bg-ready .bg-plate { opacity: 1; }
 
-/* the harbor panorama (light theme): pinned to the bottom of the viewport, its
-   painted sky fading upward into the plate gradient via a mask — the picture owns
-   the ground floor, its clouds hand over to the extension above */
-.bg-pan { display: none; }
-body.light .bg-pan {
-  display: block;
+/* the harbor panorama: pinned to the bottom, its cloudy top edge fading upward
+   into the plate via a mask — the picture owns the ground floor */
+.bg-pan {
   position: fixed;
   left: 0; right: 0; bottom: 0;
   z-index: 0;
@@ -73,11 +56,10 @@ body.light .bg-pan {
   transition: opacity 1.2s ease;
 }
 body.bg-ready .bg-pan img { opacity: 1; }
-html.bg-instant .bg-pan img { opacity: 1; transition: none; }
 
-/* drifters: each slot holds a cloud (.c-sky, light theme) AND a stitched orca
-   (.c-stitch, dark theme) — CSS shows one per theme. The wrapper takes the JS
-   parallax translate, the img takes the slow CSS drift, so the transforms never fight */
+/* drifters — clouds cut from the panorama, so the upper sky is the same art.
+   The wrapper takes the JS parallax translate, the img takes the slow CSS
+   drift, so the transforms never fight */
 .bg-clouds { overflow: hidden; }
 .cloud-p {
   position: absolute;
@@ -96,46 +78,27 @@ body.bg-ready .cloud-p img { opacity: 1; }
 /* repeat navigations (html.bg-instant, set pre-paint from sessionStorage):
    the backdrop is identical page-to-page, so skip the fade entirely */
 html.bg-instant .bg-plate,
-html.bg-instant .cloud-p img { opacity: 1; transition: none; }
+html.bg-instant .cloud-p img,
+html.bg-instant .bg-pan img { opacity: 1; transition: none; }
 
-.cloud-p .c-sky            { display: none; }
-body.light .cloud-p .c-stitch { display: none; }
-
-/* dark (default): small orcas, fully in frame, left and right — cp-2 swims the other way */
-.cp-1 { width: min(14vw, 190px); left: 4vw;   top: 14vh;    --drift:  46px; --dur: 170s; }
-.cp-2 { width: min(16vw, 220px); right: 5vw;  bottom: 10vh; --drift: -38px; --dur: 210s; --flip: -1; }
-.cp-3 { width: min(9vw, 120px);  right: 12vw; top: 9vh;     --drift:  60px; --dur: 130s; }
-
-/* light: the pear cloud layout */
-body.light .cp-1 { width: min(40vw, 560px); left: -13vw; top: -7vh;   right: auto; bottom: auto; --flip: 1; }
-body.light .cp-2 { width: min(40vw, 560px); right: -5vw; bottom: 6vh; left: auto;  top: auto;    --flip: 1; }
-body.light .cp-3 { width: min(19vw, 280px); right: 16vw; top: 9vh; }
+.cp-1 { width: min(24vw, 380px); right: 2vw;  top: 5vh;  --drift:  46px; --dur: 170s; }
+.cp-2 { width: min(22vw, 320px); left: -4vw;  top: 40vh; --drift: -38px; --dur: 210s; }
+.cp-3 { width: min(15vw, 220px); right: 32vw; top: 33vh; --drift:  60px; --dur: 130s; }
 
 @keyframes cloud-drift {
-  from { transform: translateX(calc(var(--drift) * -1)) scaleX(var(--flip, 1)); }
-  to   { transform: translateX(var(--drift)) scaleX(var(--flip, 1)); }
+  from { transform: translateX(calc(var(--drift) * -1)); }
+  to   { transform: translateX(var(--drift)); }
 }
 
 @media (max-width: 700px) {
-  /* Two drifters are plenty on a phone, and the top one sits BELOW the text
-     block: on a narrow screen the copy runs down the upper third, and a
-     photographic orca behind it costs more legibility than the halo buys back. */
-  .cp-1 { width: 26vw; left: 5vw;  top: 34vh; }
-  .cp-2 { width: 30vw; right: 5vw; bottom: 9vh; }
+  /* two clouds are plenty on a phone, both kept below the text block */
+  .cp-1 { width: 56vw; right: -10vw; top: 36vh; }
+  .cp-2 { width: 44vw; left: -8vw;   top: 54vh; }
   .cp-3 { display: none; }
-  body.light .cp-1 { width: 74vw; left: -16vw; top: 30vh; }
-  body.light .cp-2 { width: 64vw; right: -14vw; bottom: 5vh; }
 }
 
-/* Just enough vignette to seat the type and stop the edges glaring — deep
-   green over the cloth (dark), deep blue over the sky (light), never grey. */
+/* Just enough navy vignette to seat the type and stop the edges glaring */
 .bg-scrim {
-  background:
-    radial-gradient(122% 88% at 70% 16%, rgba(14,22,10,0) 0%, rgba(14,22,10,0.10) 58%, rgba(14,22,10,0.36) 100%),
-    linear-gradient(180deg, rgba(14,22,10,0.36) 0%, rgba(14,22,10,0.08) 26%, rgba(14,22,10,0.12) 62%, rgba(14,22,10,0.44) 100%);
-  transition: background 0.4s ease;
-}
-body.light .bg-scrim {
   background:
     radial-gradient(122% 88% at 70% 16%, rgba(6,46,92,0) 0%, rgba(6,46,92,0.05) 58%, rgba(6,46,92,0.18) 100%),
     linear-gradient(180deg, rgba(6,46,92,0.16) 0%, rgba(6,46,92,0.03) 26%, rgba(6,46,92,0.05) 62%, rgba(6,46,92,0.22) 100%);
@@ -162,37 +125,20 @@ body.light .bg-scrim {
 }
 
 /* ---- no material: ink straight on the sky ----
-   The glass panes are gone (user call: text only, no surfaces). The .glass class
-   stays in the markup as the INK SCOPE: it re-tunes the type tokens for sitting
-   on the painted sky, in BOTH themes — the theme toggle now only moves the sky's
-   exposure. A soft navy halo keeps type legible when a halftone cloud drifts
-   underneath; it reads as atmosphere, not as a box. */
+   The .glass class survives in the markup purely as the ink scope: it re-tunes
+   the type tokens for the blue ground. A soft navy halo keeps type legible where
+   a painted cloud drifts underneath. */
 .glass,
 .st-backdrop {
   --fg: #f8f7f2;
-  --dim: #e9ede4;
-  --dimmer: #b8c4ae;                 /* sage on the cloth */
-  --accent: #f0ead8;                 /* cream — clouds and stitches alike */
-  --accent-rgb: 240, 234, 216;
-  --line: rgba(255, 255, 255, 0.24);
-  --line-strong: rgba(255, 255, 255, 0.40);
-}
-.glass {
-  background: none;
-  border: 0;
-  box-shadow: none;
-  text-shadow:
-    0 1px 2px rgba(12, 20, 8, 0.50),
-    0 2px 18px rgba(12, 20, 8, 0.40);
-}
-body.light .glass {
-  --fg: #f8f7f2;
   --dim: #e7ecf4;
   --dimmer: #c3d2e6;
-  --accent: #f4efdf;
+  --accent: #f4efdf;                 /* cream — same family as the painted clouds */
   --accent-rgb: 244, 239, 223;
   --line: rgba(255, 255, 255, 0.28);
   --line-strong: rgba(255, 255, 255, 0.44);
+}
+.glass {
   background: none;
   border: 0;
   box-shadow: none;
@@ -203,17 +149,15 @@ body.light .glass {
 
 /* ---- per-surface ---- */
 
-/* header: floating nav, no bar */
-.site-header.glass,
-body.light .site-header.glass {
+/* header: floating nav, no bar (building/404 still carry the old header) */
+.site-header.glass {
   border: 0;
   background: none;
   box-shadow: none;
 }
 
 /* the memories chip keeps a hairline outline (it is a button), nothing else */
-.st-label.glass,
-body.light .st-label.glass {
+.st-label.glass {
   padding: 5px 12px;
   border-radius: 999px;
   border: 1px solid var(--line);
@@ -223,39 +167,27 @@ body.light .st-label.glass {
 }
 .st-label.glass:hover { border-color: var(--line-strong); }
 @media (max-width: 700px) {
-  /* on a phone the chip floats over real text, so it needs a flat fill
-     (a control surface, same family as the modal — still no glass) */
-  .st-label.glass             { background: rgba(16, 26, 12, 0.90); }
-  body.light .st-label.glass  { background: rgba(6, 28, 58, 0.88); }
+  /* on a phone the chip floats over real text, so it needs a flat fill */
+  .st-label.glass { background: rgba(6, 28, 58, 0.88); }
 }
 
-/* ---- OVERLAYS: flat dark plates (no blur, no glass) — green-black over the
-   cloth, deep navy over the sky ---- */
+/* ---- OVERLAYS: flat deep-navy plates (no blur, no glass) ---- */
 .st-backdrop {
-  background: rgba(13, 21, 10, 0.94) !important;
+  background: rgba(5, 26, 54, 0.93) !important;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
-  text-shadow: 0 1px 2px rgba(8, 14, 6, 0.50);
-}
-body.light .st-backdrop {
-  background: rgba(5, 26, 54, 0.93) !important;
   text-shadow: 0 1px 2px rgba(4, 20, 42, 0.50);
 }
 
 .cc-backdrop {
-  background: rgba(13, 21, 10, 0.80);
+  background: rgba(5, 26, 54, 0.78);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
-body.light .cc-backdrop { background: rgba(5, 26, 54, 0.78); }
 
-/* the modal is the one true surface left: a flat card, hairline edge */
+/* the modal is the one true surface left: a flat navy card, hairline edge */
 .cc-modal.glass {
-  background: #24371e;
-  border: 1px solid rgba(255, 255, 255, 0.20);
-  box-shadow: 0 34px 80px -38px rgba(8, 14, 6, 0.80);
-}
-body.light .cc-modal.glass {
   background: #0a2f5e;
+  border: 1px solid rgba(255, 255, 255, 0.20);
   box-shadow: 0 34px 80px -38px rgba(3, 16, 34, 0.80);
 }
