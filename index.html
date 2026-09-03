@@ -276,49 +276,98 @@
     /* the telegram caveat rides along at the same size, one step quieter */
     .socials .note { opacity: 0.72; }
 
-    /* telegram request — a two-field form, same mono voice as everything else */
-    .tg-form {
-      margin-top: 14px;
+    /* telegram request — a small transparent panel over the wallpaper.
+       Deliberately light: a thin edge, a little blur so the type stays readable
+       on cloth or cloud, and nothing else. */
+    .tg-pop[hidden] { display: none; }   /* a display rule beats the hidden attribute */
+    .tg-pop {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
-      gap: 10px 14px;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(10, 16, 8, 0.28);
+    }
+    body.light .tg-pop { background: rgba(6, 30, 62, 0.24); }
+
+    .tg-card {
+      /* the panel sits OUTSIDE .page.glass, so it does not inherit the ink
+         tokens glass.css defines there — it carries its own light ink, which is
+         what a dark translucent card needs in either wallpaper */
+      --fg: #f8f7f2;
+      --dim: #e9ede4;
+      --dimmer: #b6c2ac;
+      position: relative;
+      width: 100%;
+      max-width: 268px;
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.30);
+      border-radius: 12px;
+      background: rgba(18, 26, 14, 0.42);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
       font-family: var(--mono);
       font-size: 12.5px;
+      color: var(--fg);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
-    .tg-form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
-    .tg-form input:not(.hp) {
+    body.light .tg-card {
+      background: rgba(10, 44, 92, 0.38);
+      --dim: #e7ecf4;
+      --dimmer: #bccbe0;
+    }
+
+    .tg-title { color: var(--dim); letter-spacing: 0.02em; }
+    .tg-x {
+      position: absolute;
+      top: 6px; right: 9px;
+      font: inherit;
+      font-size: 16px;
+      line-height: 1;
+      background: none;
+      border: 0;
+      padding: 2px 4px;
+      color: var(--dimmer);
+      cursor: pointer;
+    }
+    .tg-x:hover { color: var(--fg); }
+
+    #tgForm { display: flex; flex-direction: column; gap: 10px; }
+    .tg-card .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+    .tg-card input:not(.hp) {
       font: inherit;
       color: var(--fg);
       background: none;
       border: 0;
-      border-bottom: 1px solid var(--dimmer);
-      padding: 4px 2px;
-      width: 170px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.32);
+      padding: 5px 2px;
       border-radius: 0;
+      width: 100%;
     }
-    .tg-form input::placeholder { color: var(--dimmer); }
-    .tg-form input:focus {
-      outline: none;
-      border-bottom-color: var(--fg);
-    }
-    .tg-form button {
+    .tg-card input::placeholder { color: var(--dimmer); }
+    .tg-card input:focus { outline: none; border-bottom-color: var(--fg); }
+    .tg-send {
       font: inherit;
+      align-self: flex-start;
+      margin-top: 2px;
       color: var(--fg);
       background: none;
-      border: 1px solid var(--dimmer);
+      border: 1px solid rgba(255, 255, 255, 0.34);
       border-radius: 999px;
-      padding: 4px 12px;
+      padding: 5px 14px;
       cursor: pointer;
-      transition: border-color 0.2s ease, color 0.2s ease;
+      transition: border-color 0.2s ease;
     }
-    .tg-form button:hover { border-color: var(--fg); }
-    .tg-form input:focus-visible, .tg-form button:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-    }
-    .tg-msg { color: var(--dimmer); }
+    .tg-send:hover { border-color: var(--fg); }
+    .tg-msg { color: var(--dimmer); min-height: 1em; }
     .tg-msg.ok { color: var(--fg); }
+    .tg-card input:focus-visible,
+    .tg-send:focus-visible,
+    .tg-x:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
     /* wallpaper switch — the two versions, named the way he names them */
     .wallpaper {
@@ -427,14 +476,6 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
       <a href="https://www.linkedin.com/in/husan-mavlonov" target="_blank" rel="me noopener">linkedin</a>
     </nav>
 
-    <form class="tg-form" id="tgForm" hidden>
-      <input id="tgName" name="name" type="text" placeholder="name" required autocomplete="name" maxlength="80">
-      <input id="tgEmail" name="email" type="email" placeholder="email" required autocomplete="email" maxlength="120">
-      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button type="submit">send request</button>
-      <span class="tg-msg" id="tgMsg" role="status" aria-live="polite"></span>
-    </form>
-
     <p class="wallpaper" aria-label="Wallpaper">
       <button type="button" data-theme="orca" aria-pressed="true">orca</button>
       <span class="sep" aria-hidden="true">·</span>
@@ -442,6 +483,21 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
     </p>
 
   </main>
+
+  <!-- telegram request — a small transparent panel, opened from the socials row -->
+  <div class="tg-pop" id="tgPop" hidden>
+    <div class="tg-card" role="dialog" aria-modal="true" aria-labelledby="tgTitle">
+      <button class="tg-x" id="tgClose" type="button" aria-label="Close">&times;</button>
+      <p class="tg-title" id="tgTitle">telegram channel</p>
+      <form id="tgForm" novalidate>
+        <input id="tgName" name="name" type="text" placeholder="name" autocomplete="name" maxlength="80" required>
+        <input id="tgEmail" name="email" type="email" placeholder="email" autocomplete="email" maxlength="120" required>
+        <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="tg-send" type="submit">request</button>
+        <p class="tg-msg" id="tgMsg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
 
   <script>
   /* WALLPAPER SWITCH — same storage key the pre-paint script reads, so the
@@ -469,23 +525,44 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
     });
   })();
 
-  /* TELEGRAM REQUEST — name + email, then a real ping.
-     This page is static, so it borrows one endpoint from Husan's own defex
-     backend (/ping/, locked to this origin) which emails him via Resend.
-     If that ever fails, the same two fields fall back to a pre-filled mail. */
+  /* TELEGRAM REQUEST — the link opens a small transparent panel; submitting it
+     POSTs to Husan's own defex backend (/ping/, locked to this origin), which
+     emails him through Resend. Only a real send reports success; anything else
+     falls back to a pre-filled mail carrying the same two fields. */
   (function () {
     var ENDPOINT = 'https://defex.app/ping/';
     var TO = 'husanmavlonov79@gmail.com';
 
-    var link = document.getElementById('tgRequest');
-    var form = document.getElementById('tgForm');
-    var msg  = document.getElementById('tgMsg');
-    if (!link || !form) return;
+    var link  = document.getElementById('tgRequest');
+    var pop   = document.getElementById('tgPop');
+    var card  = pop && pop.querySelector('.tg-card');
+    var form  = document.getElementById('tgForm');
+    var msg   = document.getElementById('tgMsg');
+    var close = document.getElementById('tgClose');
+    if (!link || !pop || !form) return;
 
     function say(text, ok) {
       msg.textContent = text;
       msg.className = 'tg-msg' + (ok ? ' ok' : '');
     }
+    function open() {
+      pop.hidden = false;
+      link.setAttribute('aria-expanded', 'true');
+      say('', false);
+      document.getElementById('tgName').focus();
+    }
+    function shut() {
+      pop.hidden = true;
+      link.setAttribute('aria-expanded', 'false');
+      link.focus();
+    }
+
+    link.addEventListener('click', function (e) { e.preventDefault(); open(); });
+    close.addEventListener('click', shut);
+    pop.addEventListener('mousedown', function (e) { if (!card.contains(e.target)) shut(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !pop.hidden) shut();
+    });
 
     function mailFallback(name, email) {
       window.location.href = 'mailto:' + TO +
@@ -494,19 +571,12 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
       say('opening your mail…', true);
     }
 
-    link.addEventListener('click', function (e) {
-      e.preventDefault();
-      var opening = form.hidden;
-      form.hidden = !opening;
-      link.setAttribute('aria-expanded', opening ? 'true' : 'false');
-      if (opening) document.getElementById('tgName').focus();
-    });
-
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var name  = form.name.value.trim();
       var email = form.email.value.trim();
-      if (!name || !email) return;
+      if (!name) { say('name?', false); return; }
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { say('real email?', false); return; }
 
       if (window.goatcounter && window.goatcounter.count) {
         try { window.goatcounter.count({ path: 'telegram-request', title: 'Telegram join request', event: true }); } catch (e2) {}
@@ -517,16 +587,22 @@ try{var t=localStorage.getItem('hm-theme');if(t==='light'||(!t&&matchMedia('(pre
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name, email: email, website: form.website.value })
-      }).then(function (r) {
-        return r.ok ? r.json() : null;
-      }).then(function (d) {
-        // `sent` is the mail actually leaving, not just the request being accepted
-        if (d && d.sent) { form.reset(); say('sent — he\'ll add you.', true); }
-        else mailFallback(name, email);
-      }).catch(function () { mailFallback(name, email); });
+      }).then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          // `sent` is the mail actually leaving, not just the request being accepted
+          if (d && d.sent) {
+            form.reset();
+            say('sent — he\'ll add you.', true);
+            setTimeout(shut, 1400);
+          } else {
+            mailFallback(name, email);
+          }
+        })
+        .catch(function () { mailFallback(name, email); });
     });
   })();
   </script>
+
   <script data-goatcounter="https://analyze.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 <script src="/sky.js?v=6" defer></script>
