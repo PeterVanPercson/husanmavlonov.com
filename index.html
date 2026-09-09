@@ -280,8 +280,8 @@
     }
 
     html, body {
-      height: 100%;
-      overflow: hidden;          /* a wallpaper page: nothing to scroll to */
+      min-height: 100%;
+      overflow-x: hidden;        /* the wallpaper is fixed; the years scroll over it */
       background: var(--bg);
       color: var(--fg);
       font-family: var(--sans);
@@ -345,6 +345,72 @@
       transition: color 0.2s ease;
     }
     .meta-line a.powell:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ===== years: year · logo · what it was (rikulauttia.com's row) ===== */
+    .years {
+      /* the rows begin below the first screen, so the wallpaper opens alone */
+      margin: min(62vh, 620px) 0 0;
+      padding: 46px 0 64px;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      position: relative;
+    }
+    /* the painting is busy where the rows land — a full-bleed band of the site's
+       own scrim navy, transparent at its top edge, so the picture still shows
+       through and nothing about the first screen changes */
+    .years::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      top: 0; bottom: -70px;
+      z-index: -1;
+      /* transparent at both ends: the band has no edges, it just deepens */
+      background: linear-gradient(180deg,
+        rgba(5, 28, 58, 0) 0%,
+        rgba(5, 28, 58, 0.60) 13%,
+        rgba(5, 28, 58, 0.70) 62%,
+        rgba(5, 28, 58, 0.52) 88%,
+        rgba(5, 28, 58, 0) 100%);
+    }
+    .year-row {
+      display: grid;
+      grid-template-columns: 5.5rem 3.5rem 1fr;
+      align-items: start;
+      gap: 0 18px;
+    }
+    .year-when {
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 2.1;
+      color: var(--dimmer);
+      white-space: nowrap;
+    }
+    .year-logo {
+      width: 40px; height: 40px;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+    .year-logo img { width: 100%; height: 100%; display: block; }
+    a.year-logo:hover { transform: translateY(-2px); }
+    .year-what { font-size: 15px; line-height: 1.55; color: var(--dim); }
+    .year-what b { font-weight: 500; color: var(--fg); }
+    .year-what a { border-bottom: 1px solid var(--dimmer); padding-bottom: 1px; }
+    .year-what a:hover { border-color: var(--accent); color: var(--accent); }
+
+    @media (max-width: 700px) {
+      .years { margin-top: min(56vh, 420px); gap: 26px; padding: 34px 0 48px; }
+      .year-row { grid-template-columns: 1fr; gap: 8px; }
+      .year-when { line-height: 1.6; }
+    }
 
     .socials {
       margin-top: 12px;
@@ -524,6 +590,34 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
       <span class="sep" aria-hidden="true">·</span>
       <a href="https://www.instagram.com/mavhusan/" target="_blank" rel="me noopener">instagram</a>
     </nav>
+
+    <ul class="years" id="years">
+      <li class="year-row">
+        <span class="year-when">2026 —</span>
+        <a class="year-logo" href="https://defex.app" target="_blank" rel="noopener"><img src="/logos/defex.webp" alt="defex" width="88" height="88" loading="lazy" decoding="async"></a>
+        <span class="year-what">I founded <b>defex</b> — a camera that catches defective products before they leave a factory. One line has been running at a textile factory in Uzbekistan since September 2026.</span>
+      </li>
+      <li class="year-row">
+        <span class="year-when">2026 —</span>
+        <a class="year-logo" href="https://buildcored.com" target="_blank" rel="noopener"><img src="/logos/buildcored.webp" alt="BuildCored" width="88" height="88" loading="lazy" decoding="async"></a>
+        <span class="year-what">I founded <b>BuildCored</b>, a community of 1,500+ AI and hardware builders, funded by Uzbekistan&rsquo;s Youth Affairs Agency. It is the home of Orcas — 30 days, one shipped project a day.</span>
+      </li>
+      <li class="year-row">
+        <span class="year-when">2026 —</span>
+        <a class="year-logo" href="https://mindform-ai.com" target="_blank" rel="noopener"><img src="/logos/mindform.webp" alt="Mindform" width="88" height="88" loading="lazy" decoding="async"></a>
+        <span class="year-what">I co-founded <b>Mindform</b>, the personality layer for AI — memory, tone and character that persist across sessions.</span>
+      </li>
+      <li class="year-row">
+        <span class="year-when">2026</span>
+        <a class="year-logo" href="https://f.inc" target="_blank" rel="noopener"><img src="/logos/finc.webp" alt="Founders, Inc." width="88" height="88" loading="lazy" decoding="async"></a>
+        <span class="year-what">Fellow at <b>Founders, Inc.</b> in San Francisco.</span>
+      </li>
+      <li class="year-row">
+        <span class="year-when">2026</span>
+        <a class="year-logo" href="https://silkroadinnovationhub.com" target="_blank" rel="noopener"><img src="/logos/silkroad.webp" alt="Silkroad Innovation Hub" width="88" height="88" loading="lazy" decoding="async"></a>
+        <span class="year-what">Fellow at <b>Silkroad Innovation Hub</b>, Menlo Park — they back defex.</span>
+      </li>
+    </ul>
 
   </main>
 
