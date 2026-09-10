@@ -109,21 +109,34 @@ html.bg-instant .bg-pan img { opacity: 1; transition: none; }
     0 2px 20px rgba(10, 35, 66, 0.45);
 }
 
-/* The name is pressed into the surface rather than floating on it. A lit lower
-   lip, a shadow in the upper one, both hard so the edge stays a cut and not a
-   glow. The wide soft seat is kept from .glass above, because the painting has
-   bright clouds behind this line and the type still has to carry over them.
+/* The name is cut into the sky rather than sitting on it.
 
-   This works here and would not work on defex.app, because that headline is a
-   gradient clipped to the glyphs. With background-clip:text the shadow paints
-   OVER the fill, so a lip is a copy of the glyph smeared across its own ink.
-   This h1 is a plain colour, so the shadow paints behind and the ink survives,
-   which is what a press actually does. */
-.glass h1 {
-  text-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.60),
-    0 -1px 0 rgba(8, 28, 54, 0.75),
-    0 3px 12px rgba(10, 35, 66, 0.45);
+   The sky behind this line measures luminance 0.213, from 0.184 in the
+   shadowed blue up to 0.278 on the bright clouds. A recess receives less light
+   than its surface, so the ink has to sit below that range: at cream, 0.93, it
+   was about three and a half times brighter than the sky and read as raised no
+   matter what the lips did.
+
+   The lit lip is a brighter SKY, never white. White is not this surface, so it
+   can only read as a glow. That one substitution is most of the effect.
+
+   The gradient gives the stroke depth down its length, as though the groove
+   deepens toward the foot. Fallback below for anything without
+   background-clip: text, where transparent ink would be invisible ink. */
+.glass h1 { color: rgba(12, 34, 60, 0.94); }
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .glass h1 {
+    color: transparent;
+    background-image: linear-gradient(165deg,
+      rgba(20, 50, 86, 0.88) 0%,
+      rgba(8, 26, 48, 0.97) 54%,
+      rgba(18, 46, 80, 0.90) 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    text-shadow:
+      0 1px 0 rgba(168, 210, 245, 0.85),
+      0 -1px 0 rgba(2, 10, 22, 0.50);
+  }
 }
 
 /* ---- per-surface ---- */
