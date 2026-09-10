@@ -109,6 +109,23 @@ html.bg-instant .bg-pan img { opacity: 1; transition: none; }
     0 2px 20px rgba(10, 35, 66, 0.45);
 }
 
+/* The name is pressed into the surface rather than floating on it. A lit lower
+   lip, a shadow in the upper one, both hard so the edge stays a cut and not a
+   glow. The wide soft seat is kept from .glass above, because the painting has
+   bright clouds behind this line and the type still has to carry over them.
+
+   This works here and would not work on defex.app, because that headline is a
+   gradient clipped to the glyphs. With background-clip:text the shadow paints
+   OVER the fill, so a lip is a copy of the glyph smeared across its own ink.
+   This h1 is a plain colour, so the shadow paints behind and the ink survives,
+   which is what a press actually does. */
+.glass h1 {
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.60),
+    0 -1px 0 rgba(8, 28, 54, 0.75),
+    0 3px 12px rgba(10, 35, 66, 0.45);
+}
+
 /* ---- per-surface ---- */
 
 /* header: floating nav, no bar (building/404 still carry the old header) */
