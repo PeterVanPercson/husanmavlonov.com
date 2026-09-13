@@ -280,8 +280,8 @@
     }
 
     html, body {
-      height: 100%;
-      overflow: hidden;          /* a wallpaper page: nothing to scroll to */
+      min-height: 100%;
+      overflow-x: hidden;        /* the wallpaper is fixed; the experience rows scroll over it */
       background: var(--bg);
       color: var(--fg);
       font-family: var(--sans);
@@ -365,6 +365,85 @@
     .socials a:hover { color: var(--fg); }
     /* the telegram caveat rides along at the same size, one step quieter */
     .socials .note { opacity: 0.72; }
+
+    /* ===== experience: logo on the left, company, role and dates, one line ===== */
+    .xp {
+      /* right under the socials, one step more air than the socials get */
+      margin-top: 30px;
+    }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--dimmer);
+      margin-bottom: 26px;
+    }
+    .xp-list { list-style: none; display: flex; flex-direction: column; gap: 26px; }
+    .xp-row {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 0 18px;
+      align-items: start;
+    }
+    .xp-logo {
+      width: 44px; height: 44px;
+      margin-top: 2px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      transition: transform 0.2s ease;
+    }
+    .xp-logo img { display: block; width: 100%; height: 100%; }
+    a.xp-logo:hover { transform: translateY(-2px); }
+    .xp-name { font-size: 16px; font-weight: 500; line-height: 1.4; color: var(--fg); }
+    .xp-name a { transition: color 0.2s ease; }
+    .xp-name a:hover { color: var(--accent); }
+    .xp-when { font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--dimmer); }
+    .xp-when span { white-space: nowrap; }   /* role and dates each wrap as a unit */
+    .xp-what { margin-top: 3px; font-size: 14.5px; line-height: 1.5; color: var(--dim); }
+    /* first four rows show; the rest open from the button under the list */
+    .xp-list.is-collapsed .xp-row:nth-child(n+5) { display: none; }
+    .xp-more[hidden] { display: none; }
+    .xp-more {
+      margin-top: 22px;
+      font: inherit;
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--fg);
+      /* a small square of the painting's own sky blue, so the word lifts off the city */
+      background: rgba(72, 139, 192, 0.9);
+      border: 0;
+      border-radius: 0;
+      padding: 3px 10px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .xp-more:hover { background: rgba(63, 128, 183, 1); }
+    .xp-more:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    /* ===== interviews: underlined title (year), one per line ===== */
+    .iv { margin-top: 30px; padding-bottom: 40px; }
+    .iv-list {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--dim);
+    }
+    .iv-list li::marker { color: var(--dimmer); }
+    .iv-list a {
+      color: var(--fg);
+      border-bottom: 1px solid var(--line-strong);
+      padding-bottom: 1px;
+      transition: color 0.2s ease;
+    }
+    .iv-list a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .iv-list .iv-also { font-family: var(--mono); font-size: 12px; color: var(--dimmer); }
+    .iv-list .iv-also a { color: var(--dimmer); border-bottom-color: var(--line); }
 
     /* telegram request — a small transparent panel over the wallpaper.
        Deliberately light: a thin edge, a little blur so the type stays readable
@@ -468,9 +547,16 @@
 
     @media (max-width: 700px) {
       .page { margin: 10vh auto 30px; padding: 26px 20px 24px; border-radius: 14px; }
+      .xp { margin-top: 24px; }
+      .iv { margin-top: 24px; padding-bottom: 32px; }
+      .iv-list { font-size: 15px; }
+      .xp-list { gap: 22px; }
+      .xp-row { grid-template-columns: 40px 1fr; gap: 0 14px; }
+      .xp-logo { width: 40px; height: 40px; border-radius: 9px; }
+      .xp-what { font-size: 14px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      html, body, h1, .meta-line a.powell, .socials a { transition: none; }
+      html, body, h1, .meta-line a.powell, .socials a, .xp-logo, .xp-name a, .xp-more, .iv-list a { transition: none; }
     }
   </style>
   <!-- shared backdrop + ink tokens; loaded LAST so it wins over the inline styles -->
@@ -524,6 +610,125 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
       <span class="sep" aria-hidden="true">·</span>
       <a href="https://www.instagram.com/mavhusan/" target="_blank" rel="me noopener">instagram</a>
     </nav>
+
+    <section class="xp" id="experience" aria-labelledby="xpTitle">
+      <h2 class="section-label" id="xpTitle">experience</h2>
+      <ul class="xp-list" id="xpList">
+        <li class="xp-row">
+          <a class="xp-logo" href="https://www.powell.st/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="/logos/powell.jpeg" alt="" width="176" height="176" loading="lazy" decoding="async"></a>
+          <div>
+            <p class="xp-name"><a href="https://www.powell.st/" target="_blank" rel="noopener">Powell St</a></p>
+            <p class="xp-when"><span>member</span> · <span>sep 2026 – now</span></p>
+            <p class="xp-what">Technologists (from YC and a16z) building AI companies in SF.</p>
+          </div>
+        </li>
+        <li class="xp-row">
+          <a class="xp-logo" href="https://defex.app/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="/logos/defex.jpeg" alt="" width="176" height="176" loading="lazy" decoding="async"></a>
+          <div>
+            <p class="xp-name"><a href="https://defex.app/" target="_blank" rel="noopener">Defex</a></p>
+            <p class="xp-when"><span>founder &amp; ceo</span> · <span>mar 2026 – now</span></p>
+            <p class="xp-what">Self-teaching robots for manufacturing.</p>
+          </div>
+        </li>
+        <li class="xp-row">
+          <a class="xp-logo" href="https://umich.edu/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="/logos/michigan.jpeg" alt="" width="176" height="176" loading="lazy" decoding="async"></a>
+          <div>
+            <p class="xp-name"><a href="https://umich.edu/" target="_blank" rel="noopener">University of Michigan</a></p>
+            <p class="xp-when"><span>student</span> · <span>2025 – 2026</span></p>
+            <p class="xp-what">UM&ndash;SJTU dual degree. Dropped out.</p>
+          </div>
+        </li>
+        <li class="xp-row">
+          <a class="xp-logo" href="https://en.sjtu.edu.cn/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="/logos/sjtu.jpeg" alt="" width="176" height="176" loading="lazy" decoding="async"></a>
+          <div>
+            <p class="xp-name"><a href="https://en.sjtu.edu.cn/" target="_blank" rel="noopener">Shanghai Jiao Tong University</a></p>
+            <p class="xp-when"><span>researcher</span> · <span>jan 2026 – jun 2026</span></p>
+            <p class="xp-what">Optical diagnostics in Prof. David Hung&rsquo;s lab.</p>
+          </div>
+        </li>
+        <li class="xp-row">
+          <a class="xp-logo" href="https://buildcored.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="/logos/buildcored.jpeg" alt="" width="176" height="176" loading="lazy" decoding="async"></a>
+          <div>
+            <p class="xp-name"><a href="https://buildcored.com/" target="_blank" rel="noopener">BuildCored</a></p>
+            <p class="xp-when"><span>founder &amp; ceo</span> · <span>jan 2026 – now</span></p>
+            <p class="xp-what">Non-profit, 1,500+ engineering students.</p>
+          </div>
+        </li>
+        <li class="xp-row">
+          <a class="xp-logo" href="https://silkroadinnovationhub.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="/logos/silkroad.jpeg" alt="" width="176" height="176" loading="lazy" decoding="async"></a>
+          <div>
+            <p class="xp-name"><a href="https://silkroadinnovationhub.com/" target="_blank" rel="noopener">Silkroad Innovation Hub</a></p>
+            <p class="xp-when"><span>fellow</span> · <span>jul 2026 – sep 2026</span></p>
+            <p class="xp-what">Founder fellowship in Menlo Park, CA.</p>
+          </div>
+        </li>
+        <li class="xp-row">
+          <a class="xp-logo" href="https://www.lumiere-education.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="/logos/lumiere.jpeg" alt="" width="176" height="176" loading="lazy" decoding="async"></a>
+          <div>
+            <p class="xp-name"><a href="https://www.lumiere-education.com/" target="_blank" rel="noopener">Lumiere Education</a></p>
+            <p class="xp-when"><span>research scholar</span> · <span>feb 2026 – jun 2026</span></p>
+            <p class="xp-what">Meta-analysis of 80 battery-AI datasets.</p>
+          </div>
+        </li>
+        <li class="xp-row">
+          <a class="xp-logo" href="" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="/logos/tracky.jpeg" alt="" width="176" height="176" loading="lazy" decoding="async"></a>
+          <div>
+            <p class="xp-name"><a href="" target="_blank" rel="noopener">Tracky POS</a></p>
+            <p class="xp-when"><span>co-founder</span> · <span>jun 2025 – jan 2026</span></p>
+            <p class="xp-what">Cut RFID labeling costs 97% for retail shops.</p>
+          </div>
+        </li>
+        <li class="xp-row">
+          <a class="xp-logo" href="" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="/logos/top100uni.jpeg" alt="" width="176" height="176" loading="lazy" decoding="async"></a>
+          <div>
+            <p class="xp-name"><a href="" target="_blank" rel="noopener">Top100Uni Project</a></p>
+            <p class="xp-when"><span>mentor</span> · <span>may 2025 – jul 2025</span></p>
+            <p class="xp-what">Mentored top-university applicants.</p>
+          </div>
+        </li>
+        <li class="xp-row">
+          <a class="xp-logo" href="https://www.comu.edu.tr/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="/logos/comu.jpeg" alt="" width="176" height="176" loading="lazy" decoding="async"></a>
+          <div>
+            <p class="xp-name"><a href="https://www.comu.edu.tr/" target="_blank" rel="noopener">&Ccedil;anakkale Onsekiz Mart University</a></p>
+            <p class="xp-when"><span>researcher</span> · <span>sep 2024 – jun 2025</span></p>
+            <p class="xp-what">Polymer electrolytes for Li-ion batteries.</p>
+          </div>
+        </li>
+        <li class="xp-row">
+          <a class="xp-logo" href="" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="/logos/qvant.jpeg" alt="" width="176" height="176" loading="lazy" decoding="async"></a>
+          <div>
+            <p class="xp-name"><a href="" target="_blank" rel="noopener">QVANT Youth</a></p>
+            <p class="xp-when"><span>leading author</span> · <span>jun 2023 – jun 2025</span></p>
+            <p class="xp-what">Science writing for Central Asian youth.</p>
+          </div>
+        </li>
+      </ul>
+      <button class="xp-more" id="xpMore" type="button" aria-expanded="false" aria-controls="xpList" hidden></button>
+      <script>/* collapse before first paint; without JS every row simply shows */
+      (function () {
+        var list = document.getElementById('xpList');
+        var btn = document.getElementById('xpMore');
+        var extra = list.children.length - 4;
+        if (extra < 1) return;
+        function set(open) {
+          list.classList.toggle('is-collapsed', !open);
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+          btn.textContent = open ? 'collapse' : 'expand';
+        }
+        set(false);
+        btn.hidden = false;
+        btn.addEventListener('click', function () { set(btn.getAttribute('aria-expanded') !== 'true'); });
+      })();
+      </script>
+    </section>
+
+    <section class="iv" id="interviews" aria-labelledby="ivTitle">
+      <h2 class="section-label" id="ivTitle">interviews</h2>
+      <ul class="iv-list">
+        <li><a href="https://limon.kg/ru/news:86646" target="_blank" rel="noopener">Limon Media interview</a> (2026) <span class="iv-also">· <a href="https://www.instagram.com/p/Dc2yhO6Cd67/" target="_blank" rel="noopener">instagram</a></span></li>
+        <li><a href="https://www.youtube.com/watch?v=57iL2J-NsNU" target="_blank" rel="noopener">&ldquo;The US is not the only option&rdquo; with UNLOCK Admissions</a> (2025)</li>
+      </ul>
+    </section>
 
   </main>
 
