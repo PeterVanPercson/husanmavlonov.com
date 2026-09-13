@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Where my heroes have been — Husan Mavlonov</title>
+  <meta name="description" content="The builders I looked up to all had one backer in common. Then they backed me too." />
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#d9d7d2" />
+  <link rel="preload" href="/fonts/instrumentserif-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/instrumentserif-400i.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+  <style>
+    @font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/instrumentserif-400.woff2) format('woff2')}
+    @font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-display:swap;src:url(/fonts/instrumentserif-400i.woff2) format('woff2')}
+    @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/inter-400.woff2) format('woff2')}
+    @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/inter-500.woff2) format('woff2')}
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:   #d9d7d2;   /* plain grey */
+      --fg:   #111110;   /* black ink */
+      --dim:  #57544e;   /* muted grey */
+      --line: #b9b5ac;   /* hairline */
+      --tile: #c8c5be;   /* photo placeholder grey */
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    html, body {
+      background: var(--bg); color: var(--fg);
+      font-family: var(--sans);
+      min-height: 100vh; min-height: 100dvh;
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    }
+    ::selection { background: var(--fg); color: var(--bg); }
+    a { color: inherit; text-decoration: none; }
+
+    .wrap { max-width: 760px; margin: 0 auto; padding: 30px 32px 90px; }
+
+    .top {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 12px; color: var(--dim); margin-bottom: 60px;
+    }
+    .top a:hover { color: var(--fg); }
+
+    h1 {
+      font-family: var(--serif); font-weight: 400;
+      font-size: clamp(42px, 7.5vw, 76px);
+      line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 20px;
+    }
+    h1 em { font-style: italic; }
+    .standfirst {
+      font-family: var(--serif); font-style: italic;
+      font-size: clamp(20px, 2.6vw, 27px); line-height: 1.35;
+      color: var(--dim); max-width: 34ch; margin-bottom: 56px;
+    }
+
+    /* PHOTO ROW — them + you */
+    .row-label { font-size: 12px; color: var(--dim); margin-bottom: 16px; }
+    .row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px; margin-bottom: 64px;
+    }
+    .person { text-align: center; min-width: 0; }
+    /* placeholder tile (div) */
+    div.ph {
+      width: 100%; aspect-ratio: 1; border-radius: 4px;
+      background: var(--tile); border: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    /* real photo tile (img) */
+    img.ph {
+      display: block;
+      width: 100%; height: auto; aspect-ratio: 1;
+      object-fit: cover; border-radius: 4px;
+    }
+    .person .ph span {   /* placeholder initials */
+      font-family: var(--serif); font-size: 26px; color: var(--dim);
+    }
+    .person .nm { font-family: var(--serif); font-size: 16px; margin-top: 10px; line-height: 1.15; }
+    .person .co { font-size: 11px; color: var(--dim); margin-top: 2px; }
+    /* you — highlighted with a black frame */
+    .person.you .ph { border: 2px solid var(--fg); background: var(--tile); }
+    .person.you .nm { font-style: italic; }
+
+    /* BODY */
+    .body { font-size: 17px; line-height: 1.7; }
+    .body p { margin-bottom: 20px; }
+    .body p.note {
+      font-size: 13px; color: var(--dim); line-height: 1.6;
+      border: 1px dashed var(--line); border-radius: 5px;
+      padding: 12px 14px; margin-bottom: 28px;
+    }
+    .body h2 {
+      font-family: var(--serif); font-weight: 400;
+      font-size: clamp(26px, 3.4vw, 34px); margin: 40px 0 14px; line-height: 1.1;
+    }
+    .body em { font-style: italic; }
+    .body strong { font-weight: 500; }
+    .body blockquote {
+      font-family: var(--serif); font-style: italic;
+      font-size: clamp(22px, 3vw, 28px); line-height: 1.35;
+      border-left: 2px solid var(--fg); padding-left: 20px; margin: 30px 0;
+    }
+    .signoff {
+      margin-top: 50px; padding-top: 24px; border-top: 1px solid var(--line);
+      font-family: var(--serif); font-style: italic; font-size: 19px; color: var(--dim);
+    }
+
+    @media (max-width: 620px) {
+      .wrap { padding: 24px 20px 70px; }
+      .row { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+      .person:nth-child(4) { grid-column: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <nav class="top">
+      <a href="/">← husanmavlonov.com</a>
+      <span>writing · draft</span>
+    </nav>
+
+    <h1>Where my heroes <em>have&nbsp;been.</em></h1>
+    <p class="standfirst">Every builder I look up to had one name in common on their cap table. Last month, it showed up on mine.</p>
+
+    <p class="row-label">Backed by Founders, Inc. — before anyone else</p>
+    <div class="row">
+      <div class="person">
+        <div class="ph"><span>SB</span></div>
+        <div class="nm">Steven Bartlett</div>
+        <div class="co">thirdweb</div>
+      </div>
+      <div class="person">
+        <div class="ph"><span>FM</span></div>
+        <div class="nm">Farza Majeed</div>
+        <div class="co">buildspace</div>
+      </div>
+      <div class="person">
+        <div class="ph"><span>SS</span></div>
+        <div class="nm">Sharif Shameem</div>
+        <div class="co">Lexica</div>
+      </div>
+      <div class="person">
+        <div class="ph"><span>MS</span></div>
+        <div class="nm">Matthew Shumer</div>
+        <div class="co">OthersideAI</div>
+      </div>
+      <div class="person you">
+        <img class="ph" src="/blog/assets/husan-card.webp" width="900" height="900" alt="Husan Mavlonov">
+        <div class="nm">Husan Mavlonov</div>
+        <div class="co">defex</div>
+      </div>
+    </div>
+
+    <div class="body">
+      <p class="note">Draft — design preview only, set to noindex and not linked anywhere. The four placeholder tiles (SB / FM / SS / MS) are grey on purpose: I won't drop other people's headshots onto your page automatically — if you want their faces, you add them. Your photo is real. The prose below is a scaffold in your voice; swap in the real story before publishing.</p>
+
+      <p>For years, the way I learned to build was by watching other people do it loudly. Farza shipping buildspace to thousands of kids who'd never written a line of code. Sharif turning a tweet into Lexica. Steven Bartlett somehow being a podcast and a company at the same time.</p>
+
+      <p>I didn't notice the pattern until I filled out my own application. Every one of them had been backed early by the same fund — <strong>Founders, Inc.</strong> Their tagline is four words: <em>the people we back before anyone else.</em></p>
+
+      <blockquote>I grew up in Tashkent assuming that list was for other people.</blockquote>
+
+      <h2>How I actually got in</h2>
+      <p>[Your real story — the defex pitch, the twin angle with Hasan, what you sent them, the moment you found out. Keep it specific and a little raw; this is the part people screenshot.]</p>
+
+      <h2>What it means</h2>
+      <p>[The honest reflection — f.inc backs people, it doesn't crown them; the work still has to ship. Tie it to BuildCored / Orcas: you're trying to be that backer for builders in Uzbekistan now.]</p>
+
+      <p class="signoff">— still building. come back when defex ships.</p>
+    </div>
+
+  </div>
+</body>
+</html>
