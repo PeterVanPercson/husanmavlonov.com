@@ -44,23 +44,19 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="shortcut icon" href="/favicon.ico" />
-  <!-- Self-hosted fonts: preload the 3 above-the-fold faces, inline @font-face below. font-display:optional = no flash/swap. -->
-  <link rel="preload" href="/fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Self-hosted fonts: preload both above-the-fold faces, inline @font-face below. font-display:optional = no flash/swap. -->
+  <link rel="preload" href="/fonts/ebgaramond-sc.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/jetbrainsmono-400.woff2" as="font" type="font/woff2" crossorigin>
   <!-- SF backdrop: preload only the one variant this viewport will actually paint -->
   <link rel="preload" as="image" type="image/webp" href="/sky/wallpaper.webp">
   <style>
     /* real faces (font-display:optional = paints real font at first paint or never swaps mid-view) */
-    @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/inter-400.woff2) format('woff2')}
-    @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:optional;src:url(/fonts/inter-500.woff2) format('woff2')}
-    @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:optional;src:url(/fonts/jetbrainsmono-400.woff2) format('woff2')}
+    /* EB Garamond, built from the upstream variable font (wght 400-500, latin) so smcp/c2sc survive; Google's CSS subset drops them and small caps get faked */
+    @font-face{font-family:'EB Garamond';font-style:normal;font-weight:400 500;font-display:optional;src:url(/fonts/ebgaramond-sc.woff2) format('woff2')}
     /* metric-matched fallbacks (computed from font x-height tables) — fallback occupies identical space, so a slow-load fallback paint causes NO reflow/"pop" between navigations */
     @font-face{font-family:'Newsreader';font-style:normal;font-weight:400 500;font-display:optional;src:url(/fonts/newsreader-latin.woff2) format('woff2')}
     @font-face{font-family:'Serif Fallback';src:local('Iowan Old Style'),local('Georgia');size-adjust:94%;ascent-override:98%;descent-override:26%;line-gap-override:0%}
-    @font-face{font-family:'Sans Fallback';src:local('Arial'),local('Helvetica Neue');size-adjust:105%;ascent-override:97%;descent-override:24%;line-gap-override:0%}
-    @font-face{font-family:'Mono Fallback';src:local('Menlo'),local('Consolas');size-adjust:110%;ascent-override:102%;descent-override:30%;line-gap-override:0%}
+    @font-face{font-family:'Garamond Fallback';src:local('Georgia');size-adjust:83%;ascent-override:121%;descent-override:36%;line-gap-override:0%}
   </style>
   <script type="application/ld+json">
 {
@@ -274,8 +270,7 @@
       --dim: #908b83;
       --dimmer: #3a3835;
       --accent: #a8aeb4;
-      --mono: 'JetBrains Mono', 'Mono Fallback', ui-monospace, SFMono-Regular, Menlo, monospace;
-      --sans: 'Inter', 'Sans Fallback', system-ui, -apple-system, sans-serif;
+      --text: 'EB Garamond', 'Garamond Fallback', Georgia, serif;
       --display: 'Newsreader', 'Serif Fallback', 'Iowan Old Style', Georgia, serif;
     }
 
@@ -284,7 +279,7 @@
       overflow-x: hidden;        /* the wallpaper is fixed; the experience rows scroll over it */
       background: var(--bg);
       color: var(--fg);
-      font-family: var(--sans);
+      font-family: var(--text);
       min-height: 100vh;
       min-height: 100dvh;
       -webkit-font-smoothing: antialiased;
@@ -321,8 +316,9 @@
     }
 
     .meta-line {
-      font-family: var(--mono);
-      font-size: 13px;
+      font-variant-caps: all-small-caps;
+      letter-spacing: 0.04em;
+      font-size: 17px;
       color: var(--dim);
       line-height: 1.6;
       display: flex;
@@ -347,8 +343,9 @@
 
     .socials {
       margin-top: 12px;
-      font-family: var(--mono);
-      font-size: 13px;
+      font-variant-caps: all-small-caps;
+      letter-spacing: 0.04em;
+      font-size: 17px;
       line-height: 1.6;
       display: flex;
       flex-wrap: wrap;
@@ -371,8 +368,9 @@
       margin-top: 30px;
     }
     .section-label {
-      font-family: var(--mono);
-      font-size: 13px;
+      font-variant-caps: all-small-caps;
+      letter-spacing: 0.04em;
+      font-size: 17px;
       font-weight: 400;
       line-height: 1.6;
       color: var(--dimmer);
@@ -388,27 +386,28 @@
     .xp-logo {
       width: 44px; height: 44px;
       margin-top: 2px;
-      border-radius: 10px;
+      border-radius: 0;
       overflow: hidden;
       background: #fff;
       transition: transform 0.2s ease;
     }
     .xp-logo img { display: block; width: 100%; height: 100%; }
     a.xp-logo:hover { transform: translateY(-2px); }
-    .xp-name { font-size: 16px; font-weight: 500; line-height: 1.4; color: var(--fg); }
+    .xp-name { font-size: 20px; font-weight: 500; line-height: 1.3; color: var(--fg); }
     .xp-name a { transition: color 0.2s ease; }
     .xp-name a:hover { color: var(--accent); }
-    .xp-when { font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--dimmer); }
+    .xp-when { font-variant-caps: all-small-caps; letter-spacing: 0.04em; font-size: 16px; line-height: 1.5; color: var(--dimmer); }
     .xp-when span { white-space: nowrap; }   /* role and dates each wrap as a unit */
-    .xp-what { margin-top: 3px; font-size: 14.5px; line-height: 1.5; color: var(--dim); }
+    .xp-what { margin-top: 2px; font-size: 17.5px; line-height: 1.45; color: var(--dim); }
     /* first four rows show; the rest open from the button under the list */
     .xp-list.is-collapsed .xp-row:nth-child(n+5) { display: none; }
     .xp-more[hidden] { display: none; }
     .xp-more {
       margin-top: 22px;
       font: inherit;
-      font-family: var(--mono);
-      font-size: 13px;
+      font-variant-caps: all-small-caps;
+      letter-spacing: 0.04em;
+      font-size: 17px;
       line-height: 1.6;
       color: var(--fg);
       /* a small square of the painting's own sky blue, so the word lifts off the city */
@@ -429,8 +428,8 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      font-size: 16px;
-      line-height: 1.5;
+      font-size: 19px;
+      line-height: 1.45;
       color: var(--dim);
     }
     .iv-list li::marker { color: var(--dimmer); }
@@ -441,7 +440,7 @@
       transition: color 0.2s ease;
     }
     .iv-list a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-    .iv-list .iv-also { font-family: var(--mono); font-size: 12px; color: var(--dimmer); }
+    .iv-list .iv-also { font-variant-caps: all-small-caps; letter-spacing: 0.04em; font-size: 17px; color: var(--dimmer); }
     .iv-list .iv-also a { color: var(--dimmer); border-bottom-color: var(--line); }
 
     /* telegram request — a small transparent panel over the wallpaper.
@@ -476,8 +475,9 @@
       background: rgba(18, 26, 14, 0.42);
       -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
-      font-family: var(--mono);
-      font-size: 12.5px;
+      font-variant-caps: all-small-caps;
+      letter-spacing: 0.04em;
+      font-size: 16.5px;
       color: var(--fg);
       display: flex;
       flex-direction: column;
@@ -516,6 +516,7 @@
       border-radius: 0;
       width: 100%;
     }
+    .tg-card input:not(.hp) { font-variant-caps: normal; letter-spacing: 0; }
     .tg-card input::placeholder { color: var(--dimmer); }
     .tg-card input:focus { outline: none; border-bottom-color: var(--fg); }
     .tg-send {
@@ -548,11 +549,14 @@
       .page { margin: 10vh auto 30px; padding: 26px 20px 24px; border-radius: 14px; }
       .xp { margin-top: 24px; }
       .iv { margin-top: 24px; padding-bottom: 32px; }
-      .iv-list { font-size: 15px; }
+      .iv-list { font-size: 18px; }
       .xp-list { gap: 22px; }
       .xp-row { grid-template-columns: 40px 1fr; gap: 0 14px; }
-      .xp-logo { width: 40px; height: 40px; border-radius: 9px; }
-      .xp-what { font-size: 14px; }
+      .xp-logo { width: 40px; height: 40px; }
+      .xp-what { font-size: 17px; }
+      /* small caps run wide; at 17px the meta and socials rows each broke onto two lines */
+      .meta-line, .socials, .section-label { font-size: 15px; letter-spacing: 0.03em; }
+      .xp-when { font-size: 14.5px; letter-spacing: 0.03em; }
     }
     @media (prefers-reduced-motion: reduce) {
       html, body, h1, .meta-line a.powell, .socials a, .xp-logo, .xp-name a, .xp-more, .iv-list a { transition: none; }
