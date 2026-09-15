@@ -10,7 +10,7 @@
   <meta name="theme-color" content="#3d7cb4" />
   <meta name="color-scheme" content="dark light" />
   <meta name="author" content="Husan Mavlonov" />
-  <meta name="keywords" content="Husan Mavlonov, Хусан Мавлонов, Xusan Mavlonov, defex, BuildCored, Uzbekistan founder, Tashkent builder, edge AI, computer vision, NVIDIA Jetson, defect inspection, F.Inc Fellow, Silkroad Fellow, Z Fellows, San Francisco founder, UM-SJTU" />
+  <meta name="keywords" content="Husan Mavlonov, Хусан Мавлонов, Xusan Mavlonov, defex, BuildCored, Uzbekistan founder, Tashkent builder, self-teaching robots, robotic assembly, edge AI, computer vision, NVIDIA Jetson, F.Inc Fellow, Silkroad Fellow, Z Fellows, San Francisco founder, UM-SJTU" />
   <meta property="og:title" content="Husan Mavlonov" />
   <meta property="og:description" content="Husan Mavlonov — builder, founder of defex and BuildCored. At powell.st, San Francisco. Building self-teaching robots." />
   <meta property="og:site_name" content="Husan Mavlonov" />
@@ -111,7 +111,7 @@
       "knowsAbout": [
         "Edge AI",
         "Computer vision",
-        "Defect inspection",
+        "Self-teaching robots",
         "NVIDIA Jetson",
         "Hardware engineering",
         "Battery manufacturing",
@@ -183,7 +183,7 @@
       "@id": "https://defex.app/#org",
       "name": "defex",
       "url": "https://defex.app/",
-      "description": "AI defect inspection on NVIDIA Jetson for foreign-invested SMEs in the Yangtze River Delta. Sub-50ms decision latency, on-prem only.",
+      "description": "Defex builds self-teaching assembly robots for manufacturing. The robot practices an assembly, a physical test scores the joint it just made, and a reset prepares the next attempt. First workstation: connector assembly.",
       "foundingDate": "2026",
       "founder": [
         {
@@ -318,7 +318,7 @@
     .meta-line {
       font-variant-caps: all-small-caps;
       letter-spacing: 0.04em;
-      font-size: 17px;
+      font-size: 15px;
       color: var(--dim);
       line-height: 1.6;
       display: flex;
@@ -345,7 +345,7 @@
       margin-top: 12px;
       font-variant-caps: all-small-caps;
       letter-spacing: 0.04em;
-      font-size: 17px;
+      font-size: 15px;
       line-height: 1.6;
       display: flex;
       flex-wrap: wrap;
@@ -370,7 +370,7 @@
     .section-label {
       font-variant-caps: all-small-caps;
       letter-spacing: 0.04em;
-      font-size: 17px;
+      font-size: 15px;
       font-weight: 400;
       line-height: 1.6;
       color: var(--dimmer);
@@ -393,12 +393,12 @@
     }
     .xp-logo img { display: block; width: 100%; height: 100%; }
     a.xp-logo:hover { transform: translateY(-2px); }
-    .xp-name { font-size: 20px; font-weight: 500; line-height: 1.3; color: var(--fg); }
+    .xp-name { font-size: 18px; font-weight: 500; line-height: 1.3; color: var(--fg); }
     .xp-name a { transition: color 0.2s ease; }
     .xp-name a:hover { color: var(--accent); }
-    .xp-when { font-variant-caps: all-small-caps; letter-spacing: 0.04em; font-size: 16px; line-height: 1.5; color: var(--dimmer); }
+    .xp-when { font-variant-caps: all-small-caps; letter-spacing: 0.04em; font-size: 14.5px; line-height: 1.5; color: var(--dimmer); }
     .xp-when span { white-space: nowrap; }   /* role and dates each wrap as a unit */
-    .xp-what { margin-top: 2px; font-size: 17.5px; line-height: 1.45; color: var(--dim); }
+    .xp-what { margin-top: 2px; font-size: 16px; line-height: 1.45; color: var(--dim); }
     /* first four rows show; the rest open from the button under the list */
     .xp-list.is-collapsed .xp-row:nth-child(n+5) { display: none; }
     .xp-more[hidden] { display: none; }
@@ -407,7 +407,7 @@
       font: inherit;
       font-variant-caps: all-small-caps;
       letter-spacing: 0.04em;
-      font-size: 17px;
+      font-size: 15px;
       line-height: 1.6;
       color: var(--fg);
       /* a small square of the painting's own sky blue, so the word lifts off the city */
@@ -428,7 +428,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      font-size: 19px;
+      font-size: 17px;
       line-height: 1.45;
       color: var(--dim);
     }
@@ -440,7 +440,7 @@
       transition: color 0.2s ease;
     }
     .iv-list a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-    .iv-list .iv-also { font-variant-caps: all-small-caps; letter-spacing: 0.04em; font-size: 17px; color: var(--dimmer); }
+    .iv-list .iv-also { font-variant-caps: all-small-caps; letter-spacing: 0.04em; font-size: 15px; color: var(--dimmer); }
     .iv-list .iv-also a { color: var(--dimmer); border-bottom-color: var(--line); }
 
     /* telegram request — a small transparent panel over the wallpaper.
@@ -477,7 +477,7 @@
       backdrop-filter: blur(10px);
       font-variant-caps: all-small-caps;
       letter-spacing: 0.04em;
-      font-size: 16.5px;
+      font-size: 15px;
       color: var(--fg);
       display: flex;
       flex-direction: column;
@@ -539,6 +539,31 @@
     .tg-x:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 
+    /* ===== origin fill: every link is an invisible button until the pointer arrives.
+       White grows from the exact point the cursor came in and drains back out
+       through the point where it leaves (ported from the OriginButton component).
+       The fill box bleeds past the text, so nothing in the layout moves. */
+    .ob { position: relative; isolation: isolate; -webkit-tap-highlight-color: transparent; }
+    .ob-fill { position: absolute; inset: -3px -7px -2px; z-index: -1; overflow: hidden; pointer-events: none; }
+    .ob-disc {
+      position: absolute;
+      left: 0; top: 0; width: 0; height: 0;
+      border-radius: 50%;
+      background: #fdfcf8;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .ob.is-lit .ob-disc { transform: translate(-50%, -50%) scale(1); }
+    .ob.is-lit, .ob.is-lit * { color: #0a1f3c !important; text-shadow: none !important; }
+    a.ob.ob, button.ob.ob { transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, transform 0.15s ease; }
+    .ob.is-pressed { transform: scale(0.985); }
+    /* a row with a link is one card: the white logo tiles melt into the fill */
+    .xp-row.ob { cursor: pointer; transition: transform 0.15s ease; }
+    .xp-row.ob .ob-fill { inset: -12px -16px; }
+    .xp-row.ob .xp-name a, .xp-row.ob .xp-when, .xp-row.ob .xp-what { transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+    .xp-row.ob.is-lit .xp-when, .xp-row.ob.is-lit .xp-what { color: #4b5b70 !important; }
+    .xp-more .ob-fill { inset: 0; }
+
     a:focus-visible, .socials a:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 3px;
@@ -549,17 +574,19 @@
       .page { margin: 10vh auto 30px; padding: 26px 20px 24px; border-radius: 14px; }
       .xp { margin-top: 24px; }
       .iv { margin-top: 24px; padding-bottom: 32px; }
-      .iv-list { font-size: 18px; }
+      .iv-list { font-size: 16px; }
       .xp-list { gap: 22px; }
       .xp-row { grid-template-columns: 40px 1fr; gap: 0 14px; }
       .xp-logo { width: 40px; height: 40px; }
-      .xp-what { font-size: 17px; }
+      .xp-what { font-size: 15.5px; }
       /* small caps run wide; at 17px the meta and socials rows each broke onto two lines */
-      .meta-line, .socials, .section-label { font-size: 15px; letter-spacing: 0.03em; }
-      .xp-when { font-size: 14.5px; letter-spacing: 0.03em; }
+      .meta-line, .socials, .section-label { font-size: 14px; letter-spacing: 0.03em; }
+      .xp-when { font-size: 13.5px; letter-spacing: 0.03em; }
     }
     @media (prefers-reduced-motion: reduce) {
       html, body, h1, .meta-line a.powell, .socials a, .xp-logo, .xp-name a, .xp-more, .iv-list a { transition: none; }
+      .ob-disc { transition: none; }
+      .ob.is-pressed { transform: none; }
     }
   </style>
   <!-- shared backdrop + ink tokens; loaded LAST so it wins over the inline styles -->
@@ -706,7 +733,7 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
           </div>
         </li>
       </ul>
-      <button class="xp-more" id="xpMore" type="button" aria-expanded="false" aria-controls="xpList" hidden></button>
+      <button class="xp-more" id="xpMore" type="button" aria-expanded="false" aria-controls="xpList" hidden><span class="xp-more__t"></span></button>
       <script>/* collapse before first paint; without JS every row simply shows */
       (function () {
         var list = document.getElementById('xpList');
@@ -716,7 +743,7 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
         function set(open) {
           list.classList.toggle('is-collapsed', !open);
           btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-          btn.textContent = open ? 'collapse' : 'expand';
+          btn.querySelector('.xp-more__t').textContent = open ? 'collapse' : 'expand';
         }
         set(false);
         btn.hidden = false;
@@ -825,6 +852,64 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
           }
         })
         .catch(function () { mailFallback(name, email); });
+    });
+  })();
+  </script>
+
+  <script>/* ORIGIN FILL — see the .ob rules */
+  (function () {
+    var targets = [];
+    document.querySelectorAll('.xp-row').forEach(function (row) {
+      var link = row.querySelector('.xp-name a');
+      if (!link) return;
+      row.classList.add('ob');
+      row.addEventListener('click', function (e) { if (!e.target.closest('a, button')) link.click(); });
+      targets.push(row);
+    });
+    document.querySelectorAll('.meta-line a, .socials a, .iv-list a, .xp-more').forEach(function (el) {
+      el.classList.add('ob');
+      targets.push(el);
+    });
+
+    function cover(w, h, x, y) {
+      return Math.ceil(2 * Math.max(Math.hypot(x, y), Math.hypot(w - x, y), Math.hypot(x, h - y), Math.hypot(w - x, h - y)));
+    }
+
+    targets.forEach(function (el) {
+      var box = document.createElement('span');
+      var disc = document.createElement('span');
+      box.className = 'ob-fill';
+      box.setAttribute('aria-hidden', 'true');
+      disc.className = 'ob-disc';
+      box.appendChild(disc);
+      el.insertBefore(box, el.firstChild);
+
+      function place(cx, cy) {
+        var r = box.getBoundingClientRect();
+        var x = cx == null ? r.width / 2 : Math.min(Math.max(cx - r.left, 0), r.width);
+        var y = cy == null ? r.height / 2 : Math.min(Math.max(cy - r.top, 0), r.height);
+        var d = cover(r.width, r.height, x, y);
+        disc.style.left = x + 'px';
+        disc.style.top = y + 'px';
+        disc.style.width = disc.style.height = d + 'px';
+      }
+      function light(cx, cy) { place(cx, cy); el.classList.add('is-lit'); }
+      function drain(cx, cy) { if (cx != null) place(cx, cy); el.classList.remove('is-lit', 'is-pressed'); }
+
+      el.addEventListener('pointerenter', function (e) { if (e.pointerType !== 'touch') light(e.clientX, e.clientY); });
+      el.addEventListener('pointerleave', function (e) { drain(e.clientX, e.clientY); });
+      el.addEventListener('pointerdown', function (e) {
+        if (e.button !== 0) return;
+        light(e.clientX, e.clientY);
+        el.classList.add('is-pressed');
+      });
+      el.addEventListener('pointerup', function (e) {
+        el.classList.remove('is-pressed');
+        if (e.pointerType === 'touch') setTimeout(function () { drain(); }, 420);
+      });
+      el.addEventListener('pointercancel', function () { drain(); });
+      el.addEventListener('focusin', function (e) { if (e.target.matches(':focus-visible')) light(); });
+      el.addEventListener('focusout', function () { drain(); });
     });
   })();
   </script>
