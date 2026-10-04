@@ -350,8 +350,8 @@
     .socials a:hover { color: var(--fg); }
     /* the telegram caveat rides along at the same size, one step quieter */
     .socials .note { opacity: 0.72; }
-    /* the name keeps its capitals; everything else stays lowercase */
-    main.page > h1 { text-transform: none !important; }
+    /* the name's first letter is a capital cut down to lowercase height */
+    main.page > h1 .h-cap { text-transform: none !important; font-size: 0.7em; }
     .xp-logo--mono { display: grid; place-items: center; background: #fdfcf8; color: #0a1f3c; text-shadow: none; font-size: 13px; letter-spacing: 0.02em; border-radius: 6px; }
 
 
@@ -621,7 +621,7 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
 
   <main class="page glass" id="top">
 
-    <h1>Husan Mavlonov</h1>
+    <h1><span class="h-cap">H</span>usan Mavlonov</h1>
 
     <p class="meta-line role-line">
       <span>ceo @ <a class="powell" href="https://defexrobotics.com/" target="_blank" rel="noopener">defex robotics</a></span>
