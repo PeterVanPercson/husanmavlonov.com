@@ -346,6 +346,7 @@
     .socials a:hover { color: var(--fg); }
     /* the telegram caveat rides along at the same size, one step quieter */
     .socials .note { opacity: 0.72; }
+    @media (max-width: 700px) { .socials .tg-sep { display: none; } #tgRequest { flex-basis: 100%; } }
 
     /* ===== experience: logo on the left, company, role and dates, one line ===== */
     .xp {
@@ -634,6 +635,7 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
       <a href="https://www.instagram.com/mavhusan/" target="_blank" rel="me noopener">instagram</a>
       <span class="sep" aria-hidden="true">·</span>
       <a href="https://x.com/MavlonovHusan" target="_blank" rel="me noopener">x</a>
+      <span class="sep tg-sep" aria-hidden="true">·</span>
       <a id="tgRequest" href="#tg-request" aria-expanded="false" aria-controls="tgForm">telegram channel <span class="note">(request to join 1500+ engineers)</span></a>
     </nav>
 
