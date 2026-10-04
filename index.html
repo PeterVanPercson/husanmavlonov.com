@@ -579,6 +579,10 @@
       .ob-disc { transition: none; }
       .ob.is-pressed { transform: none; }
     }
+
+    /* all lowercase, no small caps; typed input keeps its case */
+    body, body * { text-transform: lowercase !important; font-variant-caps: normal !important; }
+    input, textarea { text-transform: none !important; }
   </style>
   <!-- shared backdrop + ink tokens; loaded LAST so it wins over the inline styles -->
   <link rel="stylesheet" href="/glass.css?v=11">
