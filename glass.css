@@ -55,9 +55,6 @@ body.bg-ready .bg-pan img { opacity: 1; }
 html.bg-instant .bg-plate,
 html.bg-instant .bg-pan img { opacity: 1; transition: none; }
 
-  .cp-3 { display: none; }
-}
-
 /* Just enough navy vignette to seat the type and stop the edges glaring */
 .bg-scrim {
   background:
@@ -200,6 +197,7 @@ html.bg-instant .bg-pan img { opacity: 1; transition: none; }
     rgba(10, 35, 66, 0) 100%);
   filter: blur(24px);
 }
+@media (max-width: 700px) { .page.glass::before { inset: -24px 0; } }
 .glass { --dimmer: #dbe5f2; }
 
 /* the whole site reads in lowercase; typed input keeps its case */
