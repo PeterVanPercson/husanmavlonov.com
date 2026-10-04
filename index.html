@@ -311,6 +311,8 @@
       margin-top: -2px;
     }
     .meta-line > span { white-space: nowrap; }
+    .role-line { color: var(--fg); margin-top: -6px; }
+    @media (max-width: 560px) { .role-line .sep { display: none; } }
     .sep { color: var(--dimmer); }
 
     /* Powell.st — the one link in the meta line, so it needs to read as one.
@@ -611,6 +613,12 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
   <main class="page glass" id="top">
 
     <h1>Husan Mavlonov</h1>
+
+    <p class="meta-line role-line">
+      <span>ceo @ <a class="powell" href="https://defexrobotics.com/" target="_blank" rel="noopener">defex robotics</a></span>
+      <span class="sep" aria-hidden="true">|</span>
+      <span>ex-researcher at umich and shanghai jiao tong</span>
+    </p>
 
     <p class="meta-line">
       <span>at <a class="powell" href="https://powell.st" target="_blank" rel="noopener">powell.st</a>, san francisco</span>
