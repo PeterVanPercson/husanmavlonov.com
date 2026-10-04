@@ -183,3 +183,25 @@ html.bg-instant .bg-pan img { opacity: 1; transition: none; }
   border: 1px solid rgba(255, 255, 255, 0.20);
   box-shadow: 0 34px 80px -38px rgba(3, 16, 34, 0.80);
 }
+
+/* ---- readability ----
+   Small light type was dissolving into the painted clouds and the city. A
+   feathered navy shade behind the text column carries it without boxing it in. */
+.page.glass::before {
+  content: "";
+  position: absolute;
+  inset: -36px -64px;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 48px;
+  background: radial-gradient(ellipse 70% 60% at 42% 45%,
+    rgba(10, 35, 66, 0.40) 0%,
+    rgba(10, 35, 66, 0.26) 55%,
+    rgba(10, 35, 66, 0) 100%);
+  filter: blur(24px);
+}
+.glass { --dimmer: #dbe5f2; }
+
+/* the whole site reads in lowercase; typed input keeps its case */
+body, body * { text-transform: lowercase !important; font-variant-caps: normal !important; }
+input, textarea { text-transform: none !important; }

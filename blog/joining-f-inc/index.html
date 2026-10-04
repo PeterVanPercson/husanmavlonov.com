@@ -116,6 +116,10 @@
       .row { grid-template-columns: repeat(3, 1fr); gap: 10px; }
       .person:nth-child(4) { grid-column: 1; }
     }
+
+    /* all lowercase, no small caps; typed input keeps its case */
+    body, body * { text-transform: lowercase !important; font-variant-caps: normal !important; }
+    input, textarea { text-transform: none !important; }
   </style>
 </head>
 <body>
