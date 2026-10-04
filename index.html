@@ -311,8 +311,8 @@
       margin-top: -2px;
     }
     .meta-line > span { white-space: nowrap; }
-    .role-line { color: var(--fg); margin-top: -6px; }
-    @media (max-width: 560px) { .role-line .sep { display: none; } }
+    .role-line { color: var(--fg); margin-top: -6px; font-variant-caps: normal; font-size: 15.5px; letter-spacing: 0.01em; }
+    @media (max-width: 560px) { .role-line { font-size: 14.5px; flex-direction: column; gap: 2px; } .role-line .sep { display: none; } }
     .sep { color: var(--dimmer); }
 
     /* Powell.st — the one link in the meta line, so it needs to read as one.
@@ -618,12 +618,6 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
       <span>ceo @ <a class="powell" href="https://defexrobotics.com/" target="_blank" rel="noopener">defex robotics</a></span>
       <span class="sep" aria-hidden="true">|</span>
       <span>ex-researcher at umich and shanghai jiao tong</span>
-    </p>
-
-    <p class="meta-line">
-      <span>at <a class="powell" href="https://powell.st" target="_blank" rel="noopener">powell.st</a>, san francisco</span>
-      <span class="sep" aria-hidden="true">·</span>
-      <span>building self-teaching robots</span>
     </p>
 
     <nav class="socials" aria-label="Elsewhere">
