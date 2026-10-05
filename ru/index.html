@@ -10,7 +10,7 @@
   <link rel="alternate" hreflang="ru" href="https://husanmavlonov.com/ru/" />
   <link rel="alternate" hreflang="x-default" href="https://husanmavlonov.com/" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
-  <meta name="theme-color" content="#3d7cb4" />
+  <meta name="theme-color" content="#ffffff" />
   <meta name="color-scheme" content="dark light" />
   <meta name="author" content="Хусан Мавлонов" />
   <meta property="og:title" content="Хусан Мавлонов" />
@@ -42,7 +42,6 @@
   <link rel="preload" href="/fonts/ebgaramond-sc.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
   <!-- SF backdrop: preload only the one variant this viewport will actually paint -->
-  <link rel="preload" as="image" type="image/webp" href="/sky/wallpaper.webp">
   <style>
     /* real faces (font-display:optional = paints real font at first paint or never swaps mid-view) */
     /* EB Garamond, built from the upstream variable font (wght 400-500, latin) so smcp/c2sc survive; Google's CSS subset drops them and small caps get faked */
@@ -440,7 +439,7 @@
 
   </style>
   <!-- shared backdrop + ink tokens; loaded LAST so it wins over the inline styles -->
-  <link rel="stylesheet" href="/glass.css?v=14">
+  <link rel="stylesheet" href="/glass.css?v=15">
 </head>
 <body>
 <script>/* pre-paint: apply saved theme + skip the backdrop fade after the first load,
@@ -453,7 +452,7 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
 
   <!-- backdrop — decorative only, hence no alt text anywhere near it -->
   <div class="bg-plate" aria-hidden="true"></div>
-  <div class="bg-pan" aria-hidden="true"><img src="/sky/wallpaper.webp" alt="" width="1672" height="941" decoding="sync"></div>
+  
   <div class="bg-scrim" aria-hidden="true"></div>
   <script>/* SKY BACKDROP — reveal on load. The plate is a pure gradient, so the probe
      resolves immediately; without this the plate and the drifters stay at opacity 0. */

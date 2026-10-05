@@ -5,13 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>404 — Husan Mavlonov</title>
   <meta name="robots" content="noindex" />
-  <meta name="theme-color" content="#3d7cb4" />
+  <meta name="theme-color" content="#ffffff" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="shortcut icon" href="/favicon.ico" />
-  <link rel="preload" as="image" type="image/webp" href="/sky/wallpaper.webp">
   <link rel="preload" href="/fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -88,7 +87,7 @@
     a.home:hover { color: var(--fg); }
   </style>
   <!-- shared SF backdrop + glass material; loaded LAST so it wins over the inline styles -->
-  <link rel="stylesheet" href="/glass.css?v=14">
+  <link rel="stylesheet" href="/glass.css?v=15">
 </head>
 <body>
 <script>/* pre-paint: apply saved theme + skip the backdrop fade after the first load,
@@ -96,7 +95,7 @@
 try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('bg-instant');else sessionStorage.setItem('hm-bg','1')}catch(e){}</script>
   <!-- shared SF backdrop — decorative; identical markup on every page -->
   <div class="bg-plate" aria-hidden="true"></div>
-  <div class="bg-pan" aria-hidden="true"><img src="/sky/wallpaper.webp" alt="" width="1672" height="941" decoding="sync"></div>
+  
   <div class="bg-scrim" aria-hidden="true"></div>
   <main>
     <div class="n4-card glass">
@@ -116,7 +115,7 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
       if (light) {
         document.body.classList.add('light');
         var meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.setAttribute('content', '#a8aeb4');
+        if (meta) meta.setAttribute('content', '#ffffff');
       }
     })();
 
