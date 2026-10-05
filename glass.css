@@ -203,3 +203,24 @@ html.bg-instant .bg-pan img { opacity: 1; transition: none; }
 /* the whole site reads in lowercase; typed input keeps its case */
 body, body * { text-transform: lowercase !important; font-variant-caps: normal !important; }
 input, textarea { text-transform: none !important; }
+
+/* underline links: every text link is plain white; a 1px line draws in from the
+   left on hover/focus and leaves to the right, following the text across breaks */
+main a:not(.xp-logo), .tg-card a {
+  color: var(--fg) !important;
+  border-bottom: 0 !important;
+  padding-bottom: 1px;
+  background: linear-gradient(currentColor, currentColor) 100% 100% / 0% 1px no-repeat;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size 0.3s ease-out !important;
+}
+main a:not(.xp-logo):hover, main a:not(.xp-logo):focus-visible,
+.xp-row.ul-row:hover .xp-name a, .pr-row.ul-row:hover .pr-name a {
+  background-size: 100% 1px;
+  background-position: 0% 100%;
+}
+.xp-row.ul-row, .pr-row.ul-row { cursor: pointer; }
+@media (prefers-reduced-motion: reduce) {
+  main a:not(.xp-logo), .tg-card a { transition: none !important; }
+}

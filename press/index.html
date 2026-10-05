@@ -197,7 +197,7 @@
       .ob.is-pressed { transform: none; }
     }
   </style>
-  <link rel="stylesheet" href="/glass.css?v=13">
+  <link rel="stylesheet" href="/glass.css?v=14">
 </head>
 <body>
 <script>try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('bg-instant');else sessionStorage.setItem('hm-bg','1')}catch(e){}</script>
@@ -249,13 +249,8 @@
     document.querySelectorAll('.pr-row').forEach(function (row) {
       var link = row.querySelector('.pr-name a');
       if (!link) return;
-      row.classList.add('ob');
+      row.classList.add('ul-row');
       row.addEventListener('click', function (e) { if (!e.target.closest('a')) link.click(); });
-      targets.push(row);
-    });
-    document.querySelectorAll('.pr-also a, .back a').forEach(function (el) {
-      el.classList.add('ob');
-      targets.push(el);
     });
 
     function cover(w, h, x, y) {
