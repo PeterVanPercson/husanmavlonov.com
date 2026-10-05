@@ -531,6 +531,20 @@
     .tg-send:focus-visible,
     .tg-x:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
+    /* smooth caret: the native one is hidden and a 1.5px bar springs to the new spot */
+    .si { position: relative; display: block; }
+    .si input { caret-color: transparent; }
+    .si-caret {
+      position: absolute; left: 0; top: 50%;
+      width: 1.5px; height: 1.05em; margin-top: -0.55em;
+      background: var(--fg); border-radius: 1px;
+      pointer-events: none; opacity: 0; will-change: transform;
+    }
+    .si-caret.on { opacity: 1; animation: si-blink 1.06s steps(1) 0.5s infinite; }
+    .si-caret.moving { animation: none; }
+    @keyframes si-blink { 50% { opacity: 0; } }
+    .si-measure { position: absolute; visibility: hidden; white-space: pre; left: 0; top: 0; pointer-events: none; }
+
 
     /* ===== origin fill: every link is an invisible button until the pointer arrives.
        White grows from the exact point the cursor came in and drains back out
@@ -787,13 +801,95 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
       <p class="tg-title" id="tgTitle">telegram channel</p>
       <form id="tgForm" novalidate>
         <input id="tgName" name="name" type="text" placeholder="name" autocomplete="name" maxlength="80" required>
-        <input id="tgEmail" name="email" type="email" placeholder="email" autocomplete="email" maxlength="120" required>
+        <input id="tgEmail" name="email" type="text" inputmode="email" autocapitalize="off" spellcheck="false" placeholder="email" autocomplete="email" maxlength="120" required>
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button class="tg-send" type="submit">request</button>
         <p class="tg-msg" id="tgMsg" role="status" aria-live="polite"></p>
       </form>
     </div>
   </div>
+
+  <script>
+  /* SMOOTH INPUT — vanilla port of skiper106: hide the native caret, measure the
+     text before the caret with a hidden span, spring a drawn bar to that x. */
+  (function () {
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var K = 500, C = 30, M = 0.5;
+
+    document.querySelectorAll('.tg-card input:not(.hp)').forEach(function (input) {
+      var wrap = document.createElement('span');
+      wrap.className = 'si';
+      input.parentNode.insertBefore(wrap, input);
+      wrap.appendChild(input);
+      var caret = document.createElement('span');
+      caret.className = 'si-caret';
+      caret.setAttribute('aria-hidden', 'true');
+      var meas = document.createElement('span');
+      meas.className = 'si-measure';
+      meas.setAttribute('aria-hidden', 'true');
+      wrap.appendChild(caret);
+      wrap.appendChild(meas);
+
+      var x = 0, v = 0, target = 0, raf = 0, last = 0, placed = false;
+
+      function step(t) {
+        var dt = Math.min((t - last) / 1000, 1 / 30);
+        last = t;
+        v += ((-K * (x - target) - C * v) / M) * dt;
+        x += v * dt;
+        if (Math.abs(x - target) < 0.05 && Math.abs(v) < 0.5) {
+          x = target; v = 0; raf = 0;
+          caret.classList.remove('moving');
+        } else {
+          raf = requestAnimationFrame(step);
+        }
+        caret.style.transform = 'translateX(' + x + 'px)';
+      }
+
+      function prefix(text) {
+        var cs = getComputedStyle(input);
+        meas.style.font = cs.font;
+        meas.style.letterSpacing = cs.letterSpacing;
+        meas.style.fontVariantCaps = cs.fontVariantCaps;
+        meas.textContent = text;
+        return (text ? meas.offsetWidth : 0) + (parseFloat(cs.paddingLeft) || 0);
+      }
+
+      function update() {
+        if (document.activeElement !== input) return;
+        var a = input.selectionStart || 0, b = input.selectionEnd || 0;
+        var i = a === b ? a : (input.selectionDirection === 'backward' ? a : b);
+        var abs = prefix(input.value.slice(0, i));
+        var cs = getComputedStyle(input);
+        var pr = parseFloat(cs.paddingRight) || 0;
+        var right = input.scrollLeft + input.clientWidth - pr;
+        if (abs > right) input.scrollLeft = abs - input.clientWidth + pr;
+        else if (abs < input.scrollLeft) input.scrollLeft = Math.max(0, abs - (parseFloat(cs.paddingLeft) || 0));
+        var pos = Math.min(abs - input.scrollLeft - 0.5, input.clientWidth - pr);
+        caret.classList.toggle('on', a === b);
+        if (!placed || reduce) {
+          placed = true;
+          x = target = pos; v = 0;
+          caret.style.transform = 'translateX(' + x + 'px)';
+          return;
+        }
+        if (pos === target) return;
+        target = pos;
+        caret.classList.add('moving');
+        if (!raf) { last = performance.now(); raf = requestAnimationFrame(step); }
+      }
+
+      function later() { requestAnimationFrame(update); }
+      input.addEventListener('input', later);
+      input.addEventListener('focus', function () { placed = false; later(); });
+      input.addEventListener('scroll', update);
+      input.addEventListener('blur', function () { caret.classList.remove('on', 'moving'); });
+      document.addEventListener('selectionchange', function () { if (document.activeElement === input) later(); });
+      if (document.fonts) document.fonts.ready.then(update);
+      if (input.form) input.form.addEventListener('reset', later);
+    });
+  })();
+  </script>
 
   <script>
   /* TELEGRAM REQUEST — the link opens a small transparent panel; submitting it
