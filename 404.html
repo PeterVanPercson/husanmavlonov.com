@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>404 — Husan Mavlonov</title>
   <meta name="robots" content="noindex" />
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="theme-color" content="#000000" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
@@ -87,7 +87,7 @@
     a.home:hover { color: var(--fg); }
   </style>
   <!-- shared SF backdrop + glass material; loaded LAST so it wins over the inline styles -->
-  <link rel="stylesheet" href="/glass.css?v=15">
+  <link rel="stylesheet" href="/glass.css?v=16">
 </head>
 <body>
 <script>/* pre-paint: apply saved theme + skip the backdrop fade after the first load,
@@ -115,7 +115,7 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
       if (light) {
         document.body.classList.add('light');
         var meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.setAttribute('content', '#ffffff');
+        if (meta) meta.setAttribute('content', '#000000');
       }
     })();
 

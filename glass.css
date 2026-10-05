@@ -225,53 +225,52 @@ main a:not(.xp-logo):hover, main a:not(.xp-logo):focus-visible,
   main a:not(.xp-logo), .tg-card a { transition: none !important; }
 }
 
-/* ===== black & white: plain white page, black ink, no wallpaper ===== */
-html, body, body.light { background: #fff !important; color: #000; }
+/* ===== black & white: plain black page, white ink, no wallpaper ===== */
+html, body, body.light { background: #000 !important; color: #fff; }
 .bg-plate, .bg-pan, .bg-scrim, .page.glass::before { display: none !important; }
 .glass, .st-backdrop, body, body.light {
-  --bg: #fff;
-  --fg: #000;
-  --dim: #3a3a3a;
-  --dimmer: #6b6b6b;
-  --accent: #000;
-  --accent-rgb: 0, 0, 0;
-  --line: rgba(0, 0, 0, 0.18);
-  --line-strong: rgba(0, 0, 0, 0.4);
+  --bg: #000;
+  --fg: #fff;
+  --dim: #c8c8c8;
+  --dimmer: #8a8a8a;
+  --accent: #fff;
+  --accent-rgb: 255, 255, 255;
+  --line: rgba(255, 255, 255, 0.2);
+  --line-strong: rgba(255, 255, 255, 0.45);
 }
 body *, .glass, .glass h1 { text-shadow: none !important; }
 .glass h1, main.page > h1, h1, h1 em {
-  color: #000 !important;
+  color: #fff !important;
   background: none !important;
   -webkit-background-clip: border-box !important;
           background-clip: border-box !important;
 }
-::selection { background: #000; color: #fff; }
+::selection { background: #fff; color: #000; }
 
-/* chips + buttons: black blocks, white type; the hover disc fills white */
-.section-label { background: #000 !important; color: #fff !important; }
-.ob--ink .ob-disc { background: #fff !important; box-shadow: inset 0 0 0 1px #000; }
-.ob.ob--ink.is-lit, .ob.ob--ink.is-lit * { color: #000 !important; }
-.xp-more, .xp-more:hover { background: #000 !important; color: #fff !important; }
-.xp-more .ob-disc { background: #fff !important; }
-.xp-more.is-lit, .xp-more.is-lit * { color: #000 !important; }
-.xp-more.is-lit { box-shadow: inset 0 0 0 1px #000; }
-.xp-logo { box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12); }
+/* chips + buttons: white blocks, black type; the hover disc fills black */
+.section-label { background: #fff !important; color: #000 !important; }
+.ob--ink .ob-disc { background: #000 !important; box-shadow: inset 0 0 0 1px #fff; }
+.ob.ob--ink.is-lit, .ob.ob--ink.is-lit * { color: #fff !important; }
+.xp-more, .xp-more:hover { background: #fff !important; color: #000 !important; }
+.xp-more .ob-disc { background: #000 !important; }
+.xp-more.is-lit, .xp-more.is-lit * { color: #fff !important; }
+.xp-more.is-lit { box-shadow: inset 0 0 0 1px #fff; }
 .xp-logo--mono { background: #fff !important; color: #000 !important; }
 .xp-row.ob.is-lit .xp-when, .xp-row.ob.is-lit .xp-what,
 li.pr-row.ob.is-lit .pr-when, li.pr-row.ob.is-lit .pr-what { color: inherit !important; }
-a:focus-visible, button:focus-visible, input:focus-visible { outline-color: #000 !important; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline-color: #fff !important; }
 
-/* telegram popup: white card, black ink */
-.tg-pop, body.light .tg-pop { background: rgba(0, 0, 0, 0.18) !important; }
+/* telegram popup: black card, white ink */
+.tg-pop, body.light .tg-pop { background: rgba(0, 0, 0, 0.6) !important; }
 .tg-card, body.light .tg-card {
-  --fg: #000; --dim: #3a3a3a; --dimmer: #6b6b6b;
-  background: #fff !important;
-  border: 1px solid #000 !important;
+  --fg: #fff; --dim: #c8c8c8; --dimmer: #8a8a8a;
+  background: #000 !important;
+  border: 1px solid #fff !important;
   -webkit-backdrop-filter: none !important;
           backdrop-filter: none !important;
-  color: #000;
+  color: #fff;
 }
-.tg-card input:not(.hp) { border-bottom-color: rgba(0, 0, 0, 0.3) !important; }
-.tg-card input:focus { border-bottom-color: #000 !important; }
-.tg-send { border-color: rgba(0, 0, 0, 0.4) !important; color: #000 !important; }
-.tg-send:hover { border-color: #000 !important; }
+.tg-card input:not(.hp) { border-bottom-color: rgba(255, 255, 255, 0.35) !important; }
+.tg-card input:focus { border-bottom-color: #fff !important; }
+.tg-send { border-color: rgba(255, 255, 255, 0.45) !important; color: #fff !important; }
+.tg-send:hover { border-color: #fff !important; }
