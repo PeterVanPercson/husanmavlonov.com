@@ -225,52 +225,92 @@ main a:not(.xp-logo):hover, main a:not(.xp-logo):focus-visible,
   main a:not(.xp-logo), .tg-card a { transition: none !important; }
 }
 
-/* ===== black & white: plain black page, white ink, no wallpaper ===== */
-html, body, body.light { background: #000 !important; color: #fff; }
+/* ===== black & white: one ink on one paper, swapped by the corner toggle ===== */
+:root {
+  --paper: #000; --ink: #fff; --ink-2: #c8c8c8; --ink-3: #8a8a8a;
+  --hair: rgba(255, 255, 255, 0.2); --hair-2: rgba(255, 255, 255, 0.45);
+  color-scheme: dark;
+}
+html[data-ink="light"] {
+  --paper: #fff; --ink: #000; --ink-2: #3a3a3a; --ink-3: #6b6b6b;
+  --hair: rgba(0, 0, 0, 0.18); --hair-2: rgba(0, 0, 0, 0.4);
+  color-scheme: light;
+}
+html, body, body.light { background: var(--paper) !important; color: var(--ink); }
 .bg-plate, .bg-pan, .bg-scrim, .page.glass::before { display: none !important; }
 .glass, .st-backdrop, body, body.light {
-  --bg: #000;
-  --fg: #fff;
-  --dim: #c8c8c8;
-  --dimmer: #8a8a8a;
-  --accent: #fff;
-  --accent-rgb: 255, 255, 255;
-  --line: rgba(255, 255, 255, 0.2);
-  --line-strong: rgba(255, 255, 255, 0.45);
+  --bg: var(--paper);
+  --fg: var(--ink);
+  --dim: var(--ink-2);
+  --dimmer: var(--ink-3);
+  --accent: var(--ink);
+  --line: var(--hair);
+  --line-strong: var(--hair-2);
 }
 body *, .glass, .glass h1 { text-shadow: none !important; }
 .glass h1, main.page > h1, h1, h1 em {
-  color: #fff !important;
+  color: var(--ink) !important;
   background: none !important;
   -webkit-background-clip: border-box !important;
           background-clip: border-box !important;
 }
-::selection { background: #fff; color: #000; }
+::selection { background: var(--ink); color: var(--paper); }
 
-/* chips + buttons: white blocks, black type; the hover disc fills black */
-.section-label { background: #fff !important; color: #000 !important; }
-.ob--ink .ob-disc { background: #000 !important; box-shadow: inset 0 0 0 1px #fff; }
-.ob.ob--ink.is-lit, .ob.ob--ink.is-lit * { color: #fff !important; }
-.xp-more, .xp-more:hover { background: #fff !important; color: #000 !important; }
-.xp-more .ob-disc { background: #000 !important; }
-.xp-more.is-lit, .xp-more.is-lit * { color: #fff !important; }
-.xp-more.is-lit { box-shadow: inset 0 0 0 1px #fff; }
+/* chips + buttons: solid ink blocks, paper type; the hover disc fills paper */
+.section-label { background: var(--ink) !important; color: var(--paper) !important; }
+.ob--ink .ob-disc { background: var(--paper) !important; box-shadow: inset 0 0 0 1px var(--ink); }
+.ob.ob--ink.is-lit, .ob.ob--ink.is-lit * { color: var(--ink) !important; }
+.xp-more, .xp-more:hover { background: var(--ink) !important; color: var(--paper) !important; }
+.xp-more .ob-disc { background: var(--paper) !important; }
+.xp-more.is-lit, .xp-more.is-lit * { color: var(--ink) !important; }
+.xp-more.is-lit { box-shadow: inset 0 0 0 1px var(--ink); }
 .xp-logo--mono { background: #fff !important; color: #000 !important; }
+html[data-ink="light"] .xp-logo { box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1); }
 .xp-row.ob.is-lit .xp-when, .xp-row.ob.is-lit .xp-what,
 li.pr-row.ob.is-lit .pr-when, li.pr-row.ob.is-lit .pr-what { color: inherit !important; }
-a:focus-visible, button:focus-visible, input:focus-visible { outline-color: #fff !important; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline-color: var(--ink) !important; }
 
-/* telegram popup: black card, white ink */
-.tg-pop, body.light .tg-pop { background: rgba(0, 0, 0, 0.6) !important; }
+/* telegram popup: paper card, ink type */
+.tg-pop, body.light .tg-pop { background: rgba(0, 0, 0, 0.5) !important; }
+html[data-ink="light"] .tg-pop { background: rgba(0, 0, 0, 0.16) !important; }
 .tg-card, body.light .tg-card {
-  --fg: #fff; --dim: #c8c8c8; --dimmer: #8a8a8a;
-  background: #000 !important;
-  border: 1px solid #fff !important;
+  --fg: var(--ink); --dim: var(--ink-2); --dimmer: var(--ink-3);
+  background: var(--paper) !important;
+  border: 1px solid var(--ink) !important;
   -webkit-backdrop-filter: none !important;
           backdrop-filter: none !important;
-  color: #fff;
+  color: var(--ink);
 }
-.tg-card input:not(.hp) { border-bottom-color: rgba(255, 255, 255, 0.35) !important; }
-.tg-card input:focus { border-bottom-color: #fff !important; }
-.tg-send { border-color: rgba(255, 255, 255, 0.45) !important; color: #fff !important; }
-.tg-send:hover { border-color: #fff !important; }
+.tg-card input:not(.hp) { border-bottom-color: var(--hair-2) !important; }
+.tg-card input:focus { border-bottom-color: var(--ink) !important; }
+.tg-send { border-color: var(--hair-2) !important; color: var(--ink) !important; }
+.tg-send:hover { border-color: var(--ink) !important; }
+
+/* ink toggle: a small half-filled disc in the top-right corner */
+.ink-toggle {
+  position: fixed; top: 18px; right: 18px; z-index: 20;
+  width: 30px; height: 30px; padding: 0;
+  display: grid; place-items: center;
+  background: none; border: 0; border-radius: 50%;
+  color: var(--ink); cursor: pointer;
+  opacity: 0.62;
+  transition: opacity 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.ink-toggle:hover, .ink-toggle:focus-visible { opacity: 1; }
+.ink-toggle svg { width: 16px; height: 16px; display: block; transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1); }
+html[data-ink="light"] .ink-toggle svg { transform: rotate(180deg); }
+.ink-toggle:focus-visible { outline: 1px solid var(--ink); outline-offset: 2px; }
+@media (max-width: 700px) { .ink-toggle { top: 12px; right: 12px; } }
+
+/* the swap: new ink spreads as a circle from the toggle (View Transitions) */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { animation: ink-spread 0.7s cubic-bezier(0.65, 0, 0.35, 1); }
+@keyframes ink-spread {
+  from { clip-path: circle(0 at var(--ink-x, 100%) var(--ink-y, 0)); }
+  to   { clip-path: circle(var(--ink-r, 150vmax) at var(--ink-x, 100%) var(--ink-y, 0)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root) { animation: none; }
+  .ink-toggle svg { transition: none; }
+}

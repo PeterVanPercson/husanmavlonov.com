@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <script>try{if(localStorage.getItem('hm-ink')==='light')document.documentElement.setAttribute('data-ink','light')}catch(e){}</script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>404 — Husan Mavlonov</title>
   <meta name="robots" content="noindex" />
@@ -87,7 +88,7 @@
     a.home:hover { color: var(--fg); }
   </style>
   <!-- shared SF backdrop + glass material; loaded LAST so it wins over the inline styles -->
-  <link rel="stylesheet" href="/glass.css?v=16">
+  <link rel="stylesheet" href="/glass.css?v=17">
 </head>
 <body>
 <script>/* pre-paint: apply saved theme + skip the backdrop fade after the first load,
@@ -133,5 +134,6 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
     })();
   </script>
   <script src="/smooth.js?v=1" defer></script>
+  <script src="/ink.js?v=1" defer></script>
 </body>
 </html>
