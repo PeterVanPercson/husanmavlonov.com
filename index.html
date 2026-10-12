@@ -397,7 +397,7 @@
     .xp-more[hidden] { display: none; }
     /* while the stack deals out: rows are paper cards, the fourth stays on top */
     .xp-list.is-dealing { overflow: clip; }
-    .xp-list.is-dealing .xp-row { position: relative; background: var(--paper, #000); box-shadow: 0 0 0 14px var(--paper, #000); }
+    .xp-list.is-dealing .xp-row { position: relative; will-change: transform; background: var(--paper, #000); box-shadow: 0 0 0 14px var(--paper, #000); }
     .xp-list.is-dealing .xp-row:nth-child(4) { z-index: 99; }
     .xp-more {
       margin-top: 22px;
@@ -788,7 +788,8 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
       <button class="xp-more" id="xpMore" type="button" aria-expanded="false" aria-controls="xpList" hidden><span class="xp-more__t"></span></button>
       <script>/* collapse before first paint; without JS every row simply shows.
          expand deals the hidden rows out from under the fourth, like a stack of cards;
-         collapse gathers them back under it */
+         collapse gathers them back under it. one frame loop moves the cards, the list's
+         height and the page together, so nothing lags a frame behind anything else */
       (function () {
         var list = document.getElementById('xpList');
         var btn = document.getElementById('xpMore');
@@ -796,85 +797,97 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
         var extra = rows.slice(4);
         if (!extra.length) return;
         var still = matchMedia('(prefers-reduced-motion: reduce)');
-        var EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
-        var DUR = 640, STEP = 38;
-        var running = [];
+        var STEP = 32;
+        var state = extra.map(function () { return { v: 0, from: 0, to: 0, start: 0, dur: 1, ease: null }; });
+        var geo = null, floor = 0, full = 0, lastH = 0, keep = false, frame = 0;
+        function outQuart(t) { return 1 - Math.pow(1 - t, 4); }
+        function inOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
         function label(open) {
           btn.setAttribute('aria-expanded', open ? 'true' : 'false');
           btn.querySelector('.xp-more__t').textContent = open ? 'collapse' : 'expand';
         }
-        function settle() {
-          running.forEach(function (a) { a.cancel(); });
-          running = [];
-          list.classList.remove('is-dealing');
-          list.style.height = '';
-        }
-        function deck(i, top) {
-          var depth = Math.min(i + 1, 3);
-          return {
-            transform: 'translateY(' + (top - extra[i].offsetTop + depth * 5) + 'px) scale(' + (1 - depth * 0.025) + ')'
-          };
-        }
-        /* where each row sits now and in the stack, so the list can stop growing past the fourth */
+        /* rows at rest: where each sits, where it sits in the stack, how far the stack hangs below the fourth */
         function measure() {
           var lt = list.getBoundingClientRect().top;
           var r4 = rows[3].getBoundingClientRect();
-          return extra.map(function (row, i) {
+          floor = r4.bottom - lt;
+          full = list.offsetHeight;
+          geo = extra.map(function (row, i) {
             var r = row.getBoundingClientRect();
             var depth = Math.min(i + 1, 3), sc = 1 - depth * 0.025;
-            var dTop = r4.top + depth * 5 + r.height * (1 - sc) / 2;
-            return { top: r.top - lt, deckTop: dTop - lt, over: Math.max(0, dTop + r.height * sc - r4.bottom) };
+            var dy = r4.top + depth * 5 - r.top;
+            var deckBottom = r.top - lt + dy + r.height * (1 + sc) / 2;
+            return { top: r.top - lt, h: r.height, dy: dy, sc: sc, over: Math.max(0, deckBottom - floor) };
           });
         }
-        function set(open, animate) {
-          settle();
-          if (open) list.classList.remove('is-collapsed');
+        function apply() {
+          var low = floor;
+          extra.forEach(function (row, i) {
+            var g = geo[i], u = 1 - state[i].v, sc = 1 - (1 - g.sc) * u;
+            row.style.transform = 'translateY(' + (g.dy * u).toFixed(2) + 'px) scale(' + sc.toFixed(4) + ')';
+            low = Math.max(low, g.top + g.dy * u + g.h * (1 + sc) / 2 - u * g.over);
+          });
+          var h = Math.min(low, full);
+          list.style.height = h.toFixed(2) + 'px';
+          if (keep) window.scrollBy(0, h - lastH);   /* the button stays under the cursor */
+          lastH = h;
+        }
+        function finish() {
+          frame = 0;
+          var open = state[0].v === 1;
+          if (!open) list.classList.add('is-collapsed');
+          extra.forEach(function (row) { row.style.transform = ''; row.style.zIndex = ''; });
+          list.classList.remove('is-dealing');
+          list.style.height = '';
+          document.documentElement.style.overflowAnchor = '';
+        }
+        function tick(now) {
+          var busy = false;
+          state.forEach(function (st) {
+            var t = (now - st.start) / st.dur;
+            if (t < 1) busy = true;
+            if (t <= 0) return;
+            st.v = t >= 1 ? st.to : st.from + (st.to - st.from) * st.ease(t);
+          });
+          apply();
+          if (busy) frame = requestAnimationFrame(tick); else finish();
+        }
+        function go(open) {
           label(open);
-          if (!animate || still.matches || !list.animate) {
-            if (!open) list.classList.add('is-collapsed');
+          if (still.matches || !window.requestAnimationFrame) {
+            if (frame) { cancelAnimationFrame(frame); }
+            state.forEach(function (st) { st.v = open ? 1 : 0; });
+            list.classList.toggle('is-collapsed', !open);
+            if (frame) finish();
             return;
           }
-          var top = rows[3].offsetTop;
-          var h1 = list.offsetHeight;
-          var spots = measure();
-          list.classList.add('is-dealing');
-          extra.forEach(function (row, i) {
-            row.style.zIndex = String(extra.length - i);
-            var k = open ? i : extra.length - 1 - i;
-            var frames = [deck(i, top), { transform: 'none' }];
-            running.push(row.animate(open ? frames : frames.slice().reverse(), {
-              duration: DUR, delay: k * STEP, easing: EASE, fill: 'both'
-            }));
+          var turning = !!frame, now = performance.now(), n = extra.length;
+          if (!turning) {
+            list.classList.remove('is-collapsed');
+            measure();
+            extra.forEach(function (row, i) { row.style.zIndex = String(n - i); });
+            list.classList.add('is-dealing');
+            document.documentElement.style.overflowAnchor = 'none';
+            keep = !open;
+            lastH = open ? floor : full;
+          }
+          state.forEach(function (st, i) {
+            var k = open ? i : n - 1 - i;
+            var to = open ? 1 : 0;
+            var dist = Math.abs(to - st.v) * Math.abs(geo[i].dy);
+            st.from = st.v;
+            st.to = to;
+            /* a turn mid-way starts together and from rest, so nothing jerks */
+            st.start = turning ? now : now + k * STEP;
+            st.dur = Math.max(1, Math.min(920, 420 + dist * 0.32));
+            st.ease = turning || !open ? inOutCubic : outQuart;
           });
-          var last = running[running.length - 1];
-          (function follow() {
-            if (running.indexOf(last) < 0) return;
-            var lt = list.getBoundingClientRect().top;
-            var low = rows[3].getBoundingClientRect().bottom - lt;
-            extra.forEach(function (row, i) {
-              var r = row.getBoundingClientRect(), m = spots[i];
-              var near = Math.min(1, Math.max(0, (m.top - (r.top - lt)) / Math.max(1, m.top - m.deckTop)));
-              low = Math.max(low, r.bottom - lt - near * m.over);
-            });
-            list.style.height = Math.min(low, h1) + 'px';
-            requestAnimationFrame(follow);
-          })();
-          var batch = running;
-          Promise.all(running.map(function (a) { return a.finished; })).then(function () {
-            if (batch !== running) return;
-            if (btn.getAttribute('aria-expanded') !== 'true') list.classList.add('is-collapsed');
-            settle();
-            extra.forEach(function (row) { row.style.zIndex = ''; });
-          }, function () {});
+          if (!turning) { apply(); frame = requestAnimationFrame(tick); }
         }
-        set(false, false);
+        list.classList.add('is-collapsed');
+        label(false);
         btn.hidden = false;
-        btn.addEventListener('click', function () {
-          var open = btn.getAttribute('aria-expanded') !== 'true';
-          /* a second press mid-way turns the same motion around instead of snapping */
-          if (running.length) { label(open); running.forEach(function (a) { a.reverse(); }); return; }
-          set(open, true);
-        });
+        btn.addEventListener('click', function () { go(btn.getAttribute('aria-expanded') !== 'true'); });
       })();
       </script>
     </section>
