@@ -395,6 +395,10 @@
     /* first four rows show; the rest open from the button under the list */
     .xp-list.is-collapsed .xp-row:nth-child(n+5) { display: none; }
     .xp-more[hidden] { display: none; }
+    /* while the stack deals out: rows are paper cards, the fourth stays on top */
+    .xp-list.is-dealing { overflow: clip; overflow-clip-margin: 16px; }
+    .xp-list.is-dealing .xp-row { position: relative; background: var(--paper, #000); box-shadow: 0 0 0 14px var(--paper, #000); }
+    .xp-list.is-dealing .xp-row:nth-child(4) { z-index: 99; }
     .xp-more {
       margin-top: 22px;
       font: inherit;
@@ -782,20 +786,74 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
         </li>
       </ul>
       <button class="xp-more" id="xpMore" type="button" aria-expanded="false" aria-controls="xpList" hidden><span class="xp-more__t"></span></button>
-      <script>/* collapse before first paint; without JS every row simply shows */
+      <script>/* collapse before first paint; without JS every row simply shows.
+         expand deals the hidden rows out from under the fourth, like a stack of cards;
+         collapse gathers them back under it */
       (function () {
         var list = document.getElementById('xpList');
         var btn = document.getElementById('xpMore');
-        var extra = list.children.length - 4;
-        if (extra < 1) return;
-        function set(open) {
-          list.classList.toggle('is-collapsed', !open);
+        var rows = Array.prototype.slice.call(list.children);
+        var extra = rows.slice(4);
+        if (!extra.length) return;
+        var still = matchMedia('(prefers-reduced-motion: reduce)');
+        var EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+        var DUR = 640, STEP = 38;
+        var running = [];
+        function label(open) {
           btn.setAttribute('aria-expanded', open ? 'true' : 'false');
           btn.querySelector('.xp-more__t').textContent = open ? 'collapse' : 'expand';
         }
-        set(false);
+        function settle() {
+          running.forEach(function (a) { a.cancel(); });
+          running = [];
+          list.classList.remove('is-dealing');
+          list.style.height = '';
+        }
+        function deck(i, top) {
+          var depth = Math.min(i + 1, 3);
+          return {
+            transform: 'translateY(' + (top - extra[i].offsetTop + depth * 5) + 'px) scale(' + (1 - depth * 0.025) + ')',
+            opacity: 0
+          };
+        }
+        function set(open, animate) {
+          settle();
+          if (open) list.classList.remove('is-collapsed');
+          label(open);
+          if (!animate || still.matches || !list.animate) {
+            if (!open) list.classList.add('is-collapsed');
+            return;
+          }
+          var top = rows[3].offsetTop;
+          var h1 = list.offsetHeight;
+          list.classList.add('is-dealing');
+          extra.forEach(function (row, i) {
+            row.style.zIndex = String(extra.length - i);
+            var k = open ? i : extra.length - 1 - i;
+            var frames = [deck(i, top), { offset: 0.4, opacity: 1 }, { transform: 'none', opacity: 1 }];
+            running.push(row.animate(open ? frames : frames.slice().reverse(), {
+              duration: DUR, delay: k * STEP, easing: EASE, fill: 'both'
+            }));
+          });
+          var base = rows[3].offsetTop + rows[3].offsetHeight;
+          var last = running[running.length - 1];
+          (function follow() {
+            if (running.indexOf(last) < 0) return;
+            var lt = list.getBoundingClientRect().top;
+            var low = base;
+            extra.forEach(function (row) { low = Math.max(low, row.getBoundingClientRect().bottom - lt); });
+            list.style.height = Math.min(low, h1) + 'px';
+            requestAnimationFrame(follow);
+          })();
+          Promise.all(running.map(function (a) { return a.finished; })).then(function () {
+            if (!open) list.classList.add('is-collapsed');
+            settle();
+            extra.forEach(function (row) { row.style.zIndex = ''; });
+          }, function () {});
+        }
+        set(false, false);
         btn.hidden = false;
-        btn.addEventListener('click', function () { set(btn.getAttribute('aria-expanded') !== 'true'); });
+        btn.addEventListener('click', function () { set(btn.getAttribute('aria-expanded') !== 'true', true); });
       })();
       </script>
     </section>
