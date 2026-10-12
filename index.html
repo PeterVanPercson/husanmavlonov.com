@@ -395,10 +395,9 @@
     /* first four rows show; the rest open from the button under the list */
     .xp-list.is-collapsed .xp-row:nth-child(n+5) { display: none; }
     .xp-more[hidden] { display: none; }
-    /* while the stack deals out: rows are paper cards, the fourth stays on top */
-    .xp-list.is-dealing { overflow: clip; }
-    .xp-list.is-dealing .xp-row { position: relative; will-change: transform; background: var(--paper, #000); box-shadow: 0 0 0 14px var(--paper, #000); }
-    .xp-list.is-dealing .xp-row:nth-child(4) { z-index: 99; }
+    /* collapse/expand: the rows turn to dust (or gather from it) on a canvas laid over them */
+    .xp-list.is-vanishing { position: relative; overflow: clip; overflow-clip-margin: 24px; }
+    .xp-dust { position: absolute; pointer-events: none; z-index: 2; }
     .xp-more {
       margin-top: 22px;
       font: inherit;
@@ -787,9 +786,10 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
       </ul>
       <button class="xp-more" id="xpMore" type="button" aria-expanded="false" aria-controls="xpList" hidden><span class="xp-more__t"></span></button>
       <script>/* collapse before first paint; without JS every row simply shows.
-         expand deals the hidden rows out from under the fourth, like a stack of cards;
-         collapse gathers them back under it. one frame loop moves the cards, the list's
-         height and the page together, so nothing lags a frame behind anything else */
+         collapse = the vanish from skiper 56 / aceternity's vanish input: the rows turn to
+         dust from the right edge leftwards, each grain jitters and fades, then the gap closes
+         with the button held under the cursor. expand runs it backwards: the gap opens and
+         the dust gathers into the rows from the left */
       (function () {
         var list = document.getElementById('xpList');
         var btn = document.getElementById('xpMore');
@@ -797,97 +797,236 @@ try{if(sessionStorage.getItem('hm-bg'))document.documentElement.classList.add('b
         var extra = rows.slice(4);
         if (!extra.length) return;
         var still = matchMedia('(prefers-reduced-motion: reduce)');
-        var STEP = 32;
-        var state = extra.map(function () { return { v: 0, from: 0, to: 0, start: 0, dur: 1, ease: null }; });
-        var geo = null, floor = 0, full = 0, lastH = 0, keep = false, frame = 0;
+        var SWEEP = 620, LIFE = [260, 620], CLOSE = 520, OPEN = 520, GATHER_AT = 110;
+        var busy = false;
         function outQuart(t) { return 1 - Math.pow(1 - t, 4); }
         function inOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+        function clamp01(t) { return t < 0 ? 0 : t > 1 ? 1 : t; }
         function label(open) {
           btn.setAttribute('aria-expanded', open ? 'true' : 'false');
           btn.querySelector('.xp-more__t').textContent = open ? 'collapse' : 'expand';
         }
-        /* rows at rest: where each sits, where it sits in the stack, how far the stack hangs below the fourth */
-        function measure() {
-          var lt = list.getBoundingClientRect().top;
-          var r4 = rows[3].getBoundingClientRect();
-          floor = r4.bottom - lt;
-          full = list.offsetHeight;
-          geo = extra.map(function (row, i) {
-            var r = row.getBoundingClientRect();
-            var depth = Math.min(i + 1, 3), sc = 1 - depth * 0.025;
-            var dy = r4.top + depth * 5 - r.top;
-            var deckBottom = r.top - lt + dy + r.height * (1 + sc) / 2;
-            return { top: r.top - lt, h: r.height, dy: dy, sc: sc, over: Math.max(0, deckBottom - floor) };
+
+        /* paint the rows that are on screen into a canvas, the same way the page draws them */
+        function paint(onScreen, box, dpr) {
+          var c = document.createElement('canvas');
+          c.width = Math.ceil(box.w * dpr);
+          c.height = Math.ceil(box.h * dpr);
+          var ctx = c.getContext('2d', { willReadFrequently: true });
+          ctx.scale(dpr, dpr);
+          ctx.textBaseline = 'alphabetic';
+          var range = document.createRange();
+          onScreen.forEach(function (row) {
+            var tile = row.querySelector('.xp-logo');
+            var walk = document.createTreeWalker(row, NodeFilter.SHOW_TEXT);
+            for (var node = walk.nextNode(); node; node = walk.nextNode()) {
+              if (tile && tile.contains(node)) continue;
+              var cs = getComputedStyle(node.parentElement);
+              ctx.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+              ctx.fillStyle = cs.color;
+              if ('letterSpacing' in ctx) ctx.letterSpacing = cs.letterSpacing === 'normal' ? '0px' : cs.letterSpacing;
+              var text = node.data, m, re = /\S+/g;
+              while ((m = re.exec(text))) {
+                range.setStart(node, m.index);
+                range.setEnd(node, m.index + m[0].length);
+                var r = range.getClientRects()[0];
+                if (!r) continue;
+                var word = cs.textTransform === 'lowercase' ? m[0].toLowerCase() : cs.textTransform === 'uppercase' ? m[0].toUpperCase() : m[0];
+                var met = ctx.measureText(word);
+                var asc = met.fontBoundingBoxAscent || r.height * 0.78;
+                ctx.fillText(word, r.left - box.x, r.top - box.y + asc);
+              }
+            }
           });
-        }
-        function apply() {
-          var low = floor;
-          extra.forEach(function (row, i) {
-            var g = geo[i], u = 1 - state[i].v, sc = 1 - (1 - g.sc) * u;
-            row.style.transform = 'translateY(' + (g.dy * u).toFixed(2) + 'px) scale(' + sc.toFixed(4) + ')';
-            low = Math.max(low, g.top + g.dy * u + g.h * (1 + sc) / 2 - u * g.over);
+          /* canvas text on a mac is drawn heavier than the page's antialiased text (light ink measured 23%);
+             thin it to match so the hand-off between dust and real text has no seam */
+          if (/Mac/.test(navigator.platform) && navigator.maxTouchPoints < 2) {
+            var ink = ctx.getImageData(0, 0, c.width, c.height), id = ink.data;
+            for (var a = 3; a < id.length; a += 4) {
+              if (!id[a]) continue;
+              var f = id[a] / 255;
+              id[a] = id[a - 3] > 128 ? 235 * f * f : 248 * Math.pow(f, 1.4);
+            }
+            ctx.putImageData(ink, 0, 0);
+          }
+          onScreen.forEach(function (row) {
+            var tile = row.querySelector('.xp-logo');
+            var img = tile && tile.querySelector('img');
+            if (!tile) return;
+            var tr = tile.getBoundingClientRect();
+            ctx.fillStyle = getComputedStyle(tile).backgroundColor;
+            ctx.fillRect(tr.left - box.x, tr.top - box.y, tr.width, tr.height);
+            if (img && img.complete && img.naturalWidth) {
+              var ir = img.getBoundingClientRect();
+              ctx.drawImage(img, ir.left - box.x, ir.top - box.y, ir.width, ir.height);
+            }
           });
-          var h = Math.min(low, full);
-          list.style.height = h.toFixed(2) + 'px';
-          if (keep) window.scrollBy(0, h - lastH);   /* the button stays under the cursor */
-          lastH = h;
+          return ctx.getImageData(0, 0, c.width, c.height);
         }
-        function finish() {
-          frame = 0;
-          var open = state[0].v === 1;
-          if (!open) list.classList.add('is-collapsed');
-          extra.forEach(function (row) { row.style.transform = ''; row.style.zIndex = ''; });
-          list.classList.remove('is-dealing');
-          list.style.height = '';
-          document.documentElement.style.overflowAnchor = '';
+
+        /* one grain per pixel (every other pixel when the area is large), each with a colour and a start */
+        function grains(img, dpr, gathering) {
+          var w = img.width, h = img.height, d = img.data, count = 0, i, x, y;
+          for (i = 3; i < d.length; i += 4) if (d[i] > 24) count++;
+          var step = count > 140000 ? 2 : 1;
+          var n = 0, cap = step === 1 ? count : Math.ceil(w / 2) * Math.ceil(h / 2);
+          var g = { n: 0, step: step, x: new Float32Array(cap), y: new Float32Array(cap), jx: new Float32Array(cap), jy: new Float32Array(cap),
+            ox: new Float32Array(cap), oy: new Float32Array(cap), rgba: new Uint32Array(cap * step * step), at: new Float32Array(cap), life: new Float32Array(cap), right: 0 };
+          var d32 = new Uint32Array(d.buffer), dx, dy2;
+          for (y = 0; y < h; y += step) {
+            for (x = 0; x < w; x += step) {
+              if (n >= cap) continue;
+              /* a grain carries its whole step x step cell, so text at rest is pixel for pixel */
+              var any = false;
+              for (dy2 = 0; dy2 < step; dy2++) for (dx = 0; dx < step; dx++) {
+                var px = x + dx < w && y + dy2 < h ? d32[(y + dy2) * w + x + dx] : 0;
+                if ((px >>> 24) <= 24) px = 0; else any = true;
+                g.rgba[n * step * step + dy2 * step + dx] = px;
+              }
+              if (!any) continue;
+              g.x[n] = x; g.y[n] = y;
+              g.life[n] = LIFE[0] + Math.random() * (LIFE[1] - LIFE[0]);
+              var a = Math.random() * Math.PI * 2, rr = (6 + Math.random() * 16) * dpr;
+              g.ox[n] = Math.cos(a) * rr; g.oy[n] = Math.sin(a) * rr;
+              if (x > g.right) g.right = x;
+              n++;
+            }
+          }
+          g.n = n;
+          var span = g.right + step || 1;
+          for (i = 0; i < n; i++) {
+            var f = g.x[i] / span;
+            g.at[i] = gathering ? GATHER_AT + f * SWEEP : (1 - f) * SWEEP;
+          }
+          return g;
         }
-        function tick(now) {
-          var busy = false;
-          state.forEach(function (st) {
-            var t = (now - st.start) / st.dur;
-            if (t < 1) busy = true;
-            if (t <= 0) return;
-            st.v = t >= 1 ? st.to : st.from + (st.to - st.from) * st.ease(t);
-          });
-          apply();
-          if (busy) frame = requestAnimationFrame(tick); else finish();
+
+        /* the pixel column the sweep has reached at time t, in css px from the rows' left edge */
+        function edge(g, dpr, t, gathering) {
+          var span = (g.right + g.step) / dpr;
+          return gathering ? span * clamp01((t - GATHER_AT) / SWEEP) : span * (1 - clamp01(t / SWEEP));
         }
-        function go(open) {
+
+        function run(open) {
+          busy = true;
           label(open);
-          if (still.matches || !window.requestAnimationFrame) {
-            if (frame) { cancelAnimationFrame(frame); }
-            state.forEach(function (st) { st.v = open ? 1 : 0; });
-            list.classList.toggle('is-collapsed', !open);
-            if (frame) finish();
-            return;
-          }
-          var turning = !!frame, now = performance.now(), n = extra.length;
-          if (!turning) {
-            list.classList.remove('is-collapsed');
-            measure();
-            extra.forEach(function (row, i) { row.style.zIndex = String(n - i); });
-            list.classList.add('is-dealing');
-            document.documentElement.style.overflowAnchor = 'none';
-            keep = !open;
-            lastH = open ? floor : full;
-          }
-          state.forEach(function (st, i) {
-            var k = open ? i : n - 1 - i;
-            var to = open ? 1 : 0;
-            var dist = Math.abs(to - st.v) * Math.abs(geo[i].dy);
-            st.from = st.v;
-            st.to = to;
-            /* a turn mid-way starts together and from rest, so nothing jerks */
-            st.start = turning ? now : now + k * STEP;
-            st.dur = Math.max(1, Math.min(920, 420 + dist * 0.32));
-            st.ease = turning || !open ? inOutCubic : outQuart;
+          var lt0 = list.getBoundingClientRect().top;
+          var floor = rows[3].getBoundingClientRect().bottom - lt0;
+          list.classList.remove('is-collapsed');
+          var full = list.offsetHeight;
+          list.style.height = (open ? floor : full) + 'px';
+          list.classList.add('is-vanishing');
+          document.documentElement.style.overflowAnchor = 'none';
+
+          var lr = list.getBoundingClientRect();
+          var vh = window.innerHeight;
+          var onScreen = extra.filter(function (row) {
+            var r = row.getBoundingClientRect();
+            return r.bottom > -40 && r.top < vh + 40;
           });
-          if (!turning) { apply(); frame = requestAnimationFrame(tick); }
+          var dpr = Math.min(window.devicePixelRatio || 1, 2);
+          var pad = 24, box = null, g = null, cv = null, ctx = null, frame = null;
+          if (onScreen.length) {
+            var top = onScreen[0].getBoundingClientRect().top, bottom = onScreen[onScreen.length - 1].getBoundingClientRect().bottom;
+            box = { x: lr.left - pad, y: top - pad, w: lr.width + pad * 2, h: bottom - top + pad * 2 };
+          }
+          function clip(px) {
+            var cut = Math.max(0, lr.width - px);
+            extra.forEach(function (row) { row.style.clipPath = 'inset(-4px ' + cut.toFixed(1) + 'px -4px -4px)'; });
+          }
+          clip(open ? 0 : lr.width);
+
+          function begin() {
+            if (box) {
+              g = grains(paint(onScreen, box, dpr), dpr, open);
+              cv = document.createElement('canvas');
+              cv.className = 'xp-dust';
+              cv.width = Math.ceil(box.w * dpr);
+              cv.height = Math.ceil(box.h * dpr);
+              cv.style.left = (box.x - lr.left) + 'px';
+              cv.style.top = (box.y - lr.top) + 'px';
+              cv.style.width = box.w + 'px';
+              cv.style.height = box.h + 'px';
+              cv.setAttribute('aria-hidden', 'true');
+              list.appendChild(cv);
+              ctx = cv.getContext('2d');
+              frame = ctx.createImageData(cv.width, cv.height);
+            }
+            var t0 = performance.now(), lastH = open ? floor : full;
+            var px32 = frame ? new Uint32Array(frame.data.buffer) : null;
+            var end = open ? Math.max(OPEN, GATHER_AT + SWEEP) + 30 : SWEEP + LIFE[1] + 40;
+            var closeAt = SWEEP + 260;
+            if (!open) end = Math.max(end, closeAt + CLOSE);
+
+            function tick(now) {
+              var t = now - t0;
+              var h = open ? floor + (full - floor) * outQuart(clamp01(t / OPEN))
+                           : full - (full - floor) * inOutCubic(clamp01((t - closeAt) / CLOSE));
+              list.style.height = h.toFixed(2) + 'px';
+              if (!open) window.scrollBy(0, h - lastH);   /* keep the button under the cursor */
+              lastH = h;
+              if (g) {
+                clip(edge(g, dpr, t, open) - (lr.left - box.x));
+                px32.fill(0);
+                var W = frame.width, H = frame.height, n = g.n, st = g.step, i, age, k, x, y, a, c;
+                for (i = 0; i < n; i++) {
+                  age = t - (open ? g.at[i] - g.life[i] : g.at[i]);
+                  if (age < 0) continue;
+                  k = age / g.life[i];
+                  if (k >= 1) continue;
+                  g.jx[i] += Math.random() > 0.5 ? 1 : -1;
+                  g.jy[i] += Math.random() > 0.5 ? 1 : -1;
+                  if (open) {
+                    var rest = (1 - k) * (1 - k) * (1 - k);
+                    x = g.x[i] + g.ox[i] * rest + g.jx[i] * rest * 0.5;
+                    y = g.y[i] + g.oy[i] * rest + g.jy[i] * rest * 0.5;
+                    a = k * k;
+                  } else {
+                    x = g.x[i] + g.jx[i];
+                    y = g.y[i] + g.jy[i];
+                    a = 1 - k;
+                  }
+                  x = Math.round(x); y = Math.round(y);
+                  if (x < 0 || y < 0 || x + st > W || y + st > H) continue;
+                  for (var cy = 0, base = i * st * st; cy < st; cy++) for (var cx = 0; cx < st; cx++) {
+                    c = g.rgba[base + cy * st + cx];
+                    if (c) px32[(y + cy) * W + x + cx] = (c & 0x00ffffff) | ((((c >>> 24) * a) & 255) << 24);
+                  }
+                }
+                ctx.putImageData(frame, 0, 0);
+              }
+              if (t < end) { requestAnimationFrame(tick); return; }
+              if (cv) cv.remove();
+              extra.forEach(function (row) { row.style.clipPath = ''; });
+              if (!open) list.classList.add('is-collapsed');
+              list.classList.remove('is-vanishing');
+              list.style.height = '';
+              document.documentElement.style.overflowAnchor = '';
+              busy = false;
+            }
+            requestAnimationFrame(tick);
+          }
+
+          /* logos of rows that were hidden may still be loading: give them a moment */
+          var waits = onScreen.map(function (row) {
+            var img = row.querySelector('.xp-logo img');
+            if (!img || (img.complete && img.naturalWidth)) return null;
+            img.loading = 'eager';
+            return img.decode ? img.decode().catch(function () {}) : null;
+          }).filter(Boolean);
+          if (!waits.length) begin();
+          else Promise.race([Promise.all(waits), new Promise(function (r) { setTimeout(r, 220); })]).then(begin);
         }
+
         list.classList.add('is-collapsed');
         label(false);
         btn.hidden = false;
-        btn.addEventListener('click', function () { go(btn.getAttribute('aria-expanded') !== 'true'); });
+        btn.addEventListener('click', function () {
+          if (busy) return;
+          var open = btn.getAttribute('aria-expanded') !== 'true';
+          if (still.matches || !window.requestAnimationFrame) { label(open); list.classList.toggle('is-collapsed', !open); return; }
+          run(open);
+        });
       })();
       </script>
     </section>
