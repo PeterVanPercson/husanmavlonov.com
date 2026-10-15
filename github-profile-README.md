@@ -1,13 +1,13 @@
 <!-- LIVE at github.com/PeterVanPercson — the profile repo (PeterVanPercson/PeterVanPercson) is the
      source of truth now; this is a synced copy kept next to the site. Edit there, not here. -->
 
-Co-founder & CEO of **[defex](https://defexrobotics.com)** — self-teaching robots for manufacturing — from **[powell.st](https://powell.st)**, San Francisco. Co-founder of **[BuildCored](https://buildcored.com)** (1,500+ builders). Dropout of the UM–SJTU Joint Institute.
+Co-founder & CEO of **[defex](https://defexrobotics.com)** — industrial robots for connectors — from **[powell.st](https://powell.st)**, San Francisco. Co-founder of **[BuildCored](https://buildcored.com)** (1,500+ builders). Dropout of the UM–SJTU Joint Institute.
 
 ## What I'm Building
 
 | Since | Where | What | |
 |---|---|---|---|
-| May 2026 | **[defex](https://defexrobotics.com)** | Co-founder & CEO · self-teaching robots for manufacturing — assembly robots that practice, test the joint they just made, and reset for the next attempt. First workstation: connector assembly | San Francisco |
+| May 2026 | **[defex](https://defexrobotics.com)** | Co-founder & CEO · industrial robots for connectors: the robot plugs each connector in and checks every connection | San Francisco |
 | 2026 | **[BuildCored](https://buildcored.com)** | Co-founder · community of 1,500+ AI & hardware builders · funded by Uzbekistan's Youth Affairs Agency · home of Orcas | Shanghai · Tashkent |
 
 ## Tech Stack
@@ -32,7 +32,7 @@ Co-founder & CEO of **[defex](https://defexrobotics.com)** — self-teaching rob
 
 | Project | What it is |
 |---|---|
-| [defex-landing](https://github.com/PeterVanPercson/defex-landing) | defexrobotics.com — the site for self-teaching robots for manufacturing, Django on Vercel. Built with my twin [Hasan](https://github.com/hasan-mavlonov), defex CTO |
+| [defex-landing](https://github.com/PeterVanPercson/defex-landing) | defexrobotics.com — the site for industrial robots for connectors, Django on Vercel. Built with my twin [Hasan](https://github.com/hasan-mavlonov), defex CTO |
 | [husanmavlonov.com](https://github.com/PeterVanPercson/husanmavlonov.com) | Hand-built personal site. Halftone-cloud sky by day, cross-stitch orcas by night — the orcas are lifted from a real family embroidery |
 | [buildcored-orcas](https://github.com/PeterVanPercson/buildcored-orcas) | The Orcas challenge engine — 30 days, one real project a day, miss one and you're out |
 | [buildcored-orcas-site](https://github.com/PeterVanPercson/buildcored-orcas-site) | Orcas v1.5 landing + the 30-project showcase |
