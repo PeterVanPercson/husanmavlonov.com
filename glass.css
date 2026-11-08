@@ -314,3 +314,7 @@ html[data-ink="light"] .ink-toggle svg { transform: rotate(180deg); }
   ::view-transition-new(root) { animation: none; }
   .ink-toggle svg { transition: none; }
 }
+
+.xp-name .yc-mark { display: inline-block; vertical-align: -3px; margin-left: 8px; line-height: 0; background: none; }
+.xp-name .yc-mark::after, .xp-name .yc-mark::before { content: none !important; }
+.xp-name .yc-mark img { display: block; width: 16px; height: 16px; border-radius: 0; }
