@@ -316,6 +316,6 @@ html[data-ink="light"] .ink-toggle svg { transform: rotate(180deg); }
 }
 
 /* YC batch pill next to Defex Robotics (his reference, 2026-11-08) */
-.xp-name .yc-pill { display: inline-flex; align-items: center; gap: 9px; margin-left: 12px; padding: 4px 13px 4px 9px; border-radius: 999px; background: color-mix(in srgb, var(--fg) 11%, transparent); vertical-align: -4px; line-height: 1; font: 500 14px/1 -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; letter-spacing: .01em; color: var(--fg); text-transform: none !important; }
+.xp-name .yc-pill { display: inline-flex; align-items: center; gap: 6px; margin-left: 10px; padding: 3px 9px 3px 6px; border-radius: 999px; background: color-mix(in srgb, var(--fg) 11%, transparent); vertical-align: -2px; line-height: 1; font: 500 11.5px/1 -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; letter-spacing: .01em; color: var(--fg); text-transform: none !important; }
 .xp-name .yc-pill * { text-transform: none !important; }
-.xp-name .yc-pill img { display: block; width: 18px; height: 18px; border-radius: 0; }
+.xp-name .yc-pill img { display: block; width: 14px; height: 14px; border-radius: 0; }
